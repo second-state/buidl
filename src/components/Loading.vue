@@ -1,82 +1,74 @@
 <template>
-  <div class="polygon-loader">
-    <div></div>
-    <div></div>
+  <div :style="{ 'font-size': baseSize + 'px' }" class="square-loader">
     <div></div>
     <div></div>
   </div>
 </template>
 
+<script lang="ts">
+export default {
+  props: {
+    baseSize: {
+      type: Number,
+      required: true
+    }
+  }
+};
+</script>
+
 <style lang="stylus">
 
-$red-01 = #210008
-$red-02 = #520019
-$red-03 = #7b0029
-$red-04 = #a5003a
-$size = 64px
-
-$totalWidth = $size
-$totalHeight = $size
-$topOffset = $size / 2
-$leftOffset = $size / 2
-$borderWidth = $size / 2
+$red = #d24242
+$green = #20c370
+$size = 1em
 
 @keyframes type-01
   0%
-    border-top-width: 0
-    border-right-width: $borderWidth
-    border-bottom-width: $borderWidth
-    border-left-width: 0
-  40%
-    border-top-width: 0
-    border-right-width: $borderWidth
-    border-bottom-width: $borderWidth
-    border-left-width: 0
-  45%
-    border-top-width: $borderWidth
-    border-right-width: $borderWidth
-    border-bottom-width: $borderWidth
-    border-left-width: 0
-  100%
-    border-top-width: $borderWidth
-    border-right-width: $borderWidth
-    border-bottom-width: $borderWidth
-    border-left-width: 0
+    top $size
+    z-index 1
+  20%
+    top - $size
+  50%
+    top 0
+  70%
+    top 0
+  100
+    top $size
 
-.polygon-loader
-  position: absolute
-  top: 50%
-  left: 50%
-  margin: -($totalHeight/2) 0 0 -($totalWidth/2)
-  height: $totalHeight
-  width: $totalWidth
+@keyframes type-02
+  0%
+    top 0
+  20%
+    top 0
+  50%
+    top $size
+    z-index 1
+  70%
+    top - $size
+  100
+    top 0
+
+
+.square-loader
+  position absolute
+  top 50%
+  left 50%
+  margin - $size 0 0 ($size / -2)
+  height $size * 2
+  width $size
   div
-    position: absolute
-    top: $topOffset
-    left: $leftOffset
-    border: 0 solid transparent
-    transform-origin: left top
-    animation-duration: 4s
-    animation-iteration-count: infinite
-    animation-direction: alternate
-    animation-timing-function: steps(4)
+    position absolute
+    width $size
+    height $size
+    top 0
+    left 0
+    animation-duration 2s
+    animation-iteration-count infinite
   div:nth-of-type(1)
-    border-top-color: $red-01
-    transform: rotate(-180deg)
-    animation-name: type-01
+    top $size
+    background-color $red
+    animation-name type-01
   div:nth-of-type(2)
-    border-top-color: $red-02
-    transform: rotate(-90deg)
-    animation-name: type-01
-    animation-delay: 1s
-  div:nth-of-type(3)
-    border-top-color: $red-03
-    transform: rotate(0)
-    animation-name: type-01
-    animation-delay: 2s
-  div:nth-of-type(4)
-    border-top-color: $red-04
-    transform: rotate(90deg)
-    animation-name: type-01
-    animation-delay: 3s
+    background-color $green
+    animation-name type-02
 </style>
