@@ -33,7 +33,7 @@ if (df) {
       (): Promise<any> => {
         return df.load("0 'Baloo Bhai'");
       },
-      3000,
+      1500,
       () => (vm.loaded = true)
     );
   } catch (e) {

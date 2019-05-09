@@ -6,6 +6,7 @@
 
 <script>
 import normalize from "normalize-styl";
+import iconmoon from "@/components/Icomoon.vue";
 import Home from "@/views/Home.vue";
 
 export default {
