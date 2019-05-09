@@ -1,7 +1,5 @@
 <template>
-  <div class="home">
-    <div class="icon-drawer"></div>
-  </div>
+  <div class="lity"></div>
 </template>
 
 <script lang="ts">
@@ -10,5 +8,5 @@ import { Component, Vue } from "vue-property-decorator";
 @Component({
   components: {}
 })
-export default class Home extends Vue {}
+export default class Lity extends Vue {}
 </script>
