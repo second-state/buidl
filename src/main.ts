@@ -23,16 +23,6 @@ const vm = new Vue({
         }
       });
     }
-  },
-  beforeCreate() {
-    if (localStorage.getItem("store")) {
-      store.replaceState(
-        Object.assign(
-          store.state,
-          JSON.parse(localStorage.getItem("store") as string)
-        )
-      );
-    }
   }
 });
 
