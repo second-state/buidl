@@ -9,7 +9,7 @@ export default new Vuex.Store({
   plugins: [
     createPersistedState({
       key: "buidl",
-      paths: ["prefs.darkTheme"]
+      paths: ["prefs.darkTheme", "prefs.site"]
     })
   ],
   modules: {

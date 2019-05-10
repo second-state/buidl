@@ -1,6 +1,7 @@
 <template>
   <div id="app" :class="theme">
     <SiteSwitch />
+    <Account />
     <Lity v-if="site === 'lity'"></Lity>
     <Dapp v-else></Dapp>
   </div>
@@ -13,12 +14,14 @@ import iconmoon from "@/components/Icomoon.vue";
 import Lity from "@/views/Lity.vue";
 import Dapp from "@/views/Dapp.vue";
 import SiteSwitch from "@/components/SiteSwitch.vue";
+import Account from "@/components/Account.vue";
 
 export default {
   components: {
     Lity,
     Dapp,
-    SiteSwitch
+    SiteSwitch,
+    Account
   },
   computed: {
     theme() {

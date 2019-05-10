@@ -17,9 +17,8 @@ export default {
 </script>
 
 <style lang="stylus">
+@import "../assets/var.styl"
 
-$red = #d24242
-$green = #20c370
 $size = 1em
 
 @keyframes type-01

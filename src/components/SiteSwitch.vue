@@ -39,8 +39,7 @@ export default {
 </script>
 
 <style lang="stylus">
-$red = #d24242
-$green = #20c370
+@import "../assets/var.styl"
 
 $labelHeight = 50px
 
@@ -56,7 +55,7 @@ $labelHeight = 50px
 
   .site-wrapper
     display inline-block
-    font-family 'Baloo Bhai', 'Avenir', Helvetica, Arial, sans-serif !important
+    font-family 'Baloo Bhai', Helvetica, Arial, sans-serif !important
     font-size 2em
     line-height $labelHeight
     .site
