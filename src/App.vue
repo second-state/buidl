@@ -15,7 +15,7 @@ export default {
   },
   computed: {
     theme() {
-      return this.$store.state.darkTheme ? "dark" : "";
+      return this.$store.state.prefs.darkTheme ? "dark" : "";
     }
   }
 };
