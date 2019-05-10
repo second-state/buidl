@@ -6,6 +6,7 @@
 
 <script>
 import normalize from "normalize-styl";
+import { mapActions } from "vuex";
 import iconmoon from "@/components/Icomoon.vue";
 import Lity from "@/views/Lity.vue";
 
@@ -17,6 +18,9 @@ export default {
     theme() {
       return this.$store.state.prefs.darkTheme ? "dark" : "";
     }
+  },
+  methods: {
+    ...mapActions("prefs", ["toggleTheme"])
   }
 };
 </script>
