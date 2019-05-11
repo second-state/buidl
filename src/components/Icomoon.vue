@@ -3,7 +3,7 @@ icomoon-font-path ?= "../assets/fonts"
 
 icon-drawer = "\e95c"
 icon-drawer2 = "\e95d"
-icon-user = "\e971"
+icon-wrench = "\e991"
 icon-equalizer2 = "\e993"
 icon-cogs = "\e995"
 icon-clipboard = "\e9b8"
@@ -11,7 +11,7 @@ icon-play3 = "\ea1c"
 
 @font-face
   font-family 'icomoon'
-  src url(icomoon-font-path + '/icomoon.ttf?3nrrqy') format('truetype'), url(icomoon-font-path + '/icomoon.woff?3nrrqy') format('woff'), url(icomoon-font-path + '/icomoon.svg?3nrrqy#icomoon') format('svg')
+  src url(icomoon-font-path + '/icomoon.ttf?re9om1') format('truetype'), url(icomoon-font-path + '/icomoon.woff?re9om1') format('woff'), url(icomoon-font-path + '/icomoon.svg?re9om1#icomoon') format('svg')
   font-weight normal
   font-style normal
 
@@ -34,9 +34,9 @@ icon-play3 = "\ea1c"
 .icon-drawer2
   &:before
     content icon-drawer2
-.icon-user
+.icon-wrench
   &:before
-    content icon-user
+    content icon-wrench
 .icon-equalizer2
   &:before
     content icon-equalizer2

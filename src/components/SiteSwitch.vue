@@ -41,29 +41,28 @@ export default {
 <style lang="stylus">
 @import "../assets/var.styl"
 
-$labelHeight = 50px
+$labelHeight = 40px
 
 .site-switch
   position absolute
-  padding 0 1em
   z-index 99
 
   h1
     display inline-block
     margin 0
-    font-size 2em
+    font-size 1.5em
 
   .site-wrapper
     display inline-block
     font-family 'Baloo Bhai', Helvetica, Arial, sans-serif !important
-    font-size 2em
+    font-size 1.5em
     line-height $labelHeight
     .site
       position absolute
       top - $labelHeight
       padding 0 0.5em
       color #ffffff
-      width: 80px;
+      width: 60px;
       text-align center
       cursor pointer
       transition top 0.4s
