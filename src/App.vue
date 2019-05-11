@@ -1,7 +1,7 @@
 <template>
   <div id="app" :class="theme">
     <SiteSwitch />
-    <Account />
+    <SysConf />
     <Lity v-if="site === 'lity'"></Lity>
     <Dapp v-else></Dapp>
   </div>
@@ -14,14 +14,14 @@ import iconmoon from "@/components/Icomoon.vue";
 import Lity from "@/views/Lity.vue";
 import Dapp from "@/views/Dapp.vue";
 import SiteSwitch from "@/components/SiteSwitch.vue";
-import Account from "@/components/Account.vue";
+import SysConf from "@/components/SysConf.vue";
 
 export default {
   components: {
     Lity,
     Dapp,
     SiteSwitch,
-    Account
+    SysConf
   },
   computed: {
     theme() {
@@ -45,7 +45,7 @@ export default {
   font-family Helvetica, Arial, sans-serif
   -webkit-font-smoothing antialiased
   -moz-osx-font-smoothing grayscale
-  min-width 1440px
+  min-width 1280px
   height 100%
   min-height 540px
   background-color $backgroundColor

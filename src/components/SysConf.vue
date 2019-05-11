@@ -1,6 +1,6 @@
 <template>
   <div class="account">
-    <div class="icon-user"></div>
+    <div class="icon-cogs"></div>
   </div>
 </template>
 
@@ -13,7 +13,7 @@ export default {
 
 <style lang="stylus">
 .account
-  .icon-user
+  .icon-cogs
     position absolute
     right 1em
     font-size 2em
