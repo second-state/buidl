@@ -6,7 +6,6 @@
 
 <style lang="stylus">
 .actions
-  padding-left 200px
   font-size 1em
   line-height 59px
   border-bottom 1px solid #eeeeee

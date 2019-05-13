@@ -1,6 +1,6 @@
 <template>
-  <div id="app" :class="theme">
-    <SiteSwitch />
+  <div id="app">
+    <SideBar />
     <Lity v-if="site === 'lity'"></Lity>
     <Dapp v-else></Dapp>
   </div>
@@ -12,18 +12,15 @@ import { mapActions } from "vuex";
 import iconmoon from "@/components/Icomoon.vue";
 import Lity from "@/views/Lity.vue";
 import Dapp from "@/views/Dapp.vue";
-import SiteSwitch from "@/components/SiteSwitch.vue";
+import SideBar from "@/components/SideBar.vue";
 
 export default {
   components: {
     Lity,
     Dapp,
-    SiteSwitch
+    SideBar
   },
   computed: {
-    theme() {
-      return this.$store.state.prefs.darkTheme ? "dark" : "";
-    },
     site() {
       return this.$store.state.prefs.site;
     }
@@ -45,13 +42,19 @@ export default {
   min-width 1280px
   height 100vh
   min-height 540px
+  padding-left 60px
+body
   background-color $backgroundColor
   color $color
+  button
+    color $color
 </style>
 
 <style lang="stylus">
 @import "./assets/themes/dark.styl"
-#app.dark
+body.dark-theme
   background-color $backgroundColor
   color $color
+  button
+    color $color
 </style>

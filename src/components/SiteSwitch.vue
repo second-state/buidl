@@ -1,7 +1,5 @@
 <template>
   <div class="site-switch">
-    <h1>Buidl</h1>
-    For
     <div
       class="site-wrapper"
       @mouseenter="hover = true"
@@ -52,30 +50,23 @@ export default {
 <style lang="stylus">
 @import "../assets/var.styl"
 
-$labelHeight = 59px
+$labelHeight = 60px
 
 .site-switch
   position absolute
-  z-index 99
-  left 10px
   overflow-y hidden
-
-  h1
-    display inline
-    margin 0
-    font-size 1.5em
 
   .site-wrapper
     display inline-block
     font-family 'Baloo Bhai', Helvetica, Arial, sans-serif !important
     font-size 1.5em
     line-height $labelHeight
+    width $labelHeight
     .site
       position absolute
       top - $labelHeight
-      padding 0 0.5em
+      width 100%
       color #ffffff
-      width: 60px;
       text-align center
       cursor pointer
       transition top 0.4s

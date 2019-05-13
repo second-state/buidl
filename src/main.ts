@@ -14,6 +14,19 @@ const vm = new Vue({
     loaded: false
   },
   render: function(h) {
+    if (window.localStorage) {
+      try {
+        let storeStr = window.localStorage.getItem("buidl");
+        if (storeStr) {
+          let sto = JSON.parse(storeStr);
+          if (sto.prefs.darkTheme) {
+            document.body.className = "dark-theme";
+          }
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
     if (this.loaded) {
       return h(App);
     } else {
