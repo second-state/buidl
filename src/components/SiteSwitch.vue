@@ -2,7 +2,12 @@
   <div class="site-switch">
     <h1>Buidl</h1>
     For
-    <div class="site-wrapper">
+    <div
+      class="site-wrapper"
+      @mouseenter="hover = true"
+      @mouseleave="hover = false"
+      :class="{ hover: hover }"
+    >
       <div
         class="site site-lity"
         :class="{ shown: site === 'lity' }"
@@ -23,6 +28,11 @@
 
 <script>
 export default {
+  data: () => {
+    return {
+      hover: false
+    };
+  },
   computed: {
     site() {
       return this.$store.state.prefs.site;
@@ -31,6 +41,7 @@ export default {
   methods: {
     switchSite(site) {
       if (this.$store.state.prefs.site !== site) {
+        this.hover = false;
         this.$store.dispatch("prefs/switchSite", site);
       }
     }
@@ -41,14 +52,16 @@ export default {
 <style lang="stylus">
 @import "../assets/var.styl"
 
-$labelHeight = 40px
+$labelHeight = 59px
 
 .site-switch
   position absolute
   z-index 99
+  left 10px
+  overflow-y hidden
 
   h1
-    display inline-block
+    display inline
     margin 0
     font-size 1.5em
 
@@ -70,7 +83,7 @@ $labelHeight = 40px
         position relative
         top 0
         z-index 1
-    &:hover
+    &.hover
       .site
         top 0
         &.shown

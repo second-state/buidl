@@ -8,9 +8,8 @@
 .actions
   padding-left 200px
   font-size 1em
-  line-height 40px
+  line-height 59px
   border-bottom 1px solid #eeeeee
-  box-shadow 0 2px 3px #eeeeee
   button
     border 0
     background-color transparent

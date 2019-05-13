@@ -9,6 +9,7 @@
 
 <style lang="stylus">
 .operating
+  display flex
   height 100%
   .left, .right
     width 50%
