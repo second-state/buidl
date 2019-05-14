@@ -7,6 +7,8 @@
     <Editor>
       <div id="lity-editor"></div>
     </Editor>
+    <Output>
+    </Output>
   </Operating>
 </template>
 
