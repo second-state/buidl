@@ -35,10 +35,20 @@ export default class Lity extends Vue {
         language: "javascript"
       }
     );
-    window.addEventListener("resize", () => {
-      if (this.monacoEditor != undefined) {
-        this.monacoEditor.layout();
+
+    this.$store.watch(
+      () => {
+        return this.$store.state.events.resizeEditor;
+      },
+      () => {
+        if (this.monacoEditor != undefined) {
+          this.monacoEditor.layout();
+        }
       }
+    );
+
+    window.addEventListener("resize", () => {
+      this.$store.dispatch("events/triggerEditorResize");
     });
   }
 }

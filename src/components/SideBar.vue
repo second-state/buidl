@@ -33,5 +33,5 @@ export default class SideBar extends Vue {
   left 0
   width $sideBarWidth
   bottom 0
-  background-color #eeeeee
+  background-color #454545
 </style>

@@ -42,7 +42,7 @@ export default {
   -moz-osx-font-smoothing grayscale
   min-width 1280px
   height 100vh
-  min-height 340px
+  min-height 540px
   padding-left $sideBarWidth
   &, *
     box-sizing border-box
