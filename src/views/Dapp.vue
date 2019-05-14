@@ -36,7 +36,8 @@ export default class Dapp extends Vue {
         value: ["function x() {", "\tconsole.log('Hello world!');", "}"].join(
           "\n"
         ),
-        language: "javascript"
+        language: "javascript",
+        theme: this.$store.state.prefs.darkTheme ? "vs-dark" : ""
       }
     );
 

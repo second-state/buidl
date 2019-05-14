@@ -48,7 +48,8 @@ contract SimpleStorage {
     }
 }
 `,
-        language: "solidity"
+        language: "solidity",
+        theme: this.$store.state.prefs.darkTheme ? "vs-dark" : ""
       }
     );
 
