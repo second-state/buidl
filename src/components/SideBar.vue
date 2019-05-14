@@ -25,11 +25,13 @@ export default class SideBar extends Vue {
 </script>
 
 <style lang="stylus">
+@import "../assets/var.styl"
+
 .side-bar
   position fixed
   top 0
   left 0
-  width 60px
+  width $sideBarWidth
   bottom 0
   background-color #eeeeee
 </style>

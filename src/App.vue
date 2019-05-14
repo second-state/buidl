@@ -33,6 +33,7 @@ export default {
 
 <style lang="stylus">
 @import "./assets/themes/light.styl"
+@import "./assets/var.styl"
 
 #app
   position: relative;
@@ -42,7 +43,7 @@ export default {
   min-width 1280px
   height 100vh
   min-height 340px
-  padding-left 60px
+  padding-left $sideBarWidth
   &, *
     box-sizing border-box
 body
@@ -54,6 +55,7 @@ body
 
 <style lang="stylus">
 @import "./assets/themes/dark.styl"
+
 body.dark-theme
   background-color $backgroundColor
   color $color

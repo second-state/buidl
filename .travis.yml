@@ -4,6 +4,7 @@ node_js:
 
 script:
   - npm run build
+  - echo 'buidl.secondstate.io' > ./dist/CNAME
 
 deploy:
   provider: pages

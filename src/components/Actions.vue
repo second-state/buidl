@@ -5,10 +5,14 @@
 </template>
 
 <style lang="stylus">
+@import "../assets/var.styl"
+
 .actions
   position absolute
   font-size 1em
-  line-height 59px
+  line-height $sideBarWidth
+  height $sideBarWidth
+  width 100%
   border-bottom 1px solid #eeeeee
   button
     border 0

@@ -50,8 +50,6 @@ export default {
 <style lang="stylus">
 @import "../assets/var.styl"
 
-$labelHeight = 60px
-
 .site-switch
   position absolute
   overflow-y hidden
@@ -60,11 +58,11 @@ $labelHeight = 60px
     display inline-block
     font-family 'Baloo Bhai', Helvetica, Arial, sans-serif !important
     font-size 1.5em
-    line-height $labelHeight
-    width $labelHeight
+    line-height $sideBarWidth
+    width $sideBarWidth
     .site
       position absolute
-      top - $labelHeight
+      top - $sideBarWidth
       width 100%
       color #ffffff
       text-align center
@@ -78,7 +76,7 @@ $labelHeight = 60px
       .site
         top 0
         &.shown
-          top $labelHeight
+          top $sideBarWidth
 
     .site-lity
       background-color $red
