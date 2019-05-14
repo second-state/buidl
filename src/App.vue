@@ -36,14 +36,15 @@ export default {
 @import "./assets/var.styl"
 
 #app
-  position: relative;
+  position relative
+  display flex
+  align-items stretch
   font-family Helvetica, Arial, sans-serif
   -webkit-font-smoothing antialiased
   -moz-osx-font-smoothing grayscale
   min-width 1280px
   height 100vh
   min-height 540px
-  padding-left $sideBarWidth
   &, *
     box-sizing border-box
 body

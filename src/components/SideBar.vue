@@ -28,10 +28,7 @@ export default class SideBar extends Vue {
 @import "../assets/var.styl"
 
 .side-bar
-  position fixed
-  top 0
-  left 0
+  position relative
   width $sideBarWidth
-  bottom 0
   background-color #454545
 </style>

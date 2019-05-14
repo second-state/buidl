@@ -9,13 +9,8 @@
 @import "../assets/var.styl"
 
 .actions
-  position fixed
   font-size 1em
   line-height $sideBarWidth
-  height $sideBarWidth
-  left $sideBarWidth
-  right 0
-  z-index 99
   background-color $minorBackgroundColor
   button
     border 0
