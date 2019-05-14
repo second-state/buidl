@@ -12,8 +12,8 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import Operating from "@/views/Operating.vue";
-import Actions from "@/components/Actions.vue";
-import Editor from "@/components/Editor.vue";
+import Actions from "@/layout/Actions.vue";
+import Editor from "@/layout/Editor.vue";
 import * as monaco from "monaco-editor";
 
 @Component({

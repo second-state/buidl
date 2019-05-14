@@ -12,7 +12,7 @@ import { mapActions } from "vuex";
 import iconmoon from "@/components/Icomoon.vue";
 import Lity from "@/views/Lity.vue";
 import Dapp from "@/views/Dapp.vue";
-import SideBar from "@/components/SideBar.vue";
+import SideBar from "@/layout/SideBar.vue";
 
 export default {
   components: {
