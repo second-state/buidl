@@ -7,4 +7,5 @@
 <style lang="stylus">
 .operating
   height 100%
+  padding-top 60px
 </style>

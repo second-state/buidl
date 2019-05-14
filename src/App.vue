@@ -41,8 +41,10 @@ export default {
   -moz-osx-font-smoothing grayscale
   min-width 1280px
   height 100vh
-  min-height 540px
+  min-height 340px
   padding-left 60px
+  &, *
+    box-sizing border-box
 body
   background-color $backgroundColor
   color $color

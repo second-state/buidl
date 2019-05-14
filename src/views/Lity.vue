@@ -23,8 +23,10 @@ import * as monaco from "monaco-editor";
   }
 })
 export default class Lity extends Vue {
+  private monacoEditor: monaco.editor.IStandaloneCodeEditor | undefined;
+
   mounted() {
-    monaco.editor.create(
+    this.monacoEditor = monaco.editor.create(
       document.getElementById("lity-editor") as HTMLElement,
       {
         value: ["function x() {", "\tconsole.log('Hello world!');", "}"].join(
@@ -33,6 +35,11 @@ export default class Lity extends Vue {
         language: "javascript"
       }
     );
+    window.addEventListener("resize", () => {
+      if (this.monacoEditor != undefined) {
+        this.monacoEditor.layout();
+      }
+    });
   }
 }
 </script>
