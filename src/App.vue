@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <SideBar />
-    <Lity v-if="site === 'lity'"></Lity>
-    <Dapp v-else></Dapp>
+    <Lity v-show="site === 'lity'"></Lity>
+    <Dapp v-show="site === 'dapp'"></Dapp>
   </div>
 </template>
 
@@ -48,6 +48,7 @@ export default {
   min-height 540px
   &, *
     box-sizing border-box
+    outline none
 body
   background-color $backgroundColor
   color $color

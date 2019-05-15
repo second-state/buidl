@@ -41,6 +41,7 @@ export default {
       if (this.$store.state.prefs.site !== site) {
         this.hover = false;
         this.$store.dispatch("prefs/switchSite", site);
+        this.$store.dispatch("events/triggerEditorResize");
       }
     }
   }

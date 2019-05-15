@@ -42,7 +42,7 @@ export default class SideBar extends Vue {
 
 .side-bar
   position relative
-  width $sideBarWidth
+  min-width $sideBarWidth
   background-color #454545
 .bottom
   position absolute

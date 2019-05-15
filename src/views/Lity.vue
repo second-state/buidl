@@ -1,7 +1,10 @@
 <template>
   <Operating>
     <Actions>
-      <button><span class="icon-wrench"></span>Compile</button>
+      <button @click="$store.dispatch('outputs/pushProblems', '-')">
+        <span class="icon-wrench"></span>
+        Compile
+      </button>
       <button><span class="icon-cogs"></span>Deploy</button>
     </Actions>
     <Editor>
@@ -9,7 +12,9 @@
     </Editor>
     <Output>
       <Tabs size="small">
-        <TabPane label="PROBLEMS"></TabPane>
+        <TabPane label="PROBLEMS">
+          <Problems></Problems>
+        </TabPane>
         <TabPane label="LOG"></TabPane>
       </Tabs>
     </Output>
@@ -22,6 +27,7 @@ import Operating from "@/views/Operating.vue";
 import Actions from "@/layout/Actions.vue";
 import Editor from "@/layout/Editor.vue";
 import Output from "@/layout/Output.vue";
+import Problems from "@/components/Problems.vue";
 import Tabs from "@/components/Tabs.vue";
 import TabPane from "@/components/TabPane.vue";
 import * as monaco from "monaco-editor";
@@ -33,7 +39,8 @@ import * as monaco from "monaco-editor";
     Editor,
     Output,
     Tabs,
-    TabPane
+    TabPane,
+    Problems
   }
 })
 export default class Lity extends Vue {

@@ -3,6 +3,7 @@ import Vuex from "vuex";
 import createPersistedState from "vuex-persistedstate";
 import Prefs from "@/modules/prefs";
 import Events from "@/modules/events";
+import Outputs from "@/modules/outputs";
 
 Vue.use(Vuex);
 
@@ -15,6 +16,7 @@ export default new Vuex.Store({
   ],
   modules: {
     events: Events,
-    prefs: Prefs
+    prefs: Prefs,
+    outputs: Outputs
   }
 });

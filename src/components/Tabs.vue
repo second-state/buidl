@@ -447,7 +447,7 @@ $ease-in-out = ease-in-out
   &-mini &-tab
     margin-right 0
     padding 8px 16px
-    font-size 0.7em
+    font-size 0.8em
 
   &
     {tabsPrefixCls}-content-animated
