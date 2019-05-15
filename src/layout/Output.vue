@@ -1,10 +1,21 @@
 <template>
   <div class="output">
-    <div class="output-tabs">
-      <slot name="tabs"></slot>
-    </div>
-    <div class="output-content">
-      <slot name="content"></slot>
-    </div>
+    <slot></slot>
   </div>
 </template>
+
+<style lang="stylus">
+@import "../assets/themes/light.styl"
+
+.output
+  height 200px
+  border-top 1px solid $borderColor
+</style>
+
+<style lang="stylus">
+@import "../assets/themes/dark.styl"
+
+body.dark-theme
+  .output
+    border-color $borderColor
+</style>

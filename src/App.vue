@@ -40,6 +40,7 @@ export default {
   display flex
   align-items stretch
   font-family Helvetica, Arial, sans-serif
+  font-size 16px
   -webkit-font-smoothing antialiased
   -moz-osx-font-smoothing grayscale
   min-width 1280px

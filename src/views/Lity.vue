@@ -8,6 +8,10 @@
       <div id="lity-editor"></div>
     </Editor>
     <Output>
+      <Tabs size="small">
+        <TabPane label="PROBLEMS"></TabPane>
+        <TabPane label="LOG"></TabPane>
+      </Tabs>
     </Output>
   </Operating>
 </template>
@@ -17,13 +21,19 @@ import { Component, Vue } from "vue-property-decorator";
 import Operating from "@/views/Operating.vue";
 import Actions from "@/layout/Actions.vue";
 import Editor from "@/layout/Editor.vue";
+import Output from "@/layout/Output.vue";
+import Tabs from "@/components/Tabs.vue";
+import TabPane from "@/components/TabPane.vue";
 import * as monaco from "monaco-editor";
 
 @Component({
   components: {
     Operating,
     Actions,
-    Editor
+    Editor,
+    Output,
+    Tabs,
+    TabPane
   }
 })
 export default class Lity extends Vue {

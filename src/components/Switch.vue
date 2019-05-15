@@ -12,6 +12,8 @@
 const prefixCls = "switch";
 
 export default {
+  name: "Switcher",
+
   props: {
     value: {
       type: [String, Number, Boolean],
