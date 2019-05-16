@@ -4,6 +4,15 @@
   </div>
 </template>
 
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+
+@Component({
+  components: {}
+})
+export default class Output extends Vue {}
+</script>
+
 <style lang="stylus">
 @import "../assets/themes/light.styl"
 

@@ -53,6 +53,7 @@ export default {
 
 .site-switch
   position absolute
+  top 0
   overflow-y hidden
 
   .site-wrapper

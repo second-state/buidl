@@ -1,6 +1,8 @@
 <style lang="stylus">
 icomoon-font-path ?= "../assets/fonts"
 
+icon-pen = "\e908"
+icon-power = "\e9b5"
 icon-drawer = "\e95c"
 icon-drawer2 = "\e95d"
 icon-wrench = "\e991"
@@ -11,7 +13,7 @@ icon-play3 = "\ea1c"
 
 @font-face
   font-family 'icomoon'
-  src url(icomoon-font-path + '/icomoon.ttf?re9om1') format('truetype'), url(icomoon-font-path + '/icomoon.woff?re9om1') format('woff'), url(icomoon-font-path + '/icomoon.svg?re9om1#icomoon') format('svg')
+  src url(icomoon-font-path + '/icomoon.ttf?8t1k8m') format('truetype'), url(icomoon-font-path + '/icomoon.woff?8t1k8m') format('woff'), url(icomoon-font-path + '/icomoon.svg?8t1k8m#icomoon') format('svg')
   font-weight normal
   font-style normal
 
@@ -28,6 +30,12 @@ icon-play3 = "\ea1c"
   -webkit-font-smoothing antialiased
   -moz-osx-font-smoothing grayscale
 
+.icon-pen
+  &:before
+    content icon-pen
+.icon-power
+  &:before
+    content icon-power
 .icon-drawer
   &:before
     content icon-drawer

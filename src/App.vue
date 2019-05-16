@@ -1,6 +1,14 @@
 <template>
   <div id="app">
     <SideBar />
+
+    <Panel v-if="site === 'lity' && lityPanel !== ''">
+      <Deployed v-if="lityPanel === 'Deployed'"></Deployed>
+    </Panel>
+    <Panel v-else-if="site === 'dapp' && dappPanel !== ''">
+      <ContractApi v-if="dappPanel === 'ContractApi'"></ContractApi>
+    </Panel>
+
     <Lity v-show="site === 'lity'"></Lity>
     <Dapp v-show="site === 'dapp'"></Dapp>
   </div>
@@ -13,16 +21,28 @@ import iconmoon from "@/components/Icomoon.vue";
 import Lity from "@/views/Lity.vue";
 import Dapp from "@/views/Dapp.vue";
 import SideBar from "@/layout/SideBar.vue";
+import Panel from "@/layout/Panel.vue";
+import Deployed from "@/components/Deployed.vue";
+import ContractApi from "@/components/ContractApi.vue";
 
 export default {
   components: {
     Lity,
     Dapp,
-    SideBar
+    SideBar,
+    Panel,
+    Deployed,
+    ContractApi
   },
   computed: {
     site() {
       return this.$store.state.prefs.site;
+    },
+    lityPanel() {
+      return this.$store.state.events.lityPanel;
+    },
+    dappPanel() {
+      return this.$store.state.events.dappPanel;
     }
   },
   methods: {
