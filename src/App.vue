@@ -2,7 +2,15 @@
   <div id="app">
     <SideBar />
 
-    <Panel v-if="site === 'lity' && lityPanel !== ''">
+    <Panel
+      v-if="
+        (site === 'lity' && lityPanel === 'Wallet') ||
+          (site === 'dapp' && dappPanel === 'Wallet')
+      "
+    >
+      <Wallet></Wallet>
+    </Panel>
+    <Panel v-else-if="site === 'lity' && lityPanel !== ''">
       <Deployed v-if="lityPanel === 'Deployed'"></Deployed>
     </Panel>
     <Panel v-else-if="site === 'dapp' && dappPanel !== ''">
@@ -24,6 +32,7 @@ import SideBar from "@/layout/SideBar.vue";
 import Panel from "@/layout/Panel.vue";
 import Deployed from "@/components/Deployed.vue";
 import ContractApi from "@/components/ContractApi.vue";
+import Wallet from "@/components/Wallet.vue";
 
 export default {
   components: {
@@ -32,7 +41,8 @@ export default {
     SideBar,
     Panel,
     Deployed,
-    ContractApi
+    ContractApi,
+    Wallet
   },
   computed: {
     site() {

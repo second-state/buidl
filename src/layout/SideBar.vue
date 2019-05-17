@@ -3,7 +3,7 @@
     <SiteSwitch />
     <button
       class="side-btn"
-      :class="lityPanel !== '' ? 'side-btn-active' : ''"
+      :class="lityPanel === 'Deployed' ? 'side-btn-active' : ''"
       v-if="site === 'lity'"
       @click="toggleDeployedPanel"
     >
@@ -11,18 +11,32 @@
     </button>
     <button
       class="side-btn"
-      :class="dappPanel !== '' ? 'side-btn-active' : ''"
+      :class="dappPanel === 'ContractApi' ? 'side-btn-active' : ''"
       v-else
       @click="toggleContractApiPanel"
     >
       <span class="icon-clipboard"></span>
     </button>
     <div class="bottom">
-      <button class="side-btn">
+      <button
+        class="side-btn"
+        :class="
+          (site === 'lity' && lityPanel === 'Wallet') ||
+          (site === 'dapp' && dappPanel === 'Wallet')
+            ? 'side-btn-active'
+            : ''
+        "
+        @click="toggleWalletPanel"
+      >
         <span class="icon-pen"></span>
       </button>
-      <button class="side-btn">
-        <span class="icon-power"></span>
+      <button
+        class="side-btn"
+        :class="showNodePop ? 'side-btn-active' : ''"
+        v-on:blur="showNodePop = false"
+      >
+        <span class="icon-power" @click="showNodePop = !showNodePop"></span>
+        <NodePop v-if="showNodePop" />
       </button>
       <Switcher size="small" @onChange="toggleTheme" :value="dt" />
     </div>
@@ -33,14 +47,18 @@
 import { Component, Vue } from "vue-property-decorator";
 import SiteSwitch from "@/components/SiteSwitch.vue";
 import Switcher from "@/components/Switch.vue";
+import NodePop from "@/components/NodePop.vue";
 
 @Component({
   components: {
     SiteSwitch,
-    Switcher
+    Switcher,
+    NodePop
   }
 })
 export default class SideBar extends Vue {
+  showNodePop = false;
+
   get dt(): string {
     return this.$store.state.prefs.darkTheme;
   }
@@ -59,19 +77,36 @@ export default class SideBar extends Vue {
   }
 
   toggleDeployedPanel(): void {
-    if (this.$store.state.events.lityPanel === "") {
-      this.$store.dispatch("events/setLityPanel", "Deployed");
-    } else {
+    if (this.$store.state.events.lityPanel === "Deployed") {
       this.$store.dispatch("events/setLityPanel", "");
+    } else {
+      this.$store.dispatch("events/setLityPanel", "Deployed");
     }
     this.$store.dispatch("events/triggerEditorResize");
   }
 
   toggleContractApiPanel(): void {
-    if (this.$store.state.events.dappPanel === "") {
-      this.$store.dispatch("events/setDappPanel", "ContractApi");
-    } else {
+    if (this.$store.state.events.dappPanel === "ContractApi") {
       this.$store.dispatch("events/setDappPanel", "");
+    } else {
+      this.$store.dispatch("events/setDappPanel", "ContractApi");
+    }
+    this.$store.dispatch("events/triggerEditorResize");
+  }
+
+  toggleWalletPanel(): void {
+    if (this.$store.state.prefs.site === "lity") {
+      if (this.$store.state.events.lityPanel === "Wallet") {
+        this.$store.dispatch("events/setLityPanel", "");
+      } else {
+        this.$store.dispatch("events/setLityPanel", "Wallet");
+      }
+    } else {
+      if (this.$store.state.events.dappPanel === "Wallet") {
+        this.$store.dispatch("events/setDappPanel", "");
+      } else {
+        this.$store.dispatch("events/setDappPanel", "Wallet");
+      }
     }
     this.$store.dispatch("events/triggerEditorResize");
   }
