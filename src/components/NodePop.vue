@@ -18,7 +18,7 @@ export default class NodePop extends Vue {}
   position absolute
   width 400px
   height 200px
-  box-shadow  0 1px 6px alpha($color, 0.3)
+  border 1px dashed alpha($color, 0.5)
   background-color $backgroundColor
   border-radius 4px
   z-index 2
@@ -30,6 +30,6 @@ export default class NodePop extends Vue {}
 @import "../assets/themes/dark.styl"
 body.dark-theme
   .node-pop
-    box-shadow  0 1px 6px alpha($color, 0.3)
+    border-color alpha($color, 0.5)
     background-color $backgroundColor
 </style>
