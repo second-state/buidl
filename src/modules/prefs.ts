@@ -5,7 +5,13 @@ export default {
   namespaced: true,
   state: {
     site: "lity",
-    darkTheme: false
+    darkTheme: false,
+    web3Provider: {
+      options: ["https://rpc.cybermiles.io:8545"],
+      using: "https://rpc.cybermiles.io:8545",
+      custom: "",
+      status: "pending"
+    }
   },
   mutations: {
     toggleTheme(state: any) {
@@ -15,6 +21,15 @@ export default {
     },
     switchSite(state: any, site: string) {
       state.site = site;
+    },
+    setWeb3ProviderUsing(state: any, using: string) {
+      state.web3Provider.using = using;
+    },
+    setWeb3ProviderCustom(state: any, custom: string) {
+      state.web3Provider.custom = custom;
+    },
+    setWeb3ProviderStatus(state: any, status: string) {
+      state.web3Provider.status = status;
     }
   },
   actions: {
@@ -23,6 +38,15 @@ export default {
     },
     switchSite(context: ActionContext<any, any>, payload: string) {
       context.commit("switchSite", payload);
+    },
+    setWeb3ProviderUsing(context: ActionContext<any, any>, payload: string) {
+      context.commit("setWeb3ProviderUsing", payload);
+    },
+    setWeb3ProviderCustom(context: ActionContext<any, any>, payload: string) {
+      context.commit("setWeb3ProviderCustom", payload);
+    },
+    setWeb3ProviderStatus(context: ActionContext<any, any>, payload: string) {
+      context.commit("setWeb3ProviderStatus", payload);
     }
   }
 };

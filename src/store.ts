@@ -11,7 +11,12 @@ export default new Vuex.Store({
   plugins: [
     createPersistedState({
       key: "buidl",
-      paths: ["prefs.darkTheme", "prefs.site"]
+      paths: [
+        "prefs.darkTheme",
+        "prefs.site",
+        "prefs.web3Provider.using",
+        "prefs.web3Provider.custom"
+      ]
     })
   ],
   modules: {

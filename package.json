@@ -19,7 +19,8 @@
     "vue-property-decorator": "^8.1.0",
     "vue-router": "^3.0.3",
     "vuex": "^3.0.1",
-    "vuex-persistedstate": "^2.5.4"
+    "vuex-persistedstate": "^2.5.4",
+    "web3-cmt": "^0.1.0"
   },
   "devDependencies": {
     "@types/jest": "^23.1.4",

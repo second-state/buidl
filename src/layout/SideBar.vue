@@ -31,12 +31,12 @@
         <span class="icon-pen"></span>
       </button>
       <button
-        class="side-btn"
-        :class="showNodePop ? 'side-btn-active' : ''"
-        v-on:blur="showNodePop = false"
+        class="side-btn web3-provider"
+        :class="providerStatus"
+        v-click-outside="hideNodePop"
       >
-        <span class="icon-power" @click="showNodePop = !showNodePop"></span>
-        <NodePop v-if="showNodePop" />
+        <span class="icon-power" @click="toggleNodePop"></span>
+        <NodePop ref="nodePop" v-show="showNodePop" />
       </button>
       <Switcher size="small" @onChange="toggleTheme" :value="dt" />
     </div>
@@ -44,6 +44,7 @@
 </template>
 
 <script lang="ts">
+import { web3 } from "@/services/web3";
 import { Component, Vue } from "vue-property-decorator";
 import SiteSwitch from "@/components/SiteSwitch.vue";
 import Switcher from "@/components/Switch.vue";
@@ -70,6 +71,9 @@ export default class SideBar extends Vue {
   }
   get dappPanel(): string {
     return this.$store.state.events.dappPanel;
+  }
+  get providerStatus(): string {
+    return this.$store.state.prefs.web3Provider.status;
   }
 
   toggleTheme(): void {
@@ -110,7 +114,46 @@ export default class SideBar extends Vue {
     }
     this.$store.dispatch("events/triggerEditorResize");
   }
+
+  hideNodePop(): void {
+    if (!this.showNodePop) {
+      return;
+    }
+    this.showNodePop = false;
+    let using = (this.$refs.nodePop as any).using;
+    let custom = (this.$refs.nodePop as any).custom;
+    if (using !== this.$store.state.prefs.web3Provider.using) {
+      this.$store.dispatch("prefs/setWeb3ProviderUsing", using);
+    }
+    if (custom !== this.$store.state.prefs.web3Provider.custom) {
+      this.$store.dispatch("prefs/setWeb3ProviderCustom", custom);
+    }
+  }
+
+  toggleNodePop(): void {
+    if (this.showNodePop) {
+      this.hideNodePop();
+    } else {
+      this.showNodePop = true;
+    }
+  }
 }
+
+Vue.directive("click-outside", {
+  bind: function(el, binding, vnode) {
+    (el as any).clickOutsideEvent = function(event: any) {
+      // here I check that click was outside the el and his childrens
+      if (!(el == event.target || el.contains(event.target))) {
+        // and if it did, call method provided in attribute value
+        (vnode as any).context[binding.expression](event);
+      }
+    };
+    document.body.addEventListener("click", (el as any).clickOutsideEvent);
+  },
+  unbind: function(el) {
+    document.body.removeEventListener("click", (el as any).clickOutsideEvent);
+  }
+});
 </script>
 
 <style lang="stylus">
@@ -133,6 +176,13 @@ export default class SideBar extends Vue {
     color #aaaaaa
     &:hover, &-active
       color $color
+    &.web3-provider
+      &.pending
+        color #ffa500
+      &.accessible
+        color #008000
+      &.unreachable
+        color #f00
   .bottom
     position absolute
     bottom 0
