@@ -33,7 +33,7 @@ import { Component, Vue, Watch } from "vue-property-decorator";
 export default class NodePop extends Vue {
   public using: string;
   public custom: string;
-  private oldCustom: string = "";
+  private oldCustom: string | undefined = undefined;
 
   constructor() {
     super();
@@ -58,7 +58,7 @@ export default class NodePop extends Vue {
     } else {
       this.reCheck();
     }
-    this.oldCustom = "";
+    this.oldCustom = undefined;
   }
 
   reCheck() {
