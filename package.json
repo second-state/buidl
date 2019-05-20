@@ -10,8 +10,10 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "@types/lodash": "^4.14.129",
     "crypto": "^1.0.1",
     "ethereumjs-util": "^6.1.0",
+    "lodash": "^4.17.11",
     "monaco-editor": "^0.17.0",
     "monaco-editor-webpack-plugin": "^1.7.0",
     "normalize-styl": "^4.1.1",
