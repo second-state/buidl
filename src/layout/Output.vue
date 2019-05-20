@@ -1,14 +1,18 @@
 <template>
   <div class="output">
+    <ResizeBar resize-direction="vertical"></ResizeBar>
     <slot></slot>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import ResizeBar from "@/components/ResizeBar.vue";
 
 @Component({
-  components: {}
+  components: {
+    ResizeBar
+  }
 })
 export default class Output extends Vue {}
 </script>
@@ -17,6 +21,7 @@ export default class Output extends Vue {}
 @import "../assets/themes/light.styl"
 
 .output
+  position relative
   height 200px
   border-top 1px solid $borderColor
   padding 3px 0 0 20px

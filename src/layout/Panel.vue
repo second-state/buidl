@@ -1,14 +1,18 @@
 <template>
   <div class="panel">
+    <ResizeBar resize-direction="horizontal"></ResizeBar>
     <slot></slot>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import ResizeBar from "@/components/ResizeBar.vue";
 
 @Component({
-  components: {}
+  components: {
+    ResizeBar
+  }
 })
 export default class Panel extends Vue {}
 </script>
