@@ -97,6 +97,7 @@ export default class NodePop extends Vue {
   text-align left
   h3
     margin-top 0
+    font-size 0.9em
   select
     border 0
     border-bottom 1px solid $color

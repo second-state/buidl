@@ -20,6 +20,7 @@ export default class Panel extends Vue {}
 .panel
   position relative
   min-width 300px
+  width 300px
   background-color $secondaryBackgroundColor
 </style>
 
