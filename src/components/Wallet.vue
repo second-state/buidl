@@ -2,11 +2,12 @@
   <div class="wallet">
     <div class="sig-actions">
       <h3>Signatures</h3>
-      <button @click="newSig">+</button>
+      <button @click="newSig" title="New Signature">+</button>
     </div>
     <ul>
       <li class="sig-item" v-for="(sig, index) in allSigs" :key="sig.address">
-        <i @click="removeSig(index)">&times;</i> {{ sig.address }}
+        <i @click="removeSig(index)" title="Remove">&times;</i>
+        {{ sig.address }}
       </li>
     </ul>
   </div>
