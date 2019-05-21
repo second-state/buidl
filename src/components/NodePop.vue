@@ -125,6 +125,7 @@ export default class NodePop extends Vue {
     bottom 1em
     .status-text
       color gray
+      text-transform capitalize
       &.pending
         color #ffa500
       &.accessible

@@ -17,7 +17,7 @@ export default new Vuex.Store({
         "prefs.site",
         "prefs.web3Provider.using",
         "prefs.web3Provider.custom",
-        "wallet.all"
+        "wallet"
       ]
     })
   ],

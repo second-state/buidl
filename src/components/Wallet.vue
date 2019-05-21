@@ -6,8 +6,21 @@
     </div>
     <ul>
       <li class="sig-item" v-for="(sig, index) in allSigs" :key="sig.address">
-        <i @click="removeSig(index)" title="Remove">&times;</i>
+        <i
+          v-if="defaultSig && defaultSig.address !== sig.address"
+          @click="removeSig(index)"
+          title="Remove"
+          >&times;</i
+        >
         {{ sig.address }}
+        <input :ref="`sig${sig.address}`" type="hidden" :value="sig.address" />
+        <div class="sig-item-op">
+          <span v-if="defaultSig && defaultSig.address === sig.address"
+            >Default</span
+          >
+          <a v-else @click="setDefault(sig)">Set Default</a>
+          <a @click="copy(sig.address, $event)">Copy</a>
+        </div>
       </li>
     </ul>
   </div>
@@ -38,6 +51,9 @@ if ((store.state as any).wallet.all.length === 0) {
   for (let i = 0; i < 5; i++) {
     let sig = newSig();
     store.dispatch("wallet/addSig", sig);
+    if (i === 0) {
+      store.dispatch("wallet/setDefault", sig);
+    }
   }
 }
 
@@ -49,6 +65,10 @@ export default class Wallet extends Vue {
     return this.$store.state.wallet.all;
   }
 
+  get defaultSig() {
+    return this.$store.state.wallet.default;
+  }
+
   newSig() {
     let sig = newSig();
     this.$store.dispatch("wallet/addSig", sig);
@@ -56,6 +76,22 @@ export default class Wallet extends Vue {
 
   removeSig(index: number) {
     this.$store.dispatch("wallet/removeSig", index);
+  }
+
+  setDefault(sig: Signature) {
+    this.$store.dispatch("wallet/setDefault", sig);
+  }
+
+  copy(addr: string, e: any) {
+    const input = (this.$refs[`sig${addr}`] as any)[0];
+    input.setAttribute("type", "text");
+    input.select();
+    document.execCommand("copy");
+    input.setAttribute("type", "hidden");
+    e.target.innerText = "Copied";
+    setTimeout(() => {
+      e.target.innerText = "Copy";
+    }, 500);
   }
 }
 </script>
@@ -91,15 +127,30 @@ export default class Wallet extends Vue {
   .sig-item
     position relative
     width 100%
-    padding-left 20px
+    padding 0 0 20px 20px
     margin 1em 0
     overflow hidden
     text-overflow ellipsis
+    font-size 0.9em
     i
       font-style normal
       position absolute
       left 0
       cursor pointer
+    .sig-item-op
+      position absolute
+      margin-top 3px
+      font-size 0.8em
+      a
+        display none
+        color rgba($color, 0.5)
+        cursor pointer
+      * + a
+        margin-left 1em
+    &:hover
+      .sig-item-op
+        a
+          display inline
 </style>
 
 <style lang="stylus">
@@ -109,4 +160,8 @@ body.dark-theme
     .sig-actions
       button
         color $color
+    .sig-item
+      .sig-item-op
+        a
+          color rgba($color, 0.5)
 </style>

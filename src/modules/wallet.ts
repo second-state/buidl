@@ -13,7 +13,8 @@ export class Signature {
 export default {
   namespaced: true,
   state: {
-    all: []
+    all: [],
+    default: undefined
   },
   mutations: {
     addSig(state: any, sig: Signature) {
@@ -21,6 +22,9 @@ export default {
     },
     removeSig(state: any, index: number) {
       state.all.splice(index, 1);
+    },
+    setDefault(state: any, sig: Signature) {
+      state.default = sig;
     }
   },
   actions: {
@@ -29,6 +33,9 @@ export default {
     },
     removeSig(context: ActionContext<any, any>, payload: number) {
       context.commit("removeSig", payload);
+    },
+    setDefault(context: ActionContext<any, any>, payload: Signature) {
+      context.commit("setDefault", payload);
     }
   }
 };
