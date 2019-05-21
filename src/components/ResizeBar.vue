@@ -30,10 +30,11 @@ export default class ResizeBar extends Vue {
       this.startPoint = e.pageY;
       this.startSize = dim.height;
     }
-    this._debouncedResize = debounce(this.resize, 0, {maxWait: 100});
+    this._debouncedResize = debounce(this.resize, 0, { maxWait: 100 });
     document.body.addEventListener("mousemove", this._debouncedResize);
     document.body.addEventListener("mouseup", this.mouseup);
-    document.body.className = `${this.$props.resizeDirection}-resizing`;
+    document.body.className =
+      document.body.className + ` ${this.$props.resizeDirection}-resizing`;
   }
 
   mouseup() {
@@ -41,7 +42,10 @@ export default class ResizeBar extends Vue {
       document.body.removeEventListener("mousemove", this._debouncedResize);
     }
     document.body.removeEventListener("mouseup", this.mouseup);
-    document.body.className = "";
+    document.body.className = document.body.className.replace(
+      ` ${this.$props.resizeDirection}-resizing`,
+      ""
+    );
   }
 
   resize(e: any) {

@@ -34,8 +34,9 @@
         class="side-btn web3-provider"
         :class="providerStatus"
         v-click-outside="hideNodePop"
+        @click="toggleNodePop"
       >
-        <span class="icon-power" @click="toggleNodePop"></span>
+        <span class="icon-power"></span>
         <NodePop ref="nodePop" v-show="showNodePop" />
       </button>
       <Switcher size="small" @onChange="toggleTheme" :value="dt" />
@@ -189,8 +190,8 @@ Vue.directive("click-outside", {
     width 100%
     display flex
     flex-direction column
-    align-items center
 
     .switch
       margin 1em 0
+      align-self center
 </style>
