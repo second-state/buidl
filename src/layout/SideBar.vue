@@ -131,9 +131,11 @@ export default class SideBar extends Vue {
     }
   }
 
-  toggleNodePop(): void {
+  toggleNodePop(e: any): void {
     if (this.showNodePop) {
-      this.hideNodePop();
+      if (!(this.$refs.nodePop as any).$el.contains(e.target)) {
+        this.hideNodePop();
+      }
     } else {
       this.showNodePop = true;
     }
