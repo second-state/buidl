@@ -27,6 +27,9 @@ export default class Actions extends Vue {}
     margin 0 1em
     padding 0
     cursor pointer
+    &:disabled
+      color rgba($color, 0.5)
+      cursor not-allowed
     [class^="icon-"]
       margin-right 0.5em
 </style>
@@ -37,4 +40,7 @@ export default class Actions extends Vue {}
 body.dark-theme
   .actions
     background-color $minorBackgroundColor
+    button
+      &:disabled
+        color rgba($color, 0.5)
 </style>

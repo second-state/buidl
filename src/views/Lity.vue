@@ -1,7 +1,7 @@
 <template>
   <Operating>
     <Actions>
-      <button @click="$store.dispatch('outputs/pushProblems', '-')">
+      <button @click="compile" :disabled="!$store.state.events.compilerReady">
         <span class="icon-wrench"></span>
         Compile
       </button>
@@ -31,6 +31,9 @@ import Problems from "@/components/Problems.vue";
 import Tabs from "@/components/Tabs.vue";
 import TabPane from "@/components/TabPane.vue";
 import * as monaco from "monaco-editor";
+import Compiler from "@/services/compiler";
+
+const compiler = new Compiler("./soljson.js");
 
 @Component({
   components: {
@@ -77,7 +80,7 @@ contract SimpleStorage {
         return this.$store.state.events.resizeEditor;
       },
       () => {
-        if (this.monacoEditor != undefined) {
+        if (this.monacoEditor) {
           this.monacoEditor.layout();
         }
       }
@@ -88,6 +91,12 @@ contract SimpleStorage {
 
   destroyed() {
     window.removeEventListener("resize", this.windowResizeListener);
+  }
+
+  compile() {
+    if (this.monacoEditor) {
+      compiler.compile(this.monacoEditor.getValue());
+    }
   }
 }
 </script>

@@ -5,7 +5,8 @@ export default {
   state: {
     resizeEditor: false,
     lityPanel: "",
-    dappPanel: ""
+    dappPanel: "",
+    compilerReady: false
   },
   mutations: {
     triggerEditorResize(state: any) {
@@ -16,6 +17,9 @@ export default {
     },
     setDappPanel(state: any, content: string) {
       state.dappPanel = content;
+    },
+    compilerReady(state: any) {
+      state.compilerReady = true;
     }
   },
   actions: {
@@ -27,6 +31,9 @@ export default {
     },
     setDappPanel(context: ActionContext<any, any>, payload: string) {
       context.commit("setDappPanel", payload);
+    },
+    compilerReady(context: ActionContext<any, any>) {
+      context.commit("compilerReady");
     }
   }
 };
