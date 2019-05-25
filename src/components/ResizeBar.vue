@@ -21,9 +21,15 @@ export default class ResizeBar extends Vue {
   _debouncedResize: EventListenerOrEventListenerObject | undefined = undefined;
 
   mousedown(e: any) {
-    const element = this.$parent.$el;
+    const element = this.$el.parentElement;
+    if (!element) {
+      return;
+    }
     const dim = element.getBoundingClientRect();
     if (this.$props.resizeDirection === "horizontal") {
+      this.startPoint = e.pageX;
+      this.startSize = dim.width;
+    } else if (this.$props.resizeDirection === "horizontal-left") {
       this.startPoint = e.pageX;
       this.startSize = dim.width;
     } else {
@@ -49,9 +55,12 @@ export default class ResizeBar extends Vue {
   }
 
   resize(e: any) {
-    const element = this.$parent.$el;
+    const element = this.$el.parentElement;
     if (this.$props.resizeDirection === "horizontal") {
       let width = this.startSize + e.pageX - this.startPoint;
+      (element as any).style.width = `${width}px`;
+    } else if (this.$props.resizeDirection === "horizontal-left") {
+      let width = this.startSize + this.startPoint - e.pageX;
       (element as any).style.width = `${width}px`;
     } else {
       let height = this.startSize + this.startPoint - e.pageY;
@@ -72,6 +81,12 @@ export default class ResizeBar extends Vue {
     bottom 0
     width 3px
     cursor col-resize
+  &.horizontal-left
+    left 0
+    top 0
+    bottom 0
+    width 3px
+    cursor col-resize
   &.vertical
     top 0
     left 0
@@ -80,7 +95,7 @@ export default class ResizeBar extends Vue {
     cursor row-resize
 
 body
-  &.horizontal-resizing *
+  &.horizontal-resizing *, &.horizontal-left-resizing *
     cursor col-resize !important
   &.vertical-resizing *
     cursor row-resize !important

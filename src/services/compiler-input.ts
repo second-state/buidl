@@ -1,7 +1,7 @@
 export interface CompilerInputOptions {
-  optimize: boolean,
-  libraries? : object
-};
+  optimize: boolean;
+  libraries?: object;
+}
 
 export default function(sources: object, opts: CompilerInputOptions) {
   return JSON.stringify({
@@ -15,10 +15,19 @@ export default function(sources: object, opts: CompilerInputOptions) {
       libraries: opts.libraries,
       outputSelection: {
         "*": {
-          "": [ "legacyAST" ],
-          "*": [ "abi", "metadata", "devdoc", "userdoc", "evm.legacyAssembly", "evm.bytecode", "evm.deployedBytecode", "evm.methodIdentifiers" ]
+          "": ["legacyAST"],
+          "*": [
+            "abi",
+            "metadata",
+            "devdoc",
+            "userdoc",
+            "evm.legacyAssembly",
+            "evm.bytecode",
+            "evm.deployedBytecode",
+            "evm.methodIdentifiers"
+          ]
         }
       }
     }
   });
-};
+}
