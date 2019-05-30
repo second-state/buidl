@@ -11,6 +11,14 @@
     </button>
     <button
       class="side-btn"
+      :class="lityPanel === 'Contracts' ? 'side-btn-active' : ''"
+      v-if="site === 'lity'"
+      @click="toggleContractsPanel"
+    >
+      <span class="icon-file-play"></span>
+    </button>
+    <button
+      class="side-btn"
       :class="dappPanel === 'ContractApi' ? 'side-btn-active' : ''"
       v-else
       @click="toggleContractApiPanel"
@@ -86,6 +94,15 @@ export default class SideBar extends Vue {
       this.$store.dispatch("events/setLityPanel", "");
     } else {
       this.$store.dispatch("events/setLityPanel", "Deployed");
+    }
+    this.$store.dispatch("events/triggerEditorResize");
+  }
+
+  toggleContractsPanel(): void {
+    if (this.$store.state.events.lityPanel === "Contracts") {
+      this.$store.dispatch("events/setLityPanel", "");
+    } else {
+      this.$store.dispatch("events/setLityPanel", "Contracts");
     }
     this.$store.dispatch("events/triggerEditorResize");
   }
@@ -173,6 +190,7 @@ Vue.directive("click-outside", {
   .side-btn
     background-color transparent
     border 0
+    box-shadow none
     font-size 1.5em
     height $sideBarWidth
     cursor pointer

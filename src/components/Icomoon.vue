@@ -1,6 +1,7 @@
 <style lang="stylus">
 icomoon-font-path ?= "../assets/fonts"
 
+icon-file-play = "\e929"
 icon-pen = "\e908"
 icon-power = "\e9b5"
 icon-drawer = "\e95c"
@@ -30,6 +31,9 @@ icon-play3 = "\ea1c"
   -webkit-font-smoothing antialiased
   -moz-osx-font-smoothing grayscale
 
+.icon-file-play
+  &:before
+    content icon-file-play
 .icon-pen
   &:before
     content icon-pen

@@ -60,6 +60,6 @@ export default class Compiler {
         }
       };
     }
-    console.log(result, missingInputs);
+    return result;
   }
 }

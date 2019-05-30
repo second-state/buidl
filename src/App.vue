@@ -12,6 +12,7 @@
     </Panel>
     <Panel v-else-if="site === 'lity' && lityPanel !== ''">
       <Deployed v-if="lityPanel === 'Deployed'"></Deployed>
+      <Contracts v-if="lityPanel === 'Contracts'"></Contracts>
     </Panel>
     <Panel v-else-if="site === 'dapp' && dappPanel !== ''">
       <ContractApi v-if="dappPanel === 'ContractApi'"></ContractApi>
@@ -24,6 +25,7 @@
 
 <script>
 import normalize from "normalize-styl";
+import general from "@/assets/general.styl";
 import { mapActions } from "vuex";
 import iconmoon from "@/components/Icomoon.vue";
 import Lity from "@/views/Lity.vue";
@@ -31,6 +33,7 @@ import Dapp from "@/views/Dapp.vue";
 import SideBar from "@/layout/SideBar.vue";
 import Panel from "@/layout/Panel.vue";
 import Deployed from "@/components/Deployed.vue";
+import Contracts from "@/components/Contracts.vue";
 import ContractApi from "@/components/ContractApi.vue";
 import Wallet from "@/components/Wallet.vue";
 
@@ -41,6 +44,7 @@ export default {
     SideBar,
     Panel,
     Deployed,
+    Contracts,
     ContractApi,
     Wallet
   },

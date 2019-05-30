@@ -23,10 +23,9 @@ export default class Actions extends Vue {}
   background-color $minorBackgroundColor
   button
     border 0
-    background-color transparent
+    box-shadow none !important
     margin 0
     padding 0 1em
-    cursor pointer
     &:disabled
       color rgba($color, 0.5)
       cursor not-allowed

@@ -5,7 +5,6 @@
         <span class="icon-wrench"></span>
         Compile
       </button>
-      <button><span class="icon-cogs"></span>Deploy</button>
     </Actions>
     <Editor>
       <div id="lity-editor"></div>
@@ -95,7 +94,17 @@ contract SimpleStorage {
 
   compile() {
     if (this.monacoEditor) {
-      compiler.compile(this.monacoEditor.getValue());
+      const result = compiler.compile(this.monacoEditor.getValue());
+      if (result.error) {
+        alert(result.error.formattedMessage);
+        return;
+      }
+      this.$store.dispatch(
+        "contracts/setContracts",
+        result.contracts["new.lity"]
+      );
+      this.$store.dispatch("events/setLityPanel", "Contracts");
+      this.$store.dispatch("events/triggerEditorResize");
     }
   }
 }
