@@ -12,7 +12,9 @@
   "dependencies": {
     "@types/lodash": "^4.14.129",
     "crypto": "^1.0.1",
+    "ethereumjs-tx": "^1.3.7",
     "ethereumjs-util": "^6.1.0",
+    "keythereum": "^1.0.4",
     "lodash": "^4.17.11",
     "monaco-editor": "^0.17.0",
     "monaco-editor-webpack-plugin": "^1.7.0",

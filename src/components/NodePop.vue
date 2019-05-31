@@ -3,21 +3,27 @@
     <h3>Set Provider Endpoint</h3>
     <select v-model="using">
       <option value="">Customize</option>
-      <option v-for="opt in provider.options" :key="opt" :value="opt">{{
+      <option v-for="(opt, index) in options" :key="opt" :value="index">{{
         opt
       }}</option>
     </select>
     <input
-      ref="customInput"
+      ref="customUrl"
       placeholder="Your endpoint"
       v-show="using === ''"
-      v-model="custom"
+      v-model="customUrl"
       v-on:blur="reCheckCustom"
+    />
+    <input
+      ref="customChainId"
+      placeholder="Your chainId"
+      v-show="using === ''"
+      v-model="customChainId"
     />
     <div class="status">
       <strong>Status: </strong>
-      <span class="status-text" :class="provider.status">
-        {{ provider.status }}
+      <span class="status-text" :class="status">
+        {{ status }}
       </span>
     </div>
   </div>
@@ -25,6 +31,7 @@
 
 <script lang="ts">
 import { web3 } from "@/services/web3";
+import { Web3Provider } from "@/modules/prefs";
 import { Component, Vue, Watch } from "vue-property-decorator";
 
 @Component({
@@ -32,17 +39,25 @@ import { Component, Vue, Watch } from "vue-property-decorator";
 })
 export default class NodePop extends Vue {
   public using: string;
-  public custom: string;
-  private oldCustom: string | undefined = undefined;
+  public customUrl: string;
+  public customChainId: string;
+  private oldCustomUrl: String | undefined = undefined;
 
   constructor() {
     super();
     this.using = this.$store.state.prefs.web3Provider.using;
-    this.custom = this.$store.state.prefs.web3Provider.custom;
+    this.customUrl = this.$store.state.prefs.web3Provider.custom.url;
+    this.customChainId = this.$store.state.prefs.web3Provider.custom.chainId;
   }
 
-  get provider() {
-    return this.$store.state.prefs.web3Provider;
+  get status() {
+    return this.$store.state.prefs.web3Provider.status;
+  }
+
+  get options() {
+    return this.$store.state.prefs.web3Provider.options.map(
+      (c: Web3Provider) => c.url
+    );
   }
 
   created() {
@@ -53,26 +68,29 @@ export default class NodePop extends Vue {
   changeUsing(val: string) {
     if (val === "") {
       this.$nextTick().then(() => {
-        (this.$refs.customInput as HTMLElement).focus();
+        (this.$refs.customUrl as HTMLElement).focus();
       });
     } else {
       this.reCheck();
     }
-    this.oldCustom = undefined;
+    this.oldCustomUrl = undefined;
   }
 
   reCheck() {
     this.$store.dispatch("prefs/setWeb3ProviderStatus", "pending");
-    const url = this.using || this.custom;
+    const url =
+      this.using !== ""
+        ? this.$store.state.prefs.web3Provider.options[this.using].url
+        : this.customUrl;
     web3.checkProvider(url, (status: string) => {
       this.$store.dispatch("prefs/setWeb3ProviderStatus", status);
     });
   }
 
   reCheckCustom() {
-    if (this.oldCustom !== this.custom) {
+    if (this.oldCustomUrl !== this.customUrl) {
       this.reCheck();
-      this.oldCustom = this.custom;
+      this.oldCustomUrl = this.customUrl;
     }
   }
 }

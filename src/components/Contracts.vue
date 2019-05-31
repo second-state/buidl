@@ -12,7 +12,22 @@
         </select>
       </div>
       <div>
-        <button><span class="icon-cogs"></span> Deploy to the chain</button>
+        <div
+          class="constructor-inputs"
+          v-if="contractConstructorInputs.length > 0"
+        >
+          <div
+            class="constructor-input-item"
+            v-for="input in contractConstructorInputs"
+            :key="input.name"
+          >
+            <label>{{ input.name }}</label>
+            <input type="text" :placeholder="input.type" />
+          </div>
+        </div>
+        <button @click="deploy">
+          <span class="icon-cogs"></span> Deploy to the chain
+        </button>
       </div>
       <div class="abi">
         <h4>ABI <span @click="copyAbi($event)">Copy</span></h4>
@@ -37,7 +52,10 @@
 </template>
 
 <script lang="ts">
+import LityWeb3 from "@/services/web3";
+import Web3 from "web3-cmt";
 import { Component, Vue } from "vue-property-decorator";
+
 @Component({
   components: {}
 })
@@ -59,6 +77,29 @@ export default class Contracts extends Vue {
 
   get contract() {
     return this.$store.state.contracts.contracts[this.selectedContract];
+  }
+
+  get contractConstructorInputs() {
+    const abi = this.contract.abi;
+    for (let i = 0; i < abi.length; i++) {
+      if (abi[i].type === "constructor") {
+        return abi[i].inputs || [];
+      }
+    }
+    return [];
+  }
+
+  deploy() {
+    const provider = this.$store.state.prefs.web3Provider;
+    const pUrl =
+      provider.using !== ""
+        ? provider.options[provider.using].url
+        : provider.custom.url;
+    const web3 = new LityWeb3(new Web3.providers.HttpProvider(pUrl));
+    const contract = web3.lity.contract(this.contract.abi);
+    const instance = contract.new({
+      data: `0x${this.contract.evm.bytecode.object}`
+    });
   }
 
   copyAbi(e: any) {
@@ -110,6 +151,17 @@ export default class Contracts extends Vue {
   pre
     font-family inherit
     font-size 0.9em
+
+  .constructor-inputs
+    .constructor-input-item
+      display flex
+      flex-direction column
+      margin-bottom 0.5em
+      label
+        color alpha($color, 0.8)
+        font-size 0.8em
+      input
+        font-size 0.8em
 </style>
 
 <style lang="stylus">

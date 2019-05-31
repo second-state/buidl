@@ -138,13 +138,20 @@ export default class SideBar extends Vue {
       return;
     }
     this.showNodePop = false;
-    let using = (this.$refs.nodePop as any).using;
-    let custom = (this.$refs.nodePop as any).custom;
+    const using = (this.$refs.nodePop as any).using;
     if (using !== this.$store.state.prefs.web3Provider.using) {
       this.$store.dispatch("prefs/setWeb3ProviderUsing", using);
     }
-    if (custom !== this.$store.state.prefs.web3Provider.custom) {
-      this.$store.dispatch("prefs/setWeb3ProviderCustom", custom);
+    const customUrl = (this.$refs.nodePop as any).customUrl;
+    const customChainId = (this.$refs.nodePop as any).customChainId;
+    if (
+      customUrl !== this.$store.state.prefs.web3Provider.customUrl ||
+      customChainId !== this.$store.state.prefs.web3Provider.custom
+    ) {
+      this.$store.dispatch("prefs/setWeb3ProviderCustom", {
+        url: customUrl,
+        chainId: customChainId
+      });
     }
   }
 

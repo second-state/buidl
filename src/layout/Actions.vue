@@ -23,6 +23,7 @@ export default class Actions extends Vue {}
   background-color $minorBackgroundColor
   button
     border 0
+    border-radius 0
     box-shadow none !important
     margin 0
     padding 0 1em

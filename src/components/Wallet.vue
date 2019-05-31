@@ -114,6 +114,7 @@ export default class Wallet extends Vue {
       font-size 1.5em
       background transparent
       border 0
+      box-shadow none
       color $color
       padding 0
       line-height 1.5

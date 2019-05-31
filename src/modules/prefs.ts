@@ -1,15 +1,28 @@
 import { ActionContext } from "vuex";
 import * as monaco from "monaco-editor";
 
+export interface Web3Provider {
+  url: string;
+  chainId: string;
+}
+
 export default {
   namespaced: true,
   state: {
     site: "lity",
     darkTheme: false,
     web3Provider: {
-      options: ["https://rpc.cybermiles.io:8545"],
-      using: "https://rpc.cybermiles.io:8545",
-      custom: "",
+      options: [
+        {
+          url: "https://rpc.cybermiles.io:8545",
+          chainId: "18"
+        }
+      ],
+      using: "0",
+      custom: {
+        url: "",
+        chainId: ""
+      },
       status: "pending"
     }
   },
@@ -25,7 +38,7 @@ export default {
     setWeb3ProviderUsing(state: any, using: string) {
       state.web3Provider.using = using;
     },
-    setWeb3ProviderCustom(state: any, custom: string) {
+    setWeb3ProviderCustom(state: any, custom: Web3Provider) {
       state.web3Provider.custom = custom;
     },
     setWeb3ProviderStatus(state: any, status: string) {
@@ -42,7 +55,10 @@ export default {
     setWeb3ProviderUsing(context: ActionContext<any, any>, payload: string) {
       context.commit("setWeb3ProviderUsing", payload);
     },
-    setWeb3ProviderCustom(context: ActionContext<any, any>, payload: string) {
+    setWeb3ProviderCustom(
+      context: ActionContext<any, any>,
+      payload: Web3Provider
+    ) {
       context.commit("setWeb3ProviderCustom", payload);
     },
     setWeb3ProviderStatus(context: ActionContext<any, any>, payload: string) {
