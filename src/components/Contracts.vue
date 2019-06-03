@@ -22,7 +22,7 @@
             :key="input.name"
           >
             <label>{{ input.name }}</label>
-            <input type="text" :placeholder="input.type" />
+            <input type="text" :ref="input.name" :placeholder="input.type" />
           </div>
         </div>
         <button @click="deploy">
@@ -90,6 +90,13 @@ export default class Contracts extends Vue {
   }
 
   deploy() {
+    let params = [];
+    for (let input of this.contractConstructorInputs) {
+      params.push((this.$refs[input.name] as any)[0].value);
+    }
+    params.push({
+      data: `0x${this.contract.evm.bytecode.object}`
+    });
     const provider = this.$store.state.prefs.web3Provider;
     const pUrl =
       provider.using !== ""
@@ -97,9 +104,7 @@ export default class Contracts extends Vue {
         : provider.custom.url;
     const web3 = new LityWeb3(new Web3.providers.HttpProvider(pUrl));
     const contract = web3.lity.contract(this.contract.abi);
-    const instance = contract.new({
-      data: `0x${this.contract.evm.bytecode.object}`
-    });
+    const instance = contract.new.apply(contract, params);
   }
 
   copyAbi(e: any) {

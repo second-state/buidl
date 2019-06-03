@@ -14,8 +14,8 @@ export default {
     web3Provider: {
       options: [
         {
-          url: "https://rpc.cybermiles.io:8545",
-          chainId: "18"
+          url: "https://testnet-rpc.cybermiles.io:8545",
+          chainId: "19"
         }
       ],
       using: "0",
