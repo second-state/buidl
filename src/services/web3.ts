@@ -59,18 +59,53 @@ const LityWeb3 = function(this: any, provider: any) {
       transactionObject.to,
       transactionObject.data
     );
+    store.dispatch("events/setLityOutputTab", "logs");
     this.lity.sendRawTransaction(s, function(err: any, hash: string) {
       if (err) {
-        console.error(err);
-        alert(err);
+        store.dispatch(
+          "outputs/pushLityLogs",
+          `<span class="error">${err}</span>`
+        );
         return;
       }
-      console.log(hash);
+      store.dispatch(
+        "outputs/pushLityLogs",
+        `Tx has been sent, waiting for comfirmation...`
+      );
+      callback && callback(hash);
     });
   };
 } as any;
 
 LityWeb3.prototype = Object.create(Web3.prototype);
 LityWeb3.prototype.constructor = LityWeb3;
+
+LityWeb3.prototype.checkTx = function(hash: string, callback: Function) {
+  this.lity.getTransactionReceipt(hash, (err: any, receipt: any) => {
+    if (err) {
+      store.dispatch(
+        "outputs/pushLityLogs",
+        `<span class="error">${err}</span>`
+      );
+    } else if (!receipt) {
+      setTimeout(() => {
+        this.checkTx(hash, callback);
+      }, 10000);
+    } else {
+      if (receipt.status === "0x1") {
+        store.dispatch(
+          "outputs/pushLityLogs",
+          `${hash} <span class="success">Success</span>`
+        );
+        callback(receipt);
+      } else {
+        store.dispatch(
+          "outputs/pushLityLogs",
+          `${hash} <span class="error">Failed</span>`
+        );
+      }
+    }
+  });
+};
 
 export default LityWeb3;

@@ -10,11 +10,13 @@
       <div id="lity-editor"></div>
     </Editor>
     <Output>
-      <Tabs size="small">
-        <TabPane label="PROBLEMS">
+      <Tabs ref="outputTabs" size="small" :value="outputActiveTab">
+        <TabPane label="PROBLEMS" name="problems">
           <Problems></Problems>
         </TabPane>
-        <TabPane label="LOG"></TabPane>
+        <TabPane label="LOG" name="logs">
+          <Logs></Logs>
+        </TabPane>
       </Tabs>
     </Output>
   </Operating>
@@ -27,6 +29,7 @@ import Actions from "@/layout/Actions.vue";
 import Editor from "@/layout/Editor.vue";
 import Output from "@/layout/Output.vue";
 import Problems from "@/components/Problems.vue";
+import Logs from "@/components/Logs.vue";
 import Tabs from "@/components/Tabs.vue";
 import TabPane from "@/components/TabPane.vue";
 import * as monaco from "monaco-editor";
@@ -42,7 +45,8 @@ const compiler = new Compiler("./soljson.js");
     Output,
     Tabs,
     TabPane,
-    Problems
+    Problems,
+    Logs
   }
 })
 export default class Lity extends Vue {
@@ -50,6 +54,10 @@ export default class Lity extends Vue {
   private windowResizeListener = () => {
     this.$store.dispatch("events/triggerEditorResize");
   };
+
+  get outputActiveTab() {
+    return this.$store.state.events.lityOutputTab;
+  }
 
   mounted() {
     this.monacoEditor = monaco.editor.create(

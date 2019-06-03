@@ -6,6 +6,7 @@ import Events from "@/modules/events";
 import Outputs from "@/modules/outputs";
 import Wallet from "@/modules/wallet";
 import Contracts from "@/modules/contracts";
+import Deployed from "@/modules/deployed";
 
 Vue.use(Vuex);
 
@@ -27,6 +28,7 @@ export default new Vuex.Store({
     prefs: Prefs,
     outputs: Outputs,
     wallet: Wallet,
-    contracts: Contracts
+    contracts: Contracts,
+    deployed: Deployed
   }
 });

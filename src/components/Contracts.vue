@@ -51,9 +51,9 @@
 </template>
 
 <script lang="ts">
-import LityWeb3 from "@/services/web3";
 import Web3 from "web3-cmt";
 import { Component, Vue } from "vue-property-decorator";
+import LityWeb3 from "@/services/web3";
 
 @Component({
   components: {}
@@ -88,6 +88,15 @@ export default class Contracts extends Vue {
     return [];
   }
 
+  newLityWeb3() {
+    const provider = this.$store.state.prefs.web3Provider;
+    const pUrl =
+      provider.using !== ""
+        ? provider.options[provider.using].url
+        : provider.custom.url;
+    return new LityWeb3(new Web3.providers.HttpProvider(pUrl));
+  }
+
   deploy() {
     let params = [];
     for (let input of this.contractConstructorInputs) {
@@ -96,14 +105,23 @@ export default class Contracts extends Vue {
     params.push({
       data: `0x${this.contract.evm.bytecode.object}`
     });
-    const provider = this.$store.state.prefs.web3Provider;
-    const pUrl =
-      provider.using !== ""
-        ? provider.options[provider.using].url
-        : provider.custom.url;
-    const web3 = new LityWeb3(new Web3.providers.HttpProvider(pUrl));
+    params.push(this.deployed);
+
+    const web3 = this.newLityWeb3();
     const contract = web3.lity.contract(this.contract.abi);
-    const instance = contract.new.apply(contract, params);
+    contract.new.apply(contract, params);
+  }
+
+  deployed(txHash: string) {
+    const web3 = this.newLityWeb3();
+    web3.checkTx(txHash, (receipt: any) => {
+      this.$store.dispatch("deployed/pushContract", {
+        name: this.selectedContract,
+        abi: this.contract.abi,
+        address: receipt.contractAddress
+      });
+      this.$store.dispatch("events/setLityPanel", "Deployed");
+    });
   }
 
   copyAbi(e: any) {

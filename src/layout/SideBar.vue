@@ -7,7 +7,8 @@
       v-if="site === 'lity'"
       @click="toggleDeployedPanel"
     >
-      <span class="icon-drawer2"></span>
+      <span :class="deployedContracts > 0 ? 'icon-drawer' : 'icon-drawer2'">
+      </span>
     </button>
     <button
       class="side-btn"
@@ -83,6 +84,10 @@ export default class SideBar extends Vue {
   }
   get providerStatus(): string {
     return this.$store.state.prefs.web3Provider.status;
+  }
+
+  get deployedContracts(): number {
+    return this.$store.state.deployed.contracts.length;
   }
 
   toggleTheme(): void {

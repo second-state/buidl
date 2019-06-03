@@ -1,4 +1,4 @@
-import { ActionContext } from "vuex";
+import { ActionContext, Action } from "vuex";
 
 export default {
   namespaced: true,
@@ -6,7 +6,8 @@ export default {
     resizeEditor: false,
     lityPanel: "",
     dappPanel: "",
-    compilerReady: false
+    compilerReady: false,
+    lityOutputTab: "problems"
   },
   mutations: {
     triggerEditorResize(state: any) {
@@ -20,6 +21,9 @@ export default {
     },
     compilerReady(state: any) {
       state.compilerReady = true;
+    },
+    setLityOutputTab(state: any, content: string) {
+      state.lityOutputTab = content;
     }
   },
   actions: {
@@ -34,6 +38,9 @@ export default {
     },
     compilerReady(context: ActionContext<any, any>) {
       context.commit("compilerReady");
+    },
+    setLityOutputTab(context: ActionContext<any, any>, payload: string) {
+      context.commit("setLityOutputTab", payload);
     }
   }
 };
