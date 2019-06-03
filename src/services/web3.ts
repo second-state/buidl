@@ -61,6 +61,7 @@ const LityWeb3 = function(this: any, provider: any) {
     );
     this.lity.sendRawTransaction(s, function(err: any, hash: string) {
       if (err) {
+        console.error(err);
         alert(err);
         return;
       }

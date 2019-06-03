@@ -118,13 +118,6 @@ export default class NodePop extends Vue {
     font-size 0.9em
   select
     margin-bottom 1em
-  input
-    border 0
-    border-bottom 1px solid $color
-    background-color transparent
-    appearance none
-    width 100%
-    color $color
   .status
     position absolute
     bottom 1em
@@ -146,7 +139,4 @@ body.dark-theme
     border-color alpha($color, 0.5)
     background-color $backgroundColor
     color $color
-    input
-      border-color $color
-      color $color
 </style>

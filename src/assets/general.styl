@@ -26,6 +26,14 @@ button
   color $color
   border-radius 5px
 
+input
+  border 0
+  border-bottom 1px solid $color
+  background-color transparent
+  appearance none
+  width 100%
+  color $color
+
 @import "../assets/themes/dark.styl"
 
 body.dark-theme
@@ -37,4 +45,7 @@ body.dark-theme
   button
     border-color alpha($color, 0.7)
     box-shadow 0 2px 1px 0 alpha($color, 0.7)
+    color $color
+  input
+    border-color $color
     color $color

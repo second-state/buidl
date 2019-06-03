@@ -21,8 +21,7 @@
             v-for="input in contractConstructorInputs"
             :key="input.name"
           >
-            <label>{{ input.name }}</label>
-            <input type="text" :ref="input.name" :placeholder="input.type" />
+            <input type="text" :ref="input.name" :placeholder="input.name" />
           </div>
         </div>
         <button @click="deploy">
@@ -162,9 +161,6 @@ export default class Contracts extends Vue {
       display flex
       flex-direction column
       margin-bottom 0.5em
-      label
-        color alpha($color, 0.8)
-        font-size 0.8em
       input
         font-size 0.8em
 </style>
