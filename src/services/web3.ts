@@ -97,7 +97,7 @@ LityWeb3.prototype.checkTx = function(hash: string, callback: Function) {
           "outputs/pushLityLogs",
           `${hash} <span class="success">Success</span>`
         );
-        callback(receipt);
+        callback && callback(receipt);
       } else {
         store.dispatch(
           "outputs/pushLityLogs",
