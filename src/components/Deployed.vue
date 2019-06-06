@@ -1,13 +1,12 @@
 <template>
   <div class="deployed-contracts">
     <div class="contract" v-for="(c, cIndex) in contracts" :key="c.address">
-      <h3>{{ c.name }} <i>at</i></h3>
+      <h3 @click="toggleFuncs(cIndex)">{{ c.name }}</h3>
       <div class="addr">
         {{ c.address }}
         <input :ref="`c${c.address}`" type="hidden" :value="c.address" />
         <div class="contract-op">
           <a @click="copy(c.address, $event)">Copy</a>
-          <a @click="toggleFuncs(cIndex)">Toggle Functions</a>
         </div>
       </div>
       <div class="contract-actions" v-show="shownFuncs.indexOf(cIndex) > -1">
@@ -160,13 +159,13 @@ export default class Deployed extends Vue {
     &:first-child
       padding-top 0
     h3
-      padding 0 1em
+      padding 0 1rem
       margin 0 0 0.5em
-      i
-        font-weight normal
+      text-decoration underline
+      cursor pointer
     .addr
       position relative
-      padding 0 1em 1em
+      padding 0 1rem 1em
       overflow-x hidden
       text-overflow ellipsis
       .contract-op
@@ -174,18 +173,19 @@ export default class Deployed extends Vue {
         position absolute
         font-size 0.8em
         color rgba($color, 0.5)
-        cursor pointer
         a
+          cursor pointer
           margin-right 1em
-    &:hover
-      .addr
+      &:hover
         .contract-op
           display block
     .contract-actions
+      background-color $minorBackgroundColor
+      box-shadow inset 0px 10px 10px -10px darken($minorBackgroundColor, 25%),
+        inset 0px -10px 10px -10px darken($minorBackgroundColor, 25%)
       .contract-action
         padding 1em
         margin-bottom 1em
-        background-color $minorBackgroundColor
       h4
         margin 0 0 1em
       .action-input-item
@@ -202,6 +202,7 @@ body.dark-theme
         .contract-op
           color rgba($color, 0.5)
       .contract-actions
-        .contract-action
-          background-color $minorBackgroundColor
+        background-color $minorBackgroundColor
+        box-shadow inset 0px 10px 10px -10px darken($minorBackgroundColor, 25%),
+          inset 0px -10px 10px -10px darken($minorBackgroundColor, 25%)
 </style>

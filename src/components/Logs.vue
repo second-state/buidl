@@ -1,9 +1,13 @@
 <template>
-  <div class="logs" v-html="'<p>' + logs.join('</p><p>') + '</p>'"></div>
+  <div
+    ref="logs"
+    class="logs"
+    v-html="'<p>' + logs.join('</p><p>') + '</p>'"
+  ></div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
 @Component({
   components: {}
 })
@@ -13,6 +17,14 @@ export default class Logs extends Vue {
   public constructor() {
     super();
     this.logs = this.$store.state.outputs.lityLogs;
+  }
+
+  @Watch("logs")
+  scrollToBottom() {
+    this.$nextTick().then(() => {
+      const elem = this.$refs.logs as any;
+      elem.scrollIntoView(false);
+    });
   }
 }
 </script>
