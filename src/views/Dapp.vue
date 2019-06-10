@@ -1,7 +1,7 @@
 <template>
   <Operating>
     <Actions>
-      <button @click="toggleRender"><span class="icon-play3"></span>Run</button>
+      <button @click="run"><span class="icon-play3"></span>Run</button>
       <button
         class="editor-tab"
         :class="currentEditorTab === 'html' ? 'selected' : ''"
@@ -36,7 +36,7 @@
           </Tabs>
         </Output>
       </section>
-      <section v-show="showRender">
+      <section ref="renderPanel" v-show="showRender">
         <ResizeBar resize-direction="horizontal-left"></ResizeBar>
       </section>
     </div>
@@ -67,18 +67,38 @@ import ResizeBar from "@/components/ResizeBar.vue";
 })
 export default class Dapp extends Vue {
   showRender = false;
+  renderFrame: HTMLIFrameElement | undefined;
 
   editorData: any = {
     js: {
-      model: monaco.editor.createModel("", "javascript"),
+      model: monaco.editor.createModel(
+        `var bt = document.querySelector("#s");
+bt.addEventListener("click", function() {
+  var n = window.prompt("Input the number:");
+  alert(n);
+});`,
+        "javascript"
+      ),
       state: null
     },
     css: {
-      model: monaco.editor.createModel("", "css"),
+      model: monaco.editor.createModel(
+        `button {
+  background-color: #000;
+  color: #fff;
+  border: 0;
+  font-size: 1em;
+}`,
+        "css"
+      ),
       state: null
     },
     html: {
-      model: monaco.editor.createModel("", "html"),
+      model: monaco.editor.createModel(
+        `<button id="s">Set Data</button>
+<button id="g">Get Data</button>`,
+        "html"
+      ),
       state: null
     }
   };
@@ -120,9 +140,27 @@ export default class Dapp extends Vue {
     window.removeEventListener("resize", this.windowResizeListener);
   }
 
-  toggleRender() {
-    this.showRender = !this.showRender;
-    this.$store.dispatch("events/triggerEditorResize");
+  run() {
+    (window as any).htmlSrc = this.editorData.html.model.getValue();
+    (window as any).cssSrc = this.editorData.css.model.getValue();
+    (window as any).jsSrc = this.editorData.js.model.getValue();
+
+    const showing = this.showRender;
+    this.showRender = true;
+    if (showing) {
+      if (this.renderFrame && this.renderFrame.contentWindow) {
+        this.renderFrame.contentWindow.location.reload();
+      }
+    } else {
+      this.renderFrame = document.createElement("iframe");
+      this.renderFrame.src = "dapp-frame.html";
+      this.renderFrame.height = "100%";
+      this.renderFrame.frameBorder = "0";
+      this.renderFrame.style.backgroundColor = "#fff";
+      (this.$refs.renderPanel as HTMLElement).appendChild(this.renderFrame);
+
+      this.$store.dispatch("events/triggerEditorResize");
+    }
   }
 
   switchTab(desiredModelId: string) {

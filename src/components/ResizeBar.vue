@@ -19,12 +19,21 @@ export default class ResizeBar extends Vue {
   startPoint = 0;
   startSize = 0;
   _debouncedResize: EventListenerOrEventListenerObject | undefined = undefined;
+  mask: HTMLElement | undefined = undefined;
 
   mousedown(e: any) {
     const element = this.$el.parentElement;
     if (!element) {
       return;
     }
+
+    this.mask = document.createElement("div");
+    element.appendChild(this.mask);
+    this.mask.setAttribute(
+      "style",
+      "position:absolute;top:0;bottom:0;left:0;right:0;"
+    );
+
     const dim = element.getBoundingClientRect();
     if (this.$props.resizeDirection === "horizontal") {
       this.startPoint = e.pageX;
@@ -44,6 +53,12 @@ export default class ResizeBar extends Vue {
   }
 
   mouseup() {
+    const element = this.$el.parentElement;
+    if (!element) {
+      return;
+    }
+    this.mask && element.removeChild(this.mask);
+
     if (this._debouncedResize) {
       document.body.removeEventListener("mousemove", this._debouncedResize);
     }
