@@ -1,7 +1,7 @@
 self.__precacheManifest = [
   {
-    "revision": "92319f4598c6ba9ef7bf",
-    "url": "/js/chunk-2d208ac5.60d9f986.js"
+    "revision": "67df990c27fd5851881f",
+    "url": "/js/chunk-2d209408.ed8d8b14.js"
   },
   {
     "revision": "8cd0a8652cd9a6b57451254ef3d67940",
@@ -140,12 +140,12 @@ self.__precacheManifest = [
     "url": "/js/chunk-2d0ea098.bdff2097.js"
   },
   {
-    "revision": "b6216d61c03e6ce0c9aea6ca7808f7ca",
-    "url": "/robots.txt"
+    "revision": "92319f4598c6ba9ef7bf",
+    "url": "/js/chunk-2d208ac5.60d9f986.js"
   },
   {
-    "revision": "67df990c27fd5851881f",
-    "url": "/js/chunk-2d209408.ed8d8b14.js"
+    "revision": "b6216d61c03e6ce0c9aea6ca7808f7ca",
+    "url": "/robots.txt"
   },
   {
     "revision": "9a4484bbd46ff51f75ec",
@@ -244,40 +244,44 @@ self.__precacheManifest = [
     "url": "/js/chunk-vendors.aa903fbb.js"
   },
   {
-    "revision": "c39cbd4c3cd0ec463bac",
-    "url": "/js/chunk-2d0a3577.0c6ed0e5.js"
-  },
-  {
-    "revision": "b50f8305f02098dbc02e",
-    "url": "/js/app.f986d6b3.js"
-  },
-  {
-    "revision": "102827fe4658c943649deb54ef08c116",
-    "url": "/index.html"
-  },
-  {
     "revision": "5609a6358d2d73db2d2d0067975489c6",
     "url": "/img/icomoon.5609a635.svg"
-  },
-  {
-    "revision": "e81cb2591bbf403dbae03dbba2f9d650",
-    "url": "/icon.svg"
-  },
-  {
-    "revision": "a1b8ab2c8044735e400ca16af562b04b",
-    "url": "/html.worker.js"
   },
   {
     "revision": "fd8521260284f6dcfe45f7b33c1e5b93",
     "url": "/editor.worker.js"
   },
   {
+    "revision": "a1b8ab2c8044735e400ca16af562b04b",
+    "url": "/html.worker.js"
+  },
+  {
+    "revision": "fcd143cd5e56e24c5156",
+    "url": "/js/app.e24ebd1d.js"
+  },
+  {
+    "revision": "c39cbd4c3cd0ec463bac",
+    "url": "/js/chunk-2d0a3577.0c6ed0e5.js"
+  },
+  {
+    "revision": "e81cb2591bbf403dbae03dbba2f9d650",
+    "url": "/icon.svg"
+  },
+  {
+    "revision": "9b345634fb063ebc8f96307dfdbd42a5",
+    "url": "/index.html"
+  },
+  {
+    "revision": "bf11b45381e268e0a9e8d4714e62521b",
+    "url": "/dapp-frame.html"
+  },
+  {
     "revision": "5aba0dacc6267546fb73",
     "url": "/css/chunk-vendors.74f1fff1.css"
   },
   {
-    "revision": "b50f8305f02098dbc02e",
-    "url": "/css/app.59ef5d86.css"
+    "revision": "fcd143cd5e56e24c5156",
+    "url": "/css/app.806b20e7.css"
   },
   {
     "revision": "32a7fe2662f3910fa27e81215e426fb4",
