@@ -53,6 +53,8 @@ import Tabs from "@/components/Tabs.vue";
 import TabPane from "@/components/TabPane.vue";
 import * as monaco from "monaco-editor";
 import ResizeBar from "@/components/ResizeBar.vue";
+import Web3 from "web3-cmt";
+import LityWeb3 from "@/services/web3";
 
 @Component({
   components: {
@@ -72,10 +74,13 @@ export default class Dapp extends Vue {
   editorData: any = {
     js: {
       model: monaco.editor.createModel(
-        `var bt = document.querySelector("#s");
-bt.addEventListener("click", function() {
+        `var contract = web3.lity.contract([{"constant":false,"inputs":[{"name":"x","type":"uint256"}],"name":"set","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"get","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"}]);
+var instance = contract.at("");
+document.querySelector("#s").addEventListener("click", function() {
   var n = window.prompt("Input the number:");
-  alert(n);
+});
+document.querySelector("#g").addEventListener("click", function() {
+  console.log(instance.get().toString());
 });`,
         "javascript"
       ),
@@ -109,6 +114,15 @@ bt.addEventListener("click", function() {
   private windowResizeListener = () => {
     this.$store.dispatch("events/triggerEditorResize");
   };
+
+  newLityWeb3() {
+    const provider = this.$store.state.prefs.web3Provider;
+    const pUrl =
+      provider.using !== ""
+        ? provider.options[provider.using].url
+        : provider.custom.url;
+    return new LityWeb3(new Web3.providers.HttpProvider(pUrl));
+  }
 
   mounted() {
     this.monacoEditor = monaco.editor.create(
@@ -144,6 +158,7 @@ bt.addEventListener("click", function() {
     (window as any).htmlSrc = this.editorData.html.model.getValue();
     (window as any).cssSrc = this.editorData.css.model.getValue();
     (window as any).jsSrc = this.editorData.js.model.getValue();
+    (window as any).web3 = this.newLityWeb3();
 
     const showing = this.showRender;
     this.showRender = true;
