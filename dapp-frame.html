@@ -8,7 +8,10 @@
   </head>
   <body>
     <script type="text/javascript">
+
       window.onload = function() {
+        window.web3 = window.parent.web3;
+
         document.body.innerHTML = window.parent.htmlSrc;
 
         var style = document.createElement("style");
