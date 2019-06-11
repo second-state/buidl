@@ -12,6 +12,30 @@
       window.onload = function() {
         window.web3 = window.parent.web3;
 
+        const originalError = console.error;
+        const originalLog = console.log;
+        const originalWarning = console.warn;
+        const originalInfo = console.info;
+
+        const cnsl = window.parent.cnsl;
+
+        console.error = function (error) {
+          cnsl(error.toString() + error.stack, "error");
+          originalError.apply(console, arguments);
+        };
+        console.log = function (...args) {
+          args.forEach(cnsl);
+          originalLog.apply(console, args);
+        };
+        console.warn = function (...args) {
+          args.forEach(cnsl);
+          originalWarning.apply(console, args);
+        };
+        console.info = function (...args) {
+          args.forEach(cnsl);
+          originalInfo.apply(console, args);
+        };
+
         document.body.innerHTML = window.parent.htmlSrc;
 
         var style = document.createElement("style");
