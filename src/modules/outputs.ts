@@ -4,7 +4,9 @@ export default {
   namespaced: true,
   state: {
     problems: [],
-    lityLogs: []
+    lityLogs: [],
+    dappLogs: [],
+    cnsl: []
   },
   mutations: {
     pushProblems(state: any, prob: string) {
@@ -12,6 +14,12 @@ export default {
     },
     pushLityLogs(state: any, log: string) {
       state.lityLogs.push(log);
+    },
+    pushDappLogs(state: any, log: string) {
+      state.dappLogs.push(log);
+    },
+    pushCnsl(state: any, cnsl: string) {
+      state.cnsl.push(cnsl);
     }
   },
   actions: {
@@ -20,6 +28,12 @@ export default {
     },
     pushLityLogs(context: ActionContext<any, any>, payload: string) {
       context.commit("pushLityLogs", payload);
+    },
+    pushDappLogs(context: ActionContext<any, any>, payload: string) {
+      context.commit("pushDappLogs", payload);
+    },
+    pushCnsl(context: ActionContext<any, any>, payload: string) {
+      context.commit("pushCnsl", payload);
     }
   }
 };

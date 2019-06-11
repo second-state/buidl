@@ -1,36 +1,28 @@
 <template>
   <div
-    ref="logs"
-    class="logs"
-    v-html="'<p>' + logs.join('</p><p>') + '</p>'"
+    ref="cnsl"
+    class="cnsl"
+    v-html="'<p>' + cnsl.join('</p><p>') + '</p>'"
   ></div>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
 @Component({
-  components: {},
-  props: {
-    type: String
-  }
+  components: {}
 })
-export default class Logs extends Vue {
-  private logs: string[] | undefined;
-  private type: string | undefined;
+export default class Cnsl extends Vue {
+  private cnsl: string[] | undefined;
 
   public constructor() {
     super();
-    if (this.type === "Lity") {
-      this.logs = this.$store.state.outputs.lityLogs;
-    } else {
-      this.logs = this.$store.state.outputs.dappLogs;
-    }
+    this.cnsl = this.$store.state.outputs.cnsl;
   }
 
-  @Watch("logs")
+  @Watch("cnsl")
   scrollToBottom() {
     this.$nextTick().then(() => {
-      const elem = this.$refs.logs as any;
+      const elem = this.$refs.cnsl as any;
       elem.scrollIntoView(false);
     });
   }
@@ -40,7 +32,7 @@ export default class Logs extends Vue {
 <style lang="stylus">
 @import "../assets/themes/light.styl"
 
-.logs
+.cnsl
   color $color
 p
   margin 0 0 1em
@@ -55,6 +47,6 @@ p
 <style lang="stylus">
 @import "../assets/themes/dark.styl"
 body.dark-theme
-  .logs
+  .cnsl
     color $color
 </style>

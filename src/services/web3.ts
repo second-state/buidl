@@ -39,12 +39,11 @@ function signTx(privateKey: string, nonce: Number, addr: string, data: string) {
   return "0x" + tx.serialize().toString("hex");
 }
 
-const LityWeb3 = function(this: any, provider: any) {
+const LityWeb3 = function(this: any, provider: any, type: string) {
   Web3.call(this, provider);
+  this.type = type;
 
   this.lity = this.cmt;
-
-  const sendTx = this.lity.sendTransaction;
 
   this.lity.sendTransaction = (transactionObject: any, callback?: Function) => {
     const from = store.state.wallet.default;
@@ -52,6 +51,7 @@ const LityWeb3 = function(this: any, provider: any) {
       alert("Please set the default wallet first.");
       return;
     }
+
     const nonce = this.lity.getTransactionCount(from.address);
     const s = signTx(
       from.privateKey,
@@ -59,20 +59,20 @@ const LityWeb3 = function(this: any, provider: any) {
       transactionObject.to,
       transactionObject.data
     );
-    store.dispatch("events/setLityOutputTab", "logs");
-    this.lity.sendRawTransaction(s, function(err: any, hash: string) {
+    store.dispatch(`events/set${type}OutputTab`, "logs");
+    this.lity.sendRawTransaction(s, (err: any, hash: string) => {
       if (err) {
         store.dispatch(
-          "outputs/pushLityLogs",
+          `outputs/push${type}Logs`,
           `<span class="error">${err}</span>`
         );
         return;
       }
       store.dispatch(
-        "outputs/pushLityLogs",
+        `outputs/push${type}Logs`,
         `Tx has been sent, waiting for comfirmation...`
       );
-      callback && callback(hash);
+      this.checkTx(hash, callback);
     });
   };
 } as any;
@@ -80,11 +80,11 @@ const LityWeb3 = function(this: any, provider: any) {
 LityWeb3.prototype = Object.create(Web3.prototype);
 LityWeb3.prototype.constructor = LityWeb3;
 
-LityWeb3.prototype.checkTx = function(hash: string, callback: Function) {
+LityWeb3.prototype.checkTx = function(hash: string, callback?: Function) {
   this.lity.getTransactionReceipt(hash, (err: any, receipt: any) => {
     if (err) {
       store.dispatch(
-        "outputs/pushLityLogs",
+        `outputs/push${this.type}Logs`,
         `<span class="error">${err}</span>`
       );
     } else if (!receipt) {
@@ -94,13 +94,13 @@ LityWeb3.prototype.checkTx = function(hash: string, callback: Function) {
     } else {
       if (receipt.status === "0x1") {
         store.dispatch(
-          "outputs/pushLityLogs",
+          `outputs/push${this.type}Logs`,
           `${hash} <span class="success">Success</span>`
         );
         callback && callback(receipt);
       } else {
         store.dispatch(
-          "outputs/pushLityLogs",
+          `outputs/push${this.type}Logs`,
           `${hash} <span class="error">Failed</span>`
         );
       }

@@ -267,6 +267,7 @@ export default {
         return;
       }
       this.activeKey = nav.name;
+      this.$emit("input", nav.name);
       this.$emit("onClick", nav.name);
     },
     getTabIndex(name) {

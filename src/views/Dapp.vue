@@ -30,9 +30,17 @@
           <div id="dapp-editor"></div>
         </Editor>
         <Output>
-          <Tabs size="small">
-            <TabPane label="CONSOLE"></TabPane>
-            <TabPane label="LOG"></TabPane>
+          <Tabs
+            size="small"
+            :animated="false"
+            v-model="$store.state.events.dappOutputTab"
+          >
+            <TabPane label="CONSOLE" name="console">
+              <Cnsl></Cnsl>
+            </TabPane>
+            <TabPane label="LOG" name="logs">
+              <Logs type="Dapp"></Logs>
+            </TabPane>
           </Tabs>
         </Output>
       </section>
@@ -49,6 +57,8 @@ import Operating from "@/views/Operating.vue";
 import Actions from "@/layout/Actions.vue";
 import Editor from "@/layout/Editor.vue";
 import Output from "@/layout/Output.vue";
+import Logs from "@/components/Logs.vue";
+import Cnsl from "@/components/Cnsl.vue";
 import Tabs from "@/components/Tabs.vue";
 import TabPane from "@/components/TabPane.vue";
 import * as monaco from "monaco-editor";
@@ -62,6 +72,8 @@ import LityWeb3 from "@/services/web3";
     Actions,
     Editor,
     Output,
+    Logs,
+    Cnsl,
     Tabs,
     TabPane,
     ResizeBar
@@ -74,10 +86,14 @@ export default class Dapp extends Vue {
   editorData: any = {
     js: {
       model: monaco.editor.createModel(
-        `var contract = web3.lity.contract([{"constant":false,"inputs":[{"name":"x","type":"uint256"}],"name":"set","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"get","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"}]);
+        `/* Don't modify */
+var contract = web3.lity.contract();
 var instance = contract.at("");
+/* Don't modify */
+
 document.querySelector("#s").addEventListener("click", function() {
   var n = window.prompt("Input the number:");
+  instance.set(n);
 });
 document.querySelector("#g").addEventListener("click", function() {
   console.log(instance.get().toString());
@@ -121,10 +137,25 @@ document.querySelector("#g").addEventListener("click", function() {
       provider.using !== ""
         ? provider.options[provider.using].url
         : provider.custom.url;
-    return new LityWeb3(new Web3.providers.HttpProvider(pUrl));
+    return new LityWeb3(new Web3.providers.HttpProvider(pUrl), "Dapp");
+  }
+
+  cnsl(s: string, type?: string) {
+    if (type === "error") {
+      this.$store.dispatch(
+        "outputs/pushCnsl",
+        `<span class="error">${s}</span>`
+      );
+    } else {
+      this.$store.dispatch(`events/setDappOutputTab`, "console");
+      this.$store.dispatch("outputs/pushCnsl", s);
+    }
   }
 
   mounted() {
+    (window as any).web3 = this.newLityWeb3();
+    (window as any).cnsl = this.cnsl;
+
     this.monacoEditor = monaco.editor.create(
       document.getElementById("dapp-editor") as HTMLElement,
       {
@@ -147,6 +178,23 @@ document.querySelector("#g").addEventListener("click", function() {
       }
     );
 
+    this.$store.watch(
+      () => {
+        return this.$store.state.events.usingDeployedContract;
+      },
+      c => {
+        let value = this.editorData.js.model.getValue();
+        value = value.replace(
+          /\/\* Don't modify \*\/[\s\S.]*\/\* Don't modify \*\//g,
+          `/* Don't modify */
+var contract = web3.lity.contract(${JSON.stringify(c.abi)});
+var instance = contract.at('${c.address}');
+/* Don't modify */`
+        );
+        this.editorData.js.model.setValue(value);
+      }
+    );
+
     window.addEventListener("resize", this.windowResizeListener);
   }
 
@@ -158,7 +206,6 @@ document.querySelector("#g").addEventListener("click", function() {
     (window as any).htmlSrc = this.editorData.html.model.getValue();
     (window as any).cssSrc = this.editorData.css.model.getValue();
     (window as any).jsSrc = this.editorData.js.model.getValue();
-    (window as any).web3 = this.newLityWeb3();
 
     const showing = this.showRender;
     this.showRender = true;

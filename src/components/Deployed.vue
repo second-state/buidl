@@ -15,22 +15,24 @@
           v-for="(abi, aIndex) in c.abi"
           :key="abi.name"
         >
-          <h4>{{ abi.name }}</h4>
-          <div
-            class="action-input-item"
-            v-for="input in abi.inputs"
-            :key="input.name"
-          >
-            <input
-              type="text"
-              :ref="`${c.address}_${input.name}`"
-              :placeholder="input.name"
-            />
+          <div v-if="abi.type === 'function'">
+            <h4>{{ abi.name }}</h4>
+            <div
+              class="action-input-item"
+              v-for="input in abi.inputs"
+              :key="`${abi.name}${input.name}`"
+            >
+              <input
+                type="text"
+                :ref="`${c.address}_${input.name}`"
+                :placeholder="input.name"
+              />
+            </div>
+            <button v-if="abi.constant" @click="call(cIndex, aIndex)">
+              Call
+            </button>
+            <button v-else @click="transact(cIndex, aIndex)">Transact</button>
           </div>
-          <button v-if="abi.constant" @click="call(cIndex, aIndex)">
-            Call
-          </button>
-          <button v-else @click="transact(cIndex, aIndex)">Transact</button>
         </div>
       </div>
     </div>
@@ -78,7 +80,7 @@ export default class Deployed extends Vue {
       provider.using !== ""
         ? provider.options[provider.using].url
         : provider.custom.url;
-    return new LityWeb3(new Web3.providers.HttpProvider(pUrl));
+    return new LityWeb3(new Web3.providers.HttpProvider(pUrl), "Lity");
   }
 
   call(cIndex: number, aIndex: number) {
@@ -122,7 +124,6 @@ export default class Deployed extends Vue {
           .value
       );
     }
-    params.push(this.deployed);
 
     const web3 = this.newLityWeb3();
     const contract = web3.lity.contract(deployedContract.abi);
@@ -137,11 +138,6 @@ export default class Deployed extends Vue {
         `<span class="error">${e}</span>`
       );
     }
-  }
-
-  deployed(txHash: string) {
-    const web3 = this.newLityWeb3();
-    web3.checkTx(txHash);
   }
 }
 </script>
@@ -159,8 +155,9 @@ export default class Deployed extends Vue {
     &:first-child
       padding-top 0
     h3
-      padding 0 1rem
-      margin 0 0 0.5em
+      display inline-block
+      padding 0
+      margin 0 1rem 0.5em
       text-decoration underline
       cursor pointer
     .addr

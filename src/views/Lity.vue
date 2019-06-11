@@ -10,12 +10,16 @@
       <div id="lity-editor"></div>
     </Editor>
     <Output>
-      <Tabs ref="outputTabs" size="small" :value="outputActiveTab">
+      <Tabs
+        size="small"
+        :animated="false"
+        v-model="$store.state.events.lityOutputTab"
+      >
         <TabPane label="PROBLEMS" name="problems">
           <Problems></Problems>
         </TabPane>
         <TabPane label="LOG" name="logs">
-          <Logs></Logs>
+          <Logs type="Lity"></Logs>
         </TabPane>
       </Tabs>
     </Output>
@@ -54,10 +58,6 @@ export default class Lity extends Vue {
   private windowResizeListener = () => {
     this.$store.dispatch("events/triggerEditorResize");
   };
-
-  get outputActiveTab() {
-    return this.$store.state.events.lityOutputTab;
-  }
 
   mounted() {
     this.monacoEditor = monaco.editor.create(

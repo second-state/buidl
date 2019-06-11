@@ -1,4 +1,5 @@
 import { ActionContext, Action } from "vuex";
+import { DeployedContract } from "./deployed";
 
 export default {
   namespaced: true,
@@ -7,7 +8,9 @@ export default {
     lityPanel: "",
     dappPanel: "",
     compilerReady: false,
-    lityOutputTab: "problems"
+    lityOutputTab: "problems",
+    dappOutputTab: "console",
+    usingDeployedContract: undefined
   },
   mutations: {
     triggerEditorResize(state: any) {
@@ -24,6 +27,12 @@ export default {
     },
     setLityOutputTab(state: any, content: string) {
       state.lityOutputTab = content;
+    },
+    setDappOutputTab(state: any, content: string) {
+      state.dappOutputTab = content;
+    },
+    setUsingDeployedContract(state: any, content: DeployedContract) {
+      state.usingDeployedContract = content;
     }
   },
   actions: {
@@ -41,6 +50,15 @@ export default {
     },
     setLityOutputTab(context: ActionContext<any, any>, payload: string) {
       context.commit("setLityOutputTab", payload);
+    },
+    setDappOutputTab(context: ActionContext<any, any>, payload: string) {
+      context.commit("setDappOutputTab", payload);
+    },
+    setUsingDeployedContract(
+      context: ActionContext<any, any>,
+      payload: DeployedContract
+    ) {
+      context.commit("setUsingDeployedContract", payload);
     }
   }
 };

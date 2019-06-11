@@ -94,7 +94,7 @@ export default class Contracts extends Vue {
       provider.using !== ""
         ? provider.options[provider.using].url
         : provider.custom.url;
-    return new LityWeb3(new Web3.providers.HttpProvider(pUrl));
+    return new LityWeb3(new Web3.providers.HttpProvider(pUrl), "Lity");
   }
 
   deploy() {
@@ -112,16 +112,13 @@ export default class Contracts extends Vue {
     contract.new.apply(contract, params);
   }
 
-  deployed(txHash: string) {
-    const web3 = this.newLityWeb3();
-    web3.checkTx(txHash, (receipt: any) => {
-      this.$store.dispatch("deployed/pushContract", {
-        name: this.selectedContract,
-        abi: this.contract.abi,
-        address: receipt.contractAddress
-      });
-      this.$store.dispatch("events/setLityPanel", "Deployed");
+  deployed(receipt: any) {
+    this.$store.dispatch("deployed/pushContract", {
+      name: this.selectedContract,
+      abi: this.contract.abi,
+      address: receipt.contractAddress
     });
+    this.$store.dispatch("events/setLityPanel", "Deployed");
   }
 
   copyAbi(e: any) {
