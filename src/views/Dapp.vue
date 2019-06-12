@@ -93,7 +93,7 @@ var instance = contract.at("");
 
 document.querySelector("#s").addEventListener("click", function() {
   var n = window.prompt("Input the number:");
-  instance.set(n);
+  n && instance.set(n);
 });
 document.querySelector("#g").addEventListener("click", function() {
   console.log(instance.get().toString());

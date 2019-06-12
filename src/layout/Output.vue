@@ -31,10 +31,12 @@ export default class Output extends Vue {}
     display flex
     flex-direction column
     .tabs-content
-      flex-grow 1
+      display flex
+      flex 1
+      min-height 0
     .tabs-tabpane
-      height 100%
-      overflow-y scroll
+      flex 1
+      overflow scroll
       padding-right 20px
 </style>
 
