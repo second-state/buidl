@@ -256,8 +256,8 @@ self.__precacheManifest = [
     "url": "/html.worker.js"
   },
   {
-    "revision": "5613df0d535e551fc710",
-    "url": "/js/app.dda50c1c.js"
+    "revision": "245e83c82c7baa9d5da6",
+    "url": "/js/app.a515605c.js"
   },
   {
     "revision": "c39cbd4c3cd0ec463bac",
@@ -268,11 +268,11 @@ self.__precacheManifest = [
     "url": "/icon.svg"
   },
   {
-    "revision": "5ebe0cb59c2d182369b07b601b58bc00",
+    "revision": "00e811e18b65c68e216196ff89eab3fe",
     "url": "/index.html"
   },
   {
-    "revision": "32262d9de02c6822c852ef272af6e46c",
+    "revision": "8c23dfc925dd7717c26a9ee834a2150c",
     "url": "/dapp-frame.html"
   },
   {
@@ -280,8 +280,8 @@ self.__precacheManifest = [
     "url": "/css/chunk-vendors.74f1fff1.css"
   },
   {
-    "revision": "5613df0d535e551fc710",
-    "url": "/css/app.73c76d20.css"
+    "revision": "245e83c82c7baa9d5da6",
+    "url": "/css/app.42ff82de.css"
   },
   {
     "revision": "32a7fe2662f3910fa27e81215e426fb4",

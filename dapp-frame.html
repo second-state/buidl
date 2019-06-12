@@ -20,7 +20,7 @@
         const cnsl = window.parent.cnsl;
 
         console.error = function (error) {
-          cnsl(error.toString() + error.stack, "error");
+          cnsl(error.toString(), "error");
           originalError.apply(console, arguments);
         };
         console.log = function (...args) {
