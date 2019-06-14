@@ -27,6 +27,11 @@
         <button @click="deploy">
           <span class="icon-cogs"></span> Deploy to the chain
         </button>
+        or
+      </div>
+      <div>
+        <input type="text" class="at-addr" v-model="atAddr" placeholder="0x" />
+        <button @click="at">At</button>
       </div>
       <div class="abi">
         <h4>ABI <span @click="copyAbi($event)">Copy</span></h4>
@@ -60,6 +65,7 @@ import LityWeb3 from "@/services/web3";
 })
 export default class Contracts extends Vue {
   private selectedContract: string = "";
+  private atAddr: string = "";
 
   get contractNames() {
     let names: string[] = [];
@@ -121,6 +127,19 @@ export default class Contracts extends Vue {
     this.$store.dispatch("events/setLityPanel", "Deployed");
   }
 
+  at() {
+    if (/^0x[0-9a-zA-Z]{40}$/g.test(this.atAddr)) {
+      this.$store.dispatch("deployed/pushContract", {
+        name: this.selectedContract,
+        abi: this.contract.abi,
+        address: this.atAddr
+      });
+      this.$store.dispatch("events/setLityPanel", "Deployed");
+    } else {
+      alert("Invalid address");
+    }
+  }
+
   copyAbi(e: any) {
     this.copy("abi", e);
   }
@@ -178,6 +197,9 @@ export default class Contracts extends Vue {
       margin-bottom 0.5em
       input
         font-size 0.8em
+  .at-addr
+    margin 0.5em 0
+    font-size 0.8em
 </style>
 
 <style lang="stylus">

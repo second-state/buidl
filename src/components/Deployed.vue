@@ -93,7 +93,7 @@ export default class Deployed extends Vue {
           .value
       );
     }
-
+    this.$store.dispatch(`events/setLityOutputTab`, "logs");
     const web3 = this.newLityWeb3();
     const contract = web3.lity.contract(deployedContract.abi);
     const instance = contract.at(deployedContract.address);
