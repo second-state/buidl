@@ -24,7 +24,7 @@
             >
               <input
                 type="text"
-                :ref="`${c.address}_${input.name}`"
+                :ref="`${c.address}_${abi.name}_${input.name}`"
                 :placeholder="input.name"
               />
             </div>
@@ -120,8 +120,11 @@ export default class Deployed extends Vue {
     let params = [];
     for (let input of deployedContract.abi[aIndex].inputs) {
       params.push(
-        (this.$refs[`${deployedContract.address}_${input.name}`] as any)[0]
-          .value
+        (this.$refs[
+          `${deployedContract.address}_${deployedContract.abi[aIndex].name}_${
+            input.name
+          }`
+        ] as any)[0].value
       );
     }
 
