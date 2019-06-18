@@ -83,46 +83,7 @@ export default class Dapp extends Vue {
   showRender = false;
   renderFrame: HTMLIFrameElement | undefined;
 
-  editorData: any = {
-    js: {
-      model: monaco.editor.createModel(
-        `/* Don't modify */
-var contract = web3.lity.contract();
-var instance = contract.at("");
-/* Don't modify */
-
-document.querySelector("#s").addEventListener("click", function() {
-  var n = window.prompt("Input the number:");
-  n && instance.set(n);
-});
-document.querySelector("#g").addEventListener("click", function() {
-  console.log(instance.get().toString());
-});`,
-        "javascript"
-      ),
-      state: null
-    },
-    css: {
-      model: monaco.editor.createModel(
-        `button {
-  background-color: #000;
-  color: #fff;
-  border: 0;
-  font-size: 1em;
-}`,
-        "css"
-      ),
-      state: null
-    },
-    html: {
-      model: monaco.editor.createModel(
-        `<button id="s">Set Data</button>
-<button id="g">Get Data</button>`,
-        "html"
-      ),
-      state: null
-    }
-  };
+  editorData: any;
 
   currentEditorTab = "html";
 
@@ -156,6 +117,50 @@ document.querySelector("#g").addEventListener("click", function() {
     (window as any).web3 = this.newLityWeb3();
     (window as any).cnsl = this.cnsl;
 
+    const jsText =
+      this.$store.state.editor.text.js ||
+      `/* Don't modify */
+var contract = web3.lity.contract();
+var instance = contract.at("");
+/* Don't modify */
+
+document.querySelector("#s").addEventListener("click", function() {
+  var n = window.prompt("Input the number:");
+  n && instance.set(n);
+});
+document.querySelector("#g").addEventListener("click", function() {
+  console.log(instance.get().toString());
+});`;
+
+    const cssText =
+      this.$store.state.editor.text.css ||
+      `button {
+  background-color: #000;
+  color: #fff;
+  border: 0;
+  font-size: 1em;
+}`;
+
+    const htmlText =
+      this.$store.state.editor.text.html ||
+      `<button id="s">Set Data</button>
+<button id="g">Get Data</button>`;
+
+    this.editorData = {
+      js: {
+        model: monaco.editor.createModel(jsText, "javascript"),
+        state: null
+      },
+      css: {
+        model: monaco.editor.createModel(cssText, "css"),
+        state: null
+      },
+      html: {
+        model: monaco.editor.createModel(htmlText, "html"),
+        state: null
+      }
+    };
+
     this.monacoEditor = monaco.editor.create(
       document.getElementById("dapp-editor") as HTMLElement,
       {
@@ -166,6 +171,17 @@ document.querySelector("#g").addEventListener("click", function() {
         }
       }
     );
+
+    this.monacoEditor.onDidBlurEditorText(() => {
+      const cap =
+        this.currentEditorTab.charAt(0).toUpperCase() +
+        this.currentEditorTab.substring(1);
+      console.log(cap);
+      this.$store.dispatch(
+        `editor/set${cap}`,
+        (this.monacoEditor as monaco.editor.IStandaloneCodeEditor).getValue()
+      );
+    });
 
     this.$store.watch(
       () => {

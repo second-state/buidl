@@ -7,6 +7,7 @@ import Outputs from "@/modules/outputs";
 import Wallet from "@/modules/wallet";
 import Contracts from "@/modules/contracts";
 import Deployed from "@/modules/deployed";
+import Editor from "@/modules/editor";
 
 Vue.use(Vuex);
 
@@ -19,7 +20,8 @@ export default new Vuex.Store({
         "prefs.site",
         "prefs.web3Provider.using",
         "prefs.web3Provider.custom",
-        "wallet"
+        "wallet",
+        "editor.text"
       ]
     })
   ],
@@ -29,6 +31,7 @@ export default new Vuex.Store({
     outputs: Outputs,
     wallet: Wallet,
     contracts: Contracts,
-    deployed: Deployed
+    deployed: Deployed,
+    editor: Editor
   }
 });
