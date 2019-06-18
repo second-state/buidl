@@ -10,12 +10,12 @@
         </div>
       </div>
       <div class="contract-actions" v-show="shownFuncs.indexOf(cIndex) > -1">
-        <div
-          class="contract-action"
-          v-for="(abi, aIndex) in c.abi"
-          :key="abi.name"
-        >
-          <div v-if="abi.type === 'function'">
+        <template v-for="(abi, aIndex) in c.abi">
+          <div
+            class="contract-action"
+            v-if="abi.type === 'function' && abi.name !== ''"
+            :key="abi.name"
+          >
             <h4>{{ abi.name }}</h4>
             <div
               class="action-input-item"
@@ -33,7 +33,7 @@
             </button>
             <button v-else @click="transact(cIndex, aIndex)">Transact</button>
           </div>
-        </div>
+        </template>
       </div>
     </div>
   </div>
@@ -189,6 +189,8 @@ export default class Deployed extends Vue {
       .contract-action
         padding 1em
         margin-bottom 1em
+        &:last-child
+          margin-bottom 0
       h4
         margin 0 0 1em
       .action-input-item

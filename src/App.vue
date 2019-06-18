@@ -3,19 +3,23 @@
     <SideBar />
 
     <Panel
-      v-if="
+      v-show="
         (site === 'lity' && lityPanel === 'Wallet') ||
           (site === 'dapp' && dappPanel === 'Wallet')
       "
     >
       <Wallet></Wallet>
     </Panel>
-    <Panel v-else-if="site === 'lity' && lityPanel !== ''">
-      <Deployed v-if="lityPanel === 'Deployed'"></Deployed>
-      <Contracts v-if="lityPanel === 'Contracts'"></Contracts>
+    <Panel
+      v-show="site === 'lity' && lityPanel !== 'Wallet' && lityPanel !== ''"
+    >
+      <Deployed v-show="lityPanel === 'Deployed'"></Deployed>
+      <Contracts v-show="lityPanel === 'Contracts'"></Contracts>
     </Panel>
-    <Panel v-else-if="site === 'dapp' && dappPanel !== ''">
-      <ContractApi v-if="dappPanel === 'ContractApi'"></ContractApi>
+    <Panel
+      v-show="site === 'dapp' && dappPanel !== 'Wallet' && dappPanel !== ''"
+    >
+      <ContractApi v-show="dappPanel === 'ContractApi'"></ContractApi>
     </Panel>
 
     <Lity v-show="site === 'lity'"></Lity>
