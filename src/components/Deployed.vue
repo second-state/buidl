@@ -89,8 +89,11 @@ export default class Deployed extends Vue {
     let params = [];
     for (let input of deployedContract.abi[aIndex].inputs) {
       params.push(
-        (this.$refs[`${deployedContract.address}_${input.name}`] as any)[0]
-          .value
+        (this.$refs[
+          `${deployedContract.address}_${deployedContract.abi[aIndex].name}_${
+            input.name
+          }`
+        ] as any)[0].value
       );
     }
     this.$store.dispatch(`events/setLityOutputTab`, "logs");
