@@ -176,7 +176,6 @@ document.querySelector("#g").addEventListener("click", function() {
       const cap =
         this.currentEditorTab.charAt(0).toUpperCase() +
         this.currentEditorTab.substring(1);
-      console.log(cap);
       this.$store.dispatch(
         `editor/set${cap}`,
         (this.monacoEditor as monaco.editor.IStandaloneCodeEditor).getValue()
