@@ -2,10 +2,10 @@
   <div class="node-pop">
     <h3>Set Provider Endpoint</h3>
     <select v-model="using">
-      <option value="">Customize</option>
       <option v-for="(opt, index) in options" :key="opt" :value="index">{{
         opt
       }}</option>
+      <option value="">Customize</option>
     </select>
     <input
       ref="customUrl"
@@ -25,6 +25,7 @@
       <span class="status-text" :class="status">
         {{ status }}
       </span>
+      <span v-if="status === 'accessible'">@Height {{ providerHeight }}</span>
     </div>
   </div>
 </template>
@@ -42,6 +43,8 @@ export default class NodePop extends Vue {
   public customUrl: string;
   public customChainId: string;
   private oldCustomUrl: String | undefined = undefined;
+  private providerHeight: any;
+  private checkCount: number = 0;
 
   constructor() {
     super();
@@ -77,13 +80,27 @@ export default class NodePop extends Vue {
   }
 
   reCheck() {
+    this.checkCount++;
     this.$store.dispatch("prefs/setWeb3ProviderStatus", "pending");
     const url =
       this.using !== ""
         ? this.$store.state.prefs.web3Provider.options[this.using].url
         : this.customUrl;
-    web3.checkProvider(url, (status: string) => {
-      this.$store.dispatch("prefs/setWeb3ProviderStatus", status);
+    this.doCheck(url, this.checkCount);
+  }
+
+  doCheck(url: string, cc: number) {
+    web3.checkProvider(url, (status: string, result: object) => {
+      if (cc === this.checkCount) {
+        this.$store.dispatch("prefs/setWeb3ProviderStatus", status);
+        if (status !== "invalid") {
+          this.providerHeight = result;
+          this.$forceUpdate();
+          setTimeout(() => {
+            this.doCheck(url, cc);
+          }, 10 * 1000);
+        }
+      }
     });
   }
 

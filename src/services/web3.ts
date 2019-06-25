@@ -13,7 +13,7 @@ export let web3 = {
       if (error) {
         return cb("unreachable");
       }
-      return cb("accessible");
+      return cb("accessible", result);
     });
   }
 };
@@ -26,8 +26,9 @@ function signTx(privateKey: string, nonce: Number, addr: string, data: string) {
       : provider.custom.chainId;
   const rawTx = {
     nonce: nonce,
-    gasPrice: "0x77359400",
-    gasLimit: "0x" + Number(10000000).toString(16),
+    // gasPrice: "0x77359400",
+    gasPrice: "0x00",
+    gasLimit: "0x" + Number(500000).toString(16),
     to: addr,
     value: 0,
     data: data,
