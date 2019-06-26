@@ -5,5 +5,6 @@ module.exports = {
     plugins: [
       new MonacoWebpackPlugin()
     ]
-  }
+  },
+  chainWebpack: config => config.resolve.symlinks(false)
 }

@@ -14,8 +14,8 @@ export default {
     web3Provider: {
       options: [
         {
-          url: "https://testnet-rpc.cybermiles.io:8545",
-          chainId: "19"
+          url: "https://devchain.secondstate.io:8545",
+          chainId: "27183"
         }
       ],
       using: "0",
