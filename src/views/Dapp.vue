@@ -63,7 +63,7 @@ import Tabs from "@/components/Tabs.vue";
 import TabPane from "@/components/TabPane.vue";
 import * as monaco from "monaco-editor";
 import ResizeBar from "@/components/ResizeBar.vue";
-import Web3 from "web3-cmt";
+import Web3 from "web3-ss";
 import LityWeb3 from "@/services/web3";
 
 @Component({

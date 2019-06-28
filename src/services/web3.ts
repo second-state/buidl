@@ -1,4 +1,4 @@
-import Web3 from "web3-cmt";
+import Web3 from "web3-ss";
 import Tx from "ethereumjs-tx";
 import store from "@/store";
 import Buffer from "safe-buffer";
@@ -9,7 +9,7 @@ export let web3 = {
       return cb("invalid");
     }
     const web3 = new Web3(new Web3.providers.HttpProvider(url));
-    web3.cmt.getBlockNumber((error: any, result: any) => {
+    web3.ss.getBlockNumber((error: any, result: any) => {
       if (error) {
         return cb("unreachable");
       }
@@ -44,7 +44,7 @@ const LityWeb3 = function(this: any, provider: any, type: string) {
   Web3.call(this, provider);
   this.type = type;
 
-  this.lity = this.cmt;
+  this.lity = this.ss;
 
   this.lity.sendTransaction = (transactionObject: any, callback?: Function) => {
     const from = store.state.wallet.default;
@@ -52,7 +52,6 @@ const LityWeb3 = function(this: any, provider: any, type: string) {
       alert("Please set the default wallet first.");
       return;
     }
-
     const nonce = this.lity.getTransactionCount(from.address);
     const s = signTx(
       from.privateKey,

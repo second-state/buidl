@@ -45,7 +45,7 @@
 </template>
 
 <script lang="ts">
-import Web3 from "web3-cmt";
+import Web3 from "web3-ss";
 import { Component, Vue } from "vue-property-decorator";
 import LityWeb3 from "@/services/web3";
 import { DeployedContract } from "@/modules/deployed";
