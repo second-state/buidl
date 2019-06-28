@@ -120,7 +120,7 @@ export default class Dapp extends Vue {
     const jsText =
       this.$store.state.editor.text.js ||
       `/* Don't modify */
-var contract = web3.lity.contract();
+var contract = web3.ss.contract();
 var instance = contract.at("");
 /* Don't modify */
 
@@ -202,7 +202,7 @@ document.querySelector("#g").addEventListener("click", function() {
         value = value.replace(
           /\/\* Don't modify \*\/[\s\S.]*\/\* Don't modify \*\//g,
           `/* Don't modify */
-var contract = web3.lity.contract(${JSON.stringify(c.abi)});
+var contract = web3.ss.contract(${JSON.stringify(c.abi)});
 var instance = contract.at('${c.address}');
 /* Don't modify */`
         );
