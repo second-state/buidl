@@ -28,7 +28,7 @@ function signTx(privateKey: string, nonce: Number, addr: string, data: string) {
     nonce: nonce,
     // gasPrice: "0x77359400",
     gasPrice: "0x00",
-    gasLimit: "0x" + Number(500000).toString(16),
+    gasLimit: "0x" + Number(8192000000).toString(16),
     to: addr,
     value: 0,
     data: data,
