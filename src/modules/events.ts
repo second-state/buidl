@@ -10,6 +10,7 @@ export default {
     compilerReady: false,
     lityOutputTab: "problems",
     dappOutputTab: "console",
+    firstDeployedContract: undefined, // to enable auto injection of contract info within js
     usingDeployedContract: undefined
   },
   mutations: {
@@ -30,6 +31,9 @@ export default {
     },
     setDappOutputTab(state: any, content: string) {
       state.dappOutputTab = content;
+    },
+    setFirstDeployedContract(state: any, content: DeployedContract) {
+      state.firstDeployedContract = content;
     },
     setUsingDeployedContract(state: any, content: DeployedContract) {
       state.usingDeployedContract = content;
@@ -59,6 +63,12 @@ export default {
       payload: DeployedContract
     ) {
       context.commit("setUsingDeployedContract", payload);
+    },
+    setFirstDeployedContract(
+      context: ActionContext<any, any>,
+      payload: DeployedContract
+    ) {
+      context.commit("setFirstDeployedContract", payload);
     }
   }
 };

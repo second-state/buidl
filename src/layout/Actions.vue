@@ -32,6 +32,10 @@ export default class Actions extends Vue {}
       cursor not-allowed
     [class^="icon-"]
       margin-right 0.5em
+    &:hover
+      label
+        cursor pointer
+        box-shadow 0 1px 0px 0px $color
 </style>
 
 <style lang="stylus">
@@ -43,4 +47,7 @@ body.dark-theme
     button
       &:disabled
         color rgba($color, 0.5)
+      &:hover
+        label
+          box-shadow 0 1px 0px 0px $color
 </style>

@@ -197,7 +197,7 @@ Vue.directive("click-outside", {
   display flex
   flex-direction column
   min-width $sideBarWidth
-  padding-top $sideBarWidth
+  padding-top $sideBarWidth * 2
   background-color #454545
   .side-btn
     background-color transparent

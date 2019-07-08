@@ -1,7 +1,10 @@
 <template>
   <Operating>
     <Actions>
-      <button @click="run"><span class="icon-play3"></span>Run</button>
+      <button @click="run">
+        <span class="icon-play3"></span>
+        <label>Run</label>
+      </button>
       <button
         class="editor-tab"
         :class="currentEditorTab === 'html' ? 'selected' : ''"
@@ -121,7 +124,7 @@ export default class Dapp extends Vue {
       this.$store.state.editor.text.js ||
       `/* Don't modify */
 var contract = web3.ss.contract();
-var instance = contract.at("");
+var instance = contract.at('');
 /* Don't modify */
 
 document.querySelector("#s").addEventListener("click", function() {
@@ -207,6 +210,23 @@ var instance = contract.at('${c.address}');
 /* Don't modify */`
         );
         this.editorData.js.model.setValue(value);
+      }
+    );
+
+    /*
+      auto inject the very first deployed contract info into js
+      only when the code has not been modified
+    */
+    this.$store.watch(
+      () => {
+        return this.$store.state.events.firstDeployedContract;
+      },
+      c => {
+        const initCodeRegex = /\/\* Don't modify \*\/[\s\S]*var contract = web3\.ss\.contract\(\);[\s\S]*var instance = contract.at\(''\);[\s\S]*\/\* Don't modify \*\//g;
+        const value = this.editorData.js.model.getValue();
+        if (initCodeRegex.test(value)) {
+          this.$store.dispatch("events/setUsingDeployedContract", c);
+        }
       }
     );
 

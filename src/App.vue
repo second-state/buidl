@@ -65,6 +65,29 @@ export default {
   },
   methods: {
     ...mapActions("prefs", ["toggleTheme"])
+  },
+  created() {
+    /*
+      config provider via url search
+    */
+    const s = window.location.search;
+    if (s && s.indexOf("?") == 0) {
+      let q = new Object();
+      const qs = s.substring(1).split("&");
+      for (let i = 0; i < qs.length; i++) {
+        const qss = qs[i].split("=");
+        if (qss.length === 2) {
+          q[qss[0]] = qss[1] && decodeURIComponent(qss[1]);
+        }
+      }
+      if (q["web3_provider"]) {
+        this.$store.dispatch("prefs/setWeb3ProviderCustom", {
+          url: q["web3_provider"],
+          chainId: q["web3_chainId"] || ""
+        });
+        this.$store.dispatch("prefs/setWeb3ProviderUsing", "");
+      }
+    }
   }
 };
 </script>

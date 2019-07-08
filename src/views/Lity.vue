@@ -3,7 +3,7 @@
     <Actions>
       <button @click="compile" :disabled="!$store.state.events.compilerReady">
         <span class="icon-wrench"></span>
-        Compile
+        <label>Compile</label>
       </button>
     </Actions>
     <Editor>

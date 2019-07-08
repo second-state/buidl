@@ -119,21 +119,29 @@ export default class Contracts extends Vue {
   }
 
   deployed(receipt: any) {
-    this.$store.dispatch("deployed/pushContract", {
+    const c = {
       name: this.selectedContract,
       abi: this.contract.abi,
       address: receipt.contractAddress
-    });
+    };
+    if (this.$store.state.deployed.contracts.length == 0) {
+      this.$store.dispatch("events/setFirstDeployedContract", c);
+    }
+    this.$store.dispatch("deployed/pushContract", c);
     this.$store.dispatch("events/setLityPanel", "Deployed");
   }
 
   at() {
     if (/^0x[0-9a-zA-Z]{40}$/g.test(this.atAddr)) {
-      this.$store.dispatch("deployed/pushContract", {
+      const c = {
         name: this.selectedContract,
         abi: this.contract.abi,
         address: this.atAddr
-      });
+      };
+      if (this.$store.state.deployed.contracts.length == 0) {
+        this.$store.dispatch("events/setFirstDeployedContract", c);
+      }
+      this.$store.dispatch("deployed/pushContract", c);
       this.$store.dispatch("events/setLityPanel", "Deployed");
     } else {
       alert("Invalid address");

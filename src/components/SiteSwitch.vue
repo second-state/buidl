@@ -1,24 +1,19 @@
 <template>
   <div class="site-switch">
-    <div
-      class="site-wrapper"
-      @mouseenter="hover = true"
-      @mouseleave="hover = false"
-      :class="{ hover: hover }"
-    >
+    <div class="site-wrapper">
       <div
         class="site site-lity"
         :class="{ shown: site === 'lity' }"
         @click="switchSite('lity')"
       >
-        Lity
+        C<sub>contract</sub>
       </div>
       <div
         class="site site-dapp"
         :class="{ shown: site === 'dapp' }"
         @click="switchSite('dapp')"
       >
-        Dapp
+        D<sub>dapp</sub>
       </div>
     </div>
   </div>
@@ -26,11 +21,6 @@
 
 <script>
 export default {
-  data: () => {
-    return {
-      hover: false
-    };
-  },
   computed: {
     site() {
       return this.$store.state.prefs.site;
@@ -54,34 +44,39 @@ export default {
 .site-switch
   position absolute
   top 0
-  overflow-y hidden
 
   .site-wrapper
     display inline-block
     font-family 'Baloo Bhai', Helvetica, Arial, sans-serif !important
-    font-size 1.5em
-    line-height $sideBarWidth
+    font-size 1.7em
+    height $sideBarWidth
     width $sideBarWidth
     .site
       position absolute
-      top - $sideBarWidth
+      top $sideBarWidth
       width 100%
-      color #ffffff
+      height $sideBarWidth
+      color rgba(#ffffff, 0.4)
       text-align center
       cursor pointer
-      transition top 0.4s
+      transition all 0.2s
       &.shown
+        color #ffffff
         position relative
         top 0
         z-index 1
-    &.hover
-      .site
-        top 0
-        &.shown
-          top $sideBarWidth
+      &:hover
+        color #ffffff
+      sub
+        display block
+        font-size 0.5em
 
     .site-lity
-      background-color $red
+      background-color rgba($red, 0.4)
+      &.shown, &:hover
+        background-color $red
     .site-dapp
-      background-color $green
+      background-color rgba($green, 0.4)
+      &.shown, &:hover
+        background-color $green
 </style>
