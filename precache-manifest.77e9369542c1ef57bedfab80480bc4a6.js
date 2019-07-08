@@ -4,7 +4,7 @@ self.__precacheManifest = [
     "url": "/js/chunk-2d0ea098-legacy.bdff2097.js"
   },
   {
-    "revision": "3a65358e1d65da202bf8bd8ce9e07208",
+    "revision": "ed935e1f5eea17ae96e1e2df632626b3",
     "url": "/index.html"
   },
   {
