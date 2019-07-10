@@ -68,6 +68,7 @@ import * as monaco from "monaco-editor";
 import ResizeBar from "@/components/ResizeBar.vue";
 import Web3 from "web3-ss";
 import LityWeb3 from "@/services/web3";
+const ES = require("@/modules/es-ss.js");
 
 @Component({
   components: {
@@ -104,6 +105,15 @@ export default class Dapp extends Vue {
     return new LityWeb3(new Web3.providers.HttpProvider(pUrl), "Dapp");
   }
 
+  newEs() {
+    const provider = this.$store.state.prefs.esProvider;
+    const pUrl =
+      provider.using !== ""
+        ? provider.options[provider.using].url
+        : provider.custom.url;
+    return new ES(pUrl);
+  }
+
   cnsl(s: string, type?: string) {
     if (type === "error") {
       this.$store.dispatch(
@@ -117,7 +127,6 @@ export default class Dapp extends Vue {
   }
 
   mounted() {
-    (window as any).web3 = this.newLityWeb3();
     (window as any).cnsl = this.cnsl;
 
     const jsText =
@@ -238,6 +247,9 @@ var instance = contract.at('${c.address}');
   }
 
   run() {
+    (window as any).web3 = this.newLityWeb3();
+    (window as any).esss = this.newEs();
+
     (window as any).htmlSrc = this.editorData.html.model.getValue();
     (window as any).cssSrc = this.editorData.css.model.getValue();
     (window as any).jsSrc = this.editorData.js.model.getValue();

@@ -90,7 +90,7 @@ LityWeb3.prototype.checkTx = function(hash: string, callback?: Function) {
     } else if (!receipt) {
       setTimeout(() => {
         this.checkTx(hash, callback);
-      }, 10000);
+      }, store.state.prefs.web3Provider.checkInterval);
     } else {
       if (receipt.status === "0x1") {
         store.dispatch(

@@ -87,6 +87,12 @@ export default {
         });
         this.$store.dispatch("prefs/setWeb3ProviderUsing", "");
       }
+      if (q["es_provider"]) {
+        this.$store.dispatch("prefs/setESProviderCustom", {
+          url: q["es_provider"]
+        });
+        this.$store.dispatch("prefs/setESProviderUsing", "");
+      }
     }
   }
 };

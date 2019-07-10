@@ -20,6 +20,8 @@ export default new Vuex.Store({
         "prefs.site",
         "prefs.web3Provider.using",
         "prefs.web3Provider.custom",
+        "prefs.esProvider.using",
+        "prefs.esProvider.custom",
         "wallet",
         "editor.text"
       ]

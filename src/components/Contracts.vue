@@ -59,6 +59,7 @@
 import Web3 from "web3-ss";
 import { Component, Vue } from "vue-property-decorator";
 import LityWeb3 from "@/services/web3";
+const ES = require("@/modules/es-ss.js");
 
 @Component({
   components: {}
@@ -103,6 +104,15 @@ export default class Contracts extends Vue {
     return new LityWeb3(new Web3.providers.HttpProvider(pUrl), "Lity");
   }
 
+  newEs() {
+    const provider = this.$store.state.prefs.esProvider;
+    const pUrl =
+      provider.using !== ""
+        ? provider.options[provider.using].url
+        : provider.custom.url;
+    return new ES(pUrl);
+  }
+
   deploy() {
     let params = [];
     for (let input of this.contractConstructorInputs) {
@@ -129,6 +139,8 @@ export default class Contracts extends Vue {
     }
     this.$store.dispatch("deployed/pushContract", c);
     this.$store.dispatch("events/setLityPanel", "Deployed");
+    const es = this.newEs();
+    es.submitAbi(JSON.stringify(this.contract.abi), receipt.transactionHash);
   }
 
   at() {

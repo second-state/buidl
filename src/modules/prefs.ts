@@ -5,6 +5,9 @@ export interface Web3Provider {
   url: string;
   chainId: string;
 }
+export interface ESProvider {
+  url: string;
+}
 
 export default {
   namespaced: true,
@@ -22,6 +25,19 @@ export default {
       custom: {
         url: "",
         chainId: ""
+      },
+      status: "pending",
+      checkInterval: 1 * 1000
+    },
+    esProvider: {
+      options: [
+        {
+          url: "https://cmt-testnet.search.secondstate.io"
+        }
+      ],
+      using: "0",
+      custom: {
+        url: ""
       },
       status: "pending"
     }
@@ -43,6 +59,15 @@ export default {
     },
     setWeb3ProviderStatus(state: any, status: string) {
       state.web3Provider.status = status;
+    },
+    setESProviderUsing(state: any, using: string) {
+      state.esProvider.using = using;
+    },
+    setESProviderCustom(state: any, custom: ESProvider) {
+      state.esProvider.custom = custom;
+    },
+    setESProviderStatus(state: any, status: string) {
+      state.esProvider.status = status;
     }
   },
   actions: {
@@ -63,6 +88,15 @@ export default {
     },
     setWeb3ProviderStatus(context: ActionContext<any, any>, payload: string) {
       context.commit("setWeb3ProviderStatus", payload);
+    },
+    setESProviderUsing(context: ActionContext<any, any>, payload: string) {
+      context.commit("setESProviderUsing", payload);
+    },
+    setESProviderCustom(context: ActionContext<any, any>, payload: ESProvider) {
+      context.commit("setESProviderCustom", payload);
+    },
+    setESProviderStatus(context: ActionContext<any, any>, payload: string) {
+      context.commit("setESProviderStatus", payload);
     }
   }
 };

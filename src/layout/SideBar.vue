@@ -158,6 +158,17 @@ export default class SideBar extends Vue {
         chainId: customChainId
       });
     }
+
+    const esUsing = (this.$refs.nodePop as any).esUsing;
+    if (esUsing !== this.$store.state.prefs.esProvider.using) {
+      this.$store.dispatch("prefs/setESProviderUsing", esUsing);
+    }
+    const esCustomUrl = (this.$refs.nodePop as any).esCustomUrl;
+    if (esCustomUrl !== this.$store.state.prefs.esProvider.customUrl) {
+      this.$store.dispatch("prefs/setESProviderCustom", {
+        url: esCustomUrl
+      });
+    }
   }
 
   toggleNodePop(e: any): void {

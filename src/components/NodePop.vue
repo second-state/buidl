@@ -1,44 +1,64 @@
 <template>
   <div class="node-pop">
-    <h3>Set Provider Endpoint</h3>
-    <select v-model="using">
-      <option v-for="(opt, index) in options" :key="opt" :value="index">{{
-        opt
-      }}</option>
-      <option value="">Customize</option>
-    </select>
-    <input
-      ref="customUrl"
-      placeholder="Your endpoint"
-      v-show="using === ''"
-      v-model="customUrl"
-      v-on:blur="reCheckCustom"
-    />
-    <input
-      ref="customChainId"
-      placeholder="Your chainId"
-      v-show="using === ''"
-      v-model="customChainId"
-    />
-    <div class="status">
-      <strong>Status: </strong>
-      <span class="status-text" :class="status">
-        {{ status }}
-      </span>
-      <span v-if="status === 'accessible'">@Height {{ providerHeight }}</span>
+    <div class="wrapper es-wrapper">
+      <h3>Set ES Provider Endpoint</h3>
+      <select v-model="esUsing">
+        <option v-for="(opt, index) in esOptions" :key="opt" :value="index">{{
+          opt
+        }}</option>
+        <option value="">Customize</option>
+      </select>
+      <input
+        ref="esCustomUrl"
+        placeholder="Your endpoint"
+        v-show="esUsing === ''"
+        v-model="esCustomUrl"
+      />
+    </div>
+
+    <div class="wrapper web3-wrapper">
+      <h3>Set Web3 Provider Endpoint</h3>
+      <select v-model="using">
+        <option v-for="(opt, index) in options" :key="opt" :value="index">{{
+          opt
+        }}</option>
+        <option value="">Customize</option>
+      </select>
+      <input
+        ref="customUrl"
+        placeholder="Your endpoint"
+        v-show="using === ''"
+        v-model="customUrl"
+        v-on:blur="reCheckCustom"
+      />
+      <input
+        ref="customChainId"
+        placeholder="Your chainId"
+        v-show="using === ''"
+        v-model="customChainId"
+      />
+      <div class="status">
+        <strong>Status: </strong>
+        <span class="status-text" :class="status">
+          {{ status }}
+        </span>
+        <span v-if="status === 'accessible'">@Height {{ providerHeight }}</span>
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { web3 } from "@/services/web3";
-import { Web3Provider } from "@/modules/prefs";
+import { Web3Provider, ESProvider } from "@/modules/prefs";
 import { Component, Vue, Watch } from "vue-property-decorator";
 
 @Component({
   components: {}
 })
 export default class NodePop extends Vue {
+  public esUsing: string;
+  public esCustomUrl: string;
   public using: string;
   public customUrl: string;
   public customChainId: string;
@@ -48,6 +68,8 @@ export default class NodePop extends Vue {
 
   constructor() {
     super();
+    this.esUsing = this.$store.state.prefs.esProvider.using;
+    this.esCustomUrl = this.$store.state.prefs.esProvider.custom.url;
     this.using = this.$store.state.prefs.web3Provider.using;
     this.customUrl = this.$store.state.prefs.web3Provider.custom.url;
     this.customChainId = this.$store.state.prefs.web3Provider.custom.chainId;
@@ -63,8 +85,23 @@ export default class NodePop extends Vue {
     );
   }
 
+  get esOptions() {
+    return this.$store.state.prefs.esProvider.options.map(
+      (c: ESProvider) => c.url
+    );
+  }
+
   created() {
     this.reCheck();
+  }
+
+  @Watch("esUsing")
+  changeESUsing(val: string) {
+    if (val === "") {
+      this.$nextTick().then(() => {
+        (this.$refs.esCustomUrl as HTMLElement).focus();
+      });
+    }
   }
 
   @Watch("using")
@@ -98,7 +135,7 @@ export default class NodePop extends Vue {
           this.$forceUpdate();
           setTimeout(() => {
             this.doCheck(url, cc);
-          }, 10 * 1000);
+          }, this.$store.state.prefs.web3Provider.checkInterval);
         }
       }
     });
@@ -119,25 +156,30 @@ export default class NodePop extends Vue {
 .node-pop
   position absolute
   width 400px
-  height 200px
-  padding 1rem
+  height 320px
   border 1px dashed alpha($color, 0.5)
   background-color $backgroundColor
   border-radius 4px
   z-index 2
-  top -140px
+  top -260px
   cursor default
   color $color
   font-size 1rem
   text-align left
+  display flex
+  flex-direction column
+  justify-content space-between
+  .wrapper
+    padding 1rem
+    &.web3-wrapper
+      background-color $minorBackgroundColor
   h3
     margin-top 0
     font-size 0.9em
   select
     margin-bottom 1em
   .status
-    position absolute
-    bottom 1em
+    margin-top 1em
     .status-text
       color gray
       text-transform capitalize
@@ -156,4 +198,7 @@ body.dark-theme
     border-color alpha($color, 0.5)
     background-color $backgroundColor
     color $color
+    .wrapper
+      &.web3-wrapper
+        background-color $minorBackgroundColor
 </style>
