@@ -32,7 +32,7 @@ export default {
     esProvider: {
       options: [
         {
-          url: "https://cmt-testnet.search.secondstate.io"
+          url: "https://devchain-es.secondstate.io"
         }
       ],
       using: "0",
