@@ -113,8 +113,13 @@ contract SimpleStorage {
   compile() {
     if (this.monacoEditor) {
       const result = compiler.compile(this.monacoEditor.getValue());
-      if (result.error) {
-        alert(result.error.formattedMessage);
+      if (result.errors) {
+        for (let i = 0; i < result.errors.length; i++) {
+          this.$store.dispatch(
+            "outputs/pushProblems",
+            (result.errors[i] as any).formattedMessage
+          );
+        }
         return;
       }
       this.$store.dispatch(
