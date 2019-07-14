@@ -21,7 +21,16 @@
     <button
       class="side-btn"
       :class="dappPanel === 'ContractApi' ? 'side-btn-active' : ''"
-      v-else
+      v-if="site === 'dapp'"
+      @click="toggleContractApiPanel"
+      style="display: none;"
+    >
+      <span class="icon-magic-wand"></span>
+    </button>
+    <button
+      class="side-btn"
+      :class="dappPanel === 'ContractApi' ? 'side-btn-active' : ''"
+      v-if="site === 'dapp'"
       @click="toggleContractApiPanel"
     >
       <span class="icon-clipboard"></span>

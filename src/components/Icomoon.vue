@@ -11,6 +11,7 @@ icon-equalizer2 = "\e993"
 icon-cogs = "\e995"
 icon-clipboard = "\e9b8"
 icon-play3 = "\ea1c"
+icon-magic-wand = "\e997"
 
 @font-face
   font-family 'icomoon'
@@ -61,4 +62,7 @@ icon-play3 = "\ea1c"
 .icon-play3
   &:before
     content icon-play3
+.icon-magic-wand
+  &:before
+    content icon-magic-wand
 </style>
