@@ -66,13 +66,15 @@ const LityWeb3 = function(this: any, provider: any, type: string) {
           `outputs/push${type}Logs`,
           `<span class="error">${err}</span>`
         );
+        callback && callback(err);
         return;
       }
       store.dispatch(
         `outputs/push${type}Logs`,
         `Tx has been sent, waiting for comfirmation...`
       );
-      this.checkTx(hash, callback);
+      callback && callback(null, hash);
+      this.checkTx(hash);
     });
   };
 } as any;
@@ -80,7 +82,7 @@ const LityWeb3 = function(this: any, provider: any, type: string) {
 LityWeb3.prototype = Object.create(Web3.prototype);
 LityWeb3.prototype.constructor = LityWeb3;
 
-LityWeb3.prototype.checkTx = function(hash: string, callback?: Function) {
+LityWeb3.prototype.checkTx = function(hash: string) {
   this.lity.getTransactionReceipt(hash, (err: any, receipt: any) => {
     if (err) {
       store.dispatch(
@@ -89,7 +91,7 @@ LityWeb3.prototype.checkTx = function(hash: string, callback?: Function) {
       );
     } else if (!receipt) {
       setTimeout(() => {
-        this.checkTx(hash, callback);
+        this.checkTx(hash);
       }, store.state.prefs.web3Provider.checkInterval);
     } else {
       if (receipt.status === "0x1") {
@@ -97,7 +99,6 @@ LityWeb3.prototype.checkTx = function(hash: string, callback?: Function) {
           `outputs/push${this.type}Logs`,
           `${hash} <span class="success">Success</span>`
         );
-        callback && callback(receipt);
       } else {
         store.dispatch(
           `outputs/push${this.type}Logs`,
