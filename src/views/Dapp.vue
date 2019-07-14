@@ -256,7 +256,11 @@ var instance = contract.at('${c.address}');
   }
 
   run() {
-    (window as any).web3 = this.newLityWeb3();
+    const web3 = this.newLityWeb3();
+    web3.ss.getAccounts = (cb: Function) => {
+      cb(null, [this.$store.state.wallet.default.address]);
+    };
+    (window as any).web3 = web3;
     (window as any).esss = this.newEs();
 
     (window as any).htmlSrc = this.editorData.html.model.getValue();
