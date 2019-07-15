@@ -6,17 +6,21 @@
       :class="lityPanel === 'Deployed' ? 'side-btn-active' : ''"
       v-if="site === 'lity'"
       @click="toggleDeployedPanel"
+      title="Deployed Contracts"
     >
       <span :class="deployedContracts > 0 ? 'icon-drawer' : 'icon-drawer2'">
       </span>
+      <label>Deployed</label>
     </button>
     <button
       class="side-btn"
       :class="lityPanel === 'Contracts' ? 'side-btn-active' : ''"
       v-if="site === 'lity'"
       @click="toggleContractsPanel"
+      title="Compiled Contracts"
     >
       <span class="icon-file-play"></span>
+      <label>Compiled</label>
     </button>
     <button
       class="side-btn"
@@ -32,8 +36,10 @@
       :class="dappPanel === 'ContractApi' ? 'side-btn-active' : ''"
       v-if="site === 'dapp'"
       @click="toggleContractApiPanel"
+      title="Deployed Contracts"
     >
       <span class="icon-clipboard"></span>
+      <label>Deployed</label>
     </button>
     <div class="bottom">
       <button
@@ -45,16 +51,20 @@
             : ''
         "
         @click="toggleWalletPanel"
+        title="Manage Signatures"
       >
         <span class="icon-pen"></span>
+        <label>Signatures</label>
       </button>
       <button
         class="side-btn web3-provider"
         :class="providerStatus"
         v-click-outside="hideNodePop"
         @click="toggleNodePop"
+        title="Manage Providers"
       >
         <span class="icon-power"></span>
+        <label>Providers</label>
         <NodePop ref="nodePop" v-show="showNodePop" />
       </button>
       <Switcher size="small" @onChange="toggleTheme" :value="dt" />
@@ -220,6 +230,7 @@ Vue.directive("click-outside", {
   padding-top $sideBarWidth * 2
   background-color #454545
   .side-btn
+    position relative
     background-color transparent
     border 0
     box-shadow none
@@ -236,6 +247,13 @@ Vue.directive("click-outside", {
         color #008000
       &.unreachable
         color #f00
+    label
+      font-size 0.6rem
+      display block
+      position absolute
+      width 100%
+      text-align center
+      left 0
   .bottom
     position absolute
     bottom 0

@@ -161,7 +161,7 @@ export default class NodePop extends Vue {
   background-color $backgroundColor
   border-radius 4px
   z-index 2
-  top -260px
+  top -320px
   cursor default
   color $color
   font-size 1rem
