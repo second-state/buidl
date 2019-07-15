@@ -128,11 +128,18 @@ export default class Contracts extends Vue {
     contract.new.apply(contract, params);
   }
 
-  deployed(receipt: any) {
+  deployed(err: any, contract: any) {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    if (!contract.address) {
+      return;
+    }
     const c = {
       name: this.selectedContract,
       abi: this.contract.abi,
-      address: receipt.contractAddress
+      address: contract.address
     };
     if (this.$store.state.deployed.contracts.length == 0) {
       this.$store.dispatch("events/setFirstDeployedContract", c);
@@ -142,7 +149,7 @@ export default class Contracts extends Vue {
     const es = this.newEs();
     es.submitAbi(
       JSON.stringify(this.contract.abi),
-      receipt.transactionHash
+      contract.transactionHash
     ).then((result: any) => {
       console.log(result);
     });
