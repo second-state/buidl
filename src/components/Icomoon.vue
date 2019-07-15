@@ -12,6 +12,7 @@ icon-cogs = "\e995"
 icon-clipboard = "\e9b8"
 icon-play3 = "\ea1c"
 icon-magic-wand = "\e997"
+icon-copy = "\e92c"
 
 @font-face
   font-family 'icomoon'
@@ -65,4 +66,7 @@ icon-magic-wand = "\e997"
 .icon-magic-wand
   &:before
     content icon-magic-wand
+.icon-copy
+  &:before
+    content icon-copy
 </style>

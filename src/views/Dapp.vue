@@ -5,27 +5,33 @@
         <span class="icon-play3"></span>
         <label>Run</label>
       </button>
-      <button
-        class="editor-tab"
-        :class="currentEditorTab === 'html' ? 'selected' : ''"
-        @click="switchTab('html')"
-      >
-        HTML
+      <button @click="copy">
+        <span class="icon-copy"></span>
+        <label>Copy</label>
       </button>
-      <button
-        class="editor-tab"
-        :class="currentEditorTab === 'css' ? 'selected' : ''"
-        @click="switchTab('css')"
-      >
-        CSS
-      </button>
-      <button
-        class="editor-tab"
-        :class="currentEditorTab === 'js' ? 'selected' : ''"
-        @click="switchTab('js')"
-      >
-        JS
-      </button>
+      <div class="editor-tabs">
+        <button
+          class="editor-tab"
+          :class="currentEditorTab === 'html' ? 'selected' : ''"
+          @click="switchTab('html')"
+        >
+          HTML
+        </button>
+        <button
+          class="editor-tab"
+          :class="currentEditorTab === 'css' ? 'selected' : ''"
+          @click="switchTab('css')"
+        >
+          CSS
+        </button>
+        <button
+          class="editor-tab"
+          :class="currentEditorTab === 'js' ? 'selected' : ''"
+          @click="switchTab('js')"
+        >
+          JS
+        </button>
+      </div>
     </Actions>
     <div class="container">
       <section>
@@ -285,6 +291,17 @@ var instance = contract.at('${c.address}');
     }
   }
 
+  copy() {
+    if (this.monacoEditor) {
+      const ta = document.createElement("textarea");
+      ta.value = this.editorData[this.currentEditorTab].model.getValue();
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      ta.remove();
+    }
+  }
+
   switchTab(desiredModelId: string) {
     if (this.monacoEditor != undefined) {
       this.editorData[
@@ -303,9 +320,15 @@ var instance = contract.at('${c.address}');
 
 <style lang="stylus">
 @import "../assets/themes/light.styl"
+@import "../assets/var.styl"
 
+.editor-tabs
+  position absolute
+  left 50%
+  margin-left ((-3 * $sideBarWidth) / 2)
+  top 0
 .editor-tab.selected
-  background-color rgba($color, 0.2)
+    background-color rgba($color, 0.2)
 
 #dapp-editor
   position absolute

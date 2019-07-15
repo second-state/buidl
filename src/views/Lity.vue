@@ -5,6 +5,10 @@
         <span class="icon-wrench"></span>
         <label>Compile</label>
       </button>
+      <button @click="copy">
+        <span class="icon-copy"></span>
+        <label>Copy</label>
+      </button>
     </Actions>
     <Editor>
       <div id="lity-editor"></div>
@@ -128,6 +132,17 @@ contract SimpleStorage {
       );
       this.$store.dispatch("events/setLityPanel", "Contracts");
       this.$store.dispatch("events/triggerEditorResize");
+    }
+  }
+
+  copy() {
+    if (this.monacoEditor) {
+      const ta = document.createElement("textarea");
+      ta.value = this.monacoEditor.getValue();
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      ta.remove();
     }
   }
 }

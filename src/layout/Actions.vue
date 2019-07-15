@@ -18,6 +18,7 @@ export default class Actions extends Vue {}
 @import "../assets/var.styl"
 
 .actions
+  position relative
   font-size 1em
   line-height $sideBarWidth
   background-color $minorBackgroundColor
