@@ -1,4 +1,4 @@
-const Web3 = require("web3-ss");
+import Web3 from "web3-ss";
 import Tx from "ethereumjs-tx";
 import store from "@/store";
 import Buffer from "safe-buffer";
