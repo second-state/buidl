@@ -86,6 +86,7 @@ export default class ContractApi extends Vue {
 
   use(c: DeployedContract) {
     this.$store.dispatch("events/setUsingDeployedContract", c);
+    this.$store.dispatch("events/triggerReuseDeployedContract");
   }
 }
 </script>
