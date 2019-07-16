@@ -12,7 +12,8 @@ export default {
     dappOutputTab: "console",
     compiledContract: undefined,
     firstDeployedContract: undefined, // to enable auto injection of contract info within js
-    usingDeployedContract: undefined
+    usingDeployedContract: undefined,
+    reuseDeployedContract: 0 // used to trigger changing using as using not changed may be rerendered in JS panel
   },
   mutations: {
     triggerEditorResize(state: any) {
@@ -41,6 +42,9 @@ export default {
     },
     setUsingDeployedContract(state: any, content: DeployedContract) {
       state.usingDeployedContract = content;
+    },
+    triggerReuseDeployedContract(state: any) {
+      state.reuseDeployedContract++;
     }
   },
   actions: {
@@ -79,6 +83,9 @@ export default {
       payload: DeployedContract
     ) {
       context.commit("setCompiledContract", payload);
+    },
+    triggerReuseDeployedContract(context: ActionContext<any, any>) {
+      context.commit("triggerReuseDeployedContract");
     }
   }
 };

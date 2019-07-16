@@ -97,7 +97,7 @@ export default class Contracts extends Vue {
 
   @Watch("contract")
   onContractChange(contract: object, oldContract: object) {
-    if (this.$store.state.deployed.contracts.length == 0) {
+    if (contract && this.$store.state.deployed.contracts.length == 0) {
       const c = {
         abi: (contract as any).abi,
         bytecode: (contract as any).evm.bytecode.object,
