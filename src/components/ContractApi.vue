@@ -20,7 +20,11 @@
         </div>
       </div>
       <div class="contract-actions" v-show="shownFuncs.indexOf(cIndex) > -1">
-        <div class="contract-action" v-for="abi in c.abi" :key="abi.name">
+        <div
+          class="contract-action"
+          v-for="abi in c.abi"
+          :key="`${abi.name}_${abi.inputs.length}`"
+        >
           <div v-if="abi.type === 'function'">
             <h4 :class="abi.constant ? 'view' : ''">{{ abi.name }}</h4>
             <ul

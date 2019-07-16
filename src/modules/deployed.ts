@@ -3,6 +3,7 @@ import { ActionContext } from "vuex";
 export interface DeployedContract {
   name: string;
   abi: string;
+  bytecode: string;
   address: string;
 }
 

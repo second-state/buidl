@@ -51,10 +51,10 @@
             : ''
         "
         @click="toggleWalletPanel"
-        title="Manage Signatures"
+        title="Manage Accounts"
       >
         <span class="icon-pen"></span>
-        <label>Signatures</label>
+        <label>Accounts</label>
       </button>
       <button
         class="side-btn web3-provider"

@@ -57,7 +57,7 @@
 
 <script lang="ts">
 import Web3 from "web3-ss";
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
 import LityWeb3 from "@/services/web3";
 const ES = require("@/modules/es-ss.js");
 
@@ -93,6 +93,18 @@ export default class Contracts extends Vue {
       }
     }
     return [];
+  }
+
+  @Watch("contract")
+  onContractChange(contract: object, oldContract: object) {
+    if (this.$store.state.deployed.contracts.length == 0) {
+      const c = {
+        abi: (contract as any).abi,
+        bytecode: (contract as any).evm.bytecode.object,
+        address: ""
+      };
+      this.$store.dispatch("events/setCompiledContract", c);
+    }
   }
 
   newLityWeb3() {
@@ -139,6 +151,7 @@ export default class Contracts extends Vue {
     const c = {
       name: this.selectedContract,
       abi: this.contract.abi,
+      bytecode: this.contract.evm.bytecode.object,
       address: contract.address
     };
     if (this.$store.state.deployed.contracts.length == 0) {
@@ -160,6 +173,7 @@ export default class Contracts extends Vue {
       const c = {
         name: this.selectedContract,
         abi: this.contract.abi,
+        bytecode: this.contract.evm.bytecode.object,
         address: this.atAddr
       };
       if (this.$store.state.deployed.contracts.length == 0) {

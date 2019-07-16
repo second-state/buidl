@@ -1,8 +1,8 @@
 <template>
   <div class="wallet">
     <div class="sig-actions">
-      <h3>Signatures</h3>
-      <button @click="newSig" title="New Signature">+</button>
+      <h3>Accounts</h3>
+      <button @click="newSig" title="New Account">+</button>
     </div>
     <ul>
       <li class="sig-item" v-for="(sig, index) in allSigs" :key="sig.address">

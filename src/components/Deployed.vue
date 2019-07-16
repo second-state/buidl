@@ -14,7 +14,7 @@
           <div
             class="contract-action"
             v-if="abi.type === 'function' && abi.name !== ''"
-            :key="abi.name"
+            :key="`${abi.name}_${abi.inputs.length}`"
           >
             <h4>{{ abi.name }}</h4>
             <div

@@ -139,6 +139,7 @@ export default class Dapp extends Vue {
       this.$store.state.editor.text.js ||
       `/* Don't modify */
 var abi = [];
+var bytecode = '0x';
 var contract = web3.ss.contract(abi);
 var instance = contract.at('');
 /* Don't modify */
@@ -229,6 +230,7 @@ document.querySelector("#g").addEventListener("click", function() {
           /\/\* Don't modify \*\/[\s\S.]*\/\* Don't modify \*\//g,
           `/* Don't modify */
 var abi = ${JSON.stringify(c.abi)};
+var bytecode = '0x${c.bytecode}';
 var contract = web3.ss.contract(abi);
 var instance = contract.at('${c.address}');
 /* Don't modify */`
@@ -246,10 +248,32 @@ var instance = contract.at('${c.address}');
         return this.$store.state.events.firstDeployedContract;
       },
       c => {
-        const initCodeRegex = /\/\* Don't modify \*\/[\s\S]*var abi = \[\];[\s\S]*var contract = web3\.ss\.contract\(abi\);[\s\S]*var instance = contract.at\(''\);[\s\S]*\/\* Don't modify \*\//g;
+        const initCodeRegex = /\/\* Don't modify \*\/[\s\S]*var abi = \[.*\];[\s\S]*var bytecode = '0x.*';[\s\S]*var contract = web3\.ss\.contract\(abi\);[\s\S]*var instance = contract.at\(''\);[\s\S]*\/\* Don't modify \*\//g;
         const value = this.editorData.js.model.getValue();
         if (initCodeRegex.test(value)) {
           this.$store.dispatch("events/setUsingDeployedContract", c);
+        }
+      }
+    );
+
+    this.$store.watch(
+      () => {
+        return this.$store.state.events.compiledContract;
+      },
+      c => {
+        const initCodeRegex = /\/\* Don't modify \*\/[\s\S]*var abi = \[.*\];[\s\S]*var bytecode = '0x.*';[\s\S]*var contract = web3\.ss\.contract\(abi\);[\s\S]*var instance = contract.at\(''\);[\s\S]*\/\* Don't modify \*\//g;
+        let value = this.editorData.js.model.getValue();
+        if (initCodeRegex.test(value)) {
+          value = value.replace(
+            /\/\* Don't modify \*\/[\s\S.]*\/\* Don't modify \*\//g,
+            `/* Don't modify */
+var abi = ${JSON.stringify(c.abi)};
+var bytecode = '0x${c.bytecode}';
+var contract = web3.ss.contract(abi);
+var instance = contract.at('${c.address}');
+/* Don't modify */`
+          );
+          this.editorData.js.model.setValue(value);
         }
       }
     );
