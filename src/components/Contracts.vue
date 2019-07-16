@@ -160,11 +160,26 @@ export default class Contracts extends Vue {
     this.$store.dispatch("deployed/pushContract", c);
     this.$store.dispatch("events/setLityPanel", "Deployed");
     const es = this.newEs();
-    es.submitAbi(
-      JSON.stringify(this.contract.abi),
-      contract.transactionHash
-    ).then((result: any) => {
-      console.log(result);
+    const abis = {};
+    const abisLog = {};
+    let i = 0;
+    for (const n in this.$store.state.contracts.contracts) {
+      (abis as any)[i] = {
+        abi: this.$store.state.contracts.contracts[n].abi
+      };
+      (abisLog as any)[n] = {
+        abi: JSON.stringify(this.$store.state.contracts.contracts[n].abi)
+      };
+      ++i;
+    }
+    es.submitManyAbis(abis, contract.transactionHash).then((result: any) => {
+      this.$store.dispatch(
+        `outputs/pushLityLogs`,
+        `New abis were submitted to es: <br/>\
+        ${JSON.stringify(abisLog, null, "  ")
+          .replace(/\n/g, "<br/>")
+          .replace(/\s\s/g, "&nbsp;&nbsp;")}`
+      );
     });
   }
 
