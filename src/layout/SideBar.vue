@@ -27,9 +27,10 @@
       :class="dappPanel === 'ContractApi' ? 'side-btn-active' : ''"
       v-if="site === 'dapp'"
       @click="toggleContractApiPanel"
-      style="display: none;"
+      title="Manage 3rd Party Resources"
     >
       <span class="icon-magic-wand"></span>
+      <label>Resources</label>
     </button>
     <button
       class="side-btn"
@@ -61,9 +62,8 @@
         :class="providerStatus"
         v-click-outside="hideNodePop"
         @click="toggleNodePop"
-        title="Manage Providers"
       >
-        <span class="icon-power"></span>
+        <span class="icon-power" title="Manage Providers"></span>
         <label>Providers</label>
         <NodePop ref="nodePop" v-show="showNodePop" />
       </button>
