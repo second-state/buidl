@@ -24,9 +24,9 @@
     </button>
     <button
       class="side-btn"
-      :class="dappPanel === 'ContractApi' ? 'side-btn-active' : ''"
+      :class="dappPanel === 'Resources' ? 'side-btn-active' : ''"
       v-if="site === 'dapp'"
-      @click="toggleContractApiPanel"
+      @click="toggleResourcesPanel"
       title="Manage 3rd Party Resources"
     >
       <span class="icon-magic-wand"></span>
@@ -136,6 +136,15 @@ export default class SideBar extends Vue {
       this.$store.dispatch("events/setDappPanel", "");
     } else {
       this.$store.dispatch("events/setDappPanel", "ContractApi");
+    }
+    this.$store.dispatch("events/triggerEditorResize");
+  }
+
+  toggleResourcesPanel(): void {
+    if (this.$store.state.events.dappPanel === "Resources") {
+      this.$store.dispatch("events/setDappPanel", "");
+    } else {
+      this.$store.dispatch("events/setDappPanel", "Resources");
     }
     this.$store.dispatch("events/triggerEditorResize");
   }

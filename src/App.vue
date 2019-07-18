@@ -20,6 +20,7 @@
       v-show="site === 'dapp' && dappPanel !== 'Wallet' && dappPanel !== ''"
     >
       <ContractApi v-show="dappPanel === 'ContractApi'"></ContractApi>
+      <Resources v-show="dappPanel === 'Resources'"></Resources>
     </Panel>
 
     <Lity v-show="site === 'lity'"></Lity>
@@ -39,6 +40,7 @@ import Panel from "@/layout/Panel.vue";
 import Deployed from "@/components/Deployed.vue";
 import Contracts from "@/components/Contracts.vue";
 import ContractApi from "@/components/ContractApi.vue";
+import Resources from "@/components/Resources.vue";
 import Wallet from "@/components/Wallet.vue";
 
 export default {
@@ -50,6 +52,7 @@ export default {
     Deployed,
     Contracts,
     ContractApi,
+    Resources,
     Wallet
   },
   computed: {

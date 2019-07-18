@@ -299,6 +299,9 @@ var instance = contract.at('${c.address}');
     (window as any).cssSrc = this.editorData.css.model.getValue();
     (window as any).jsSrc = this.editorData.js.model.getValue();
 
+    (window as any).jsLibs = this.$store.state.resources.js;
+    (window as any).cssLibs = this.$store.state.resources.css;
+
     const showing = this.showRender;
     this.showRender = true;
     if (showing) {

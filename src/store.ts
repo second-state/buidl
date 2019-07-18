@@ -8,6 +8,7 @@ import Wallet from "@/modules/wallet";
 import Contracts from "@/modules/contracts";
 import Deployed from "@/modules/deployed";
 import Editor from "@/modules/editor";
+import Resources from "@/modules/resources";
 
 Vue.use(Vuex);
 
@@ -23,7 +24,8 @@ export default new Vuex.Store({
         "prefs.esProvider.using",
         "prefs.esProvider.custom",
         "wallet",
-        "editor.text"
+        "editor.text",
+        "resources"
       ]
     })
   ],
@@ -34,6 +36,7 @@ export default new Vuex.Store({
     wallet: Wallet,
     contracts: Contracts,
     deployed: Deployed,
-    editor: Editor
+    editor: Editor,
+    resources: Resources
   }
 });
