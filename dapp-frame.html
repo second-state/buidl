@@ -37,16 +37,49 @@
           originalInfo.apply(console, args);
         };
 
+        var head  = document.getElementsByTagName("head")[0];
+        for (let i = 0; i < window.parent.cssLibs.length; i++) {
+          var link  = document.createElement("link");
+          link.rel  = "stylesheet";
+          link.type = "text/css";
+          link.href = window.parent.cssLibs[i];
+          link.media = "all";
+          head.appendChild(link);
+        }
+
         document.body.innerHTML = window.parent.htmlSrc;
 
         var style = document.createElement("style");
         style.innerHTML = window.parent.cssSrc;
         document.body.appendChild(style);
 
-        var script = document.createElement("script");
-        script.type = "text/javascript";
-        script.innerHTML = window.parent.jsSrc;
-        document.body.appendChild(script);
+        let jsReadyCount = 0;
+        for (let i = 0; i < window.parent.jsLibs.length; i++) {
+          var script = document.createElement("script");
+          script.type = "text/javascript";
+          script.src = window.parent.jsLibs[i];
+          script.addEventListener("load", () => {
+            jsReadyCount++;
+          });
+          script.addEventListener("error", () => {
+            jsReadyCount++;
+          });
+          document.body.appendChild(script);
+        }
+
+        function launchJs() {
+          setTimeout(() => {
+            if (jsReadyCount === window.parent.jsLibs.length) {
+              var script = document.createElement("script");
+              script.type = "text/javascript";
+              script.innerHTML = window.parent.jsSrc;
+              document.body.appendChild(script);
+            } else {
+              launchJs();
+            }
+          }, 100);
+        }
+        launchJs();
       };
     </script>
   </body>
