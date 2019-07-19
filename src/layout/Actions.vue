@@ -37,6 +37,11 @@ export default class Actions extends Vue {}
       label
         cursor pointer
         box-shadow 0 1px 0px 0px $color
+    &.danger
+      color darken($red, 14)
+      &:hover
+        label
+          box-shadow 0 1px 0px 0px darken($red, 14)
 </style>
 
 <style lang="stylus">

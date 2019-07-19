@@ -9,6 +9,9 @@
         <span class="icon-copy"></span>
         <label>Copy</label>
       </button>
+      <button @click="reset" class="danger">
+        <label>Reset All</label>
+      </button>
       <div class="editor-tabs">
         <button
           class="editor-tab"
@@ -329,6 +332,13 @@ var instance = contract.at('${c.address}');
       document.execCommand("copy");
       ta.remove();
     }
+  }
+
+  reset() {
+    this.$store.dispatch("editor/setHtml", "");
+    this.$store.dispatch("editor/setJs", "");
+    this.$store.dispatch("editor/setCss", "");
+    window.location.reload();
   }
 
   switchTab(desiredModelId: string) {

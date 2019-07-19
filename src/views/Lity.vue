@@ -9,6 +9,9 @@
         <span class="icon-copy"></span>
         <label>Copy</label>
       </button>
+      <button @click="reset" class="danger">
+        <label>Reset</label>
+      </button>
     </Actions>
     <Editor>
       <div id="lity-editor"></div>
@@ -144,6 +147,11 @@ contract SimpleStorage {
       document.execCommand("copy");
       ta.remove();
     }
+  }
+
+  reset() {
+    this.$store.dispatch("editor/setLity", "");
+    window.location.reload();
   }
 }
 </script>
