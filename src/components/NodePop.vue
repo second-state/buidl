@@ -127,18 +127,24 @@ export default class NodePop extends Vue {
   }
 
   doCheck(url: string, cc: number) {
-    web3.checkProvider(url, (status: string, result: object) => {
-      if (cc === this.checkCount) {
-        this.$store.dispatch("prefs/setWeb3ProviderStatus", status);
-        if (status !== "invalid") {
-          this.providerHeight = result;
-          this.$forceUpdate();
-          setTimeout(() => {
-            this.doCheck(url, cc);
-          }, this.$store.state.prefs.web3Provider.checkInterval);
+    web3.checkProvider(
+      url,
+      cc,
+      (status: string, icc: number, result: object) => {
+        if (icc === this.checkCount) {
+          this.checkCount++;
+          icc = this.checkCount;
+          this.$store.dispatch("prefs/setWeb3ProviderStatus", status);
+          if (status !== "invalid") {
+            this.providerHeight = result;
+            this.$forceUpdate();
+            setTimeout(() => {
+              this.doCheck(url, icc);
+            }, this.$store.state.prefs.web3Provider.checkInterval);
+          }
         }
       }
-    });
+    );
   }
 
   reCheckCustom() {

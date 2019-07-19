@@ -4,16 +4,16 @@ import store from "@/store";
 import Buffer from "safe-buffer";
 
 export let web3 = {
-  checkProvider: function(url: string, cb: Function) {
+  checkProvider: function(url: string, cc: number, cb: Function) {
     if (!url || !/^http/i.test(url)) {
       return cb("invalid");
     }
     const web3 = new Web3(new Web3.providers.HttpProvider(url));
     web3.ss.getBlockNumber((error: any, result: any) => {
       if (error) {
-        return cb("unreachable");
+        return cb("unreachable", cc);
       }
-      return cb("accessible", result);
+      return cb("accessible", cc, result);
     });
   }
 };
