@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+    <title>Data Stores</title>
+  </head>
+  <body>
+    <div class="container">
+        <p><br/>The table shows on-chain storage contracts. You can create a new one, or change the number stored in an existing one. All actions are recorded on-chain as immutable history.</p>
+        <p><button id="create" class="btn btn-primary" onclick="create(this)">Create a new storage contract</button></p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Created</th>
+                    <th scope="col">Data</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+            </tbody>
+        </table>
+    </div>
+
+  </body>
+</html>

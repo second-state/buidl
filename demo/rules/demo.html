@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+    <title>Rule-based rebate</title>
+  </head>
+  <body>
+    <div class="container">
+        <p><br/>Rebate rules</p>
+        <ul>
+            <li>Purchases of $100 or more gets 5% rebate</li>
+            <li>Each purchase can only get one rebate</li>
+            <li>Max rebate is $100 per person</li>
+        </ul>
+        
+        <p>Use the <b>Add</b> button to add a purchase, and update the rebate.</p>
+        
+        <h3>Record for <span id="name"></span></h3>
+
+        <table class="table">
+            <tbody id="tbody">
+                <tr>
+                    <td>Purchases</td>
+                    <td id="purchase"></td>
+                    <td><button class='btn btn-info btn-sm' onclick='buy(this)'>Add</button></td>
+                </tr>
+                <tr>
+                    <td>Rebate</td>
+                    <td id="rebate"></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+  </body>
+</html>
