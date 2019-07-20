@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+    <title>Data Stores</title>
+  </head>
+  <body>
+    <div class="container">
+        <p><br/>The table shows a list of people. Use Add to record a purchase for a person, and then update to see the person's rebate.</p>
+        
+        <div class="form-group mx-sm-3 mb-2">
+          <input type="text" class="form-control" id="name" placeholder="Name">
+        </div>
+        <button class="btn btn-primary mb-2" id="create" onclick="create(this)">Add person</button>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Paid</th>
+                    <th scope="col">Rebate</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+            </tbody>
+        </table>
+    </div>
+
+  </body>
+</html>

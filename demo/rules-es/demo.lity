@@ -1,0 +1,44 @@
+pragma lity ^1.2.6;
+
+contract Person {
+    struct Purchase {
+        int price;
+        bool rebated;
+    }
+    struct Total {
+        int paid;
+        int rebate;
+    }
+    string name;
+    Purchase purchase;
+    Total total;
+
+    constructor (string _name) public {
+        name = _name;
+        total = Total (0,0);
+        factInsert total;
+    }
+
+    function buy (int _price) public {
+        purchase = Purchase (_price, false);
+        total.paid += _price;
+
+        uint256 idx = factInsert purchase;
+        fireAllRules;
+        factDelete idx;
+    }
+
+    function getInfo () view public returns (string, int, int) {
+        return (name, total.paid, total.rebate);
+    }
+
+    rule "computeRebate" when {
+        p: Purchase(price >= 100, !rebated);
+        t: Total(rebate < 100);
+    } then {
+        p.rebated = true;
+        t.rebate += p.price * 5 / 100;
+        update p;
+        update t;
+    }
+}
