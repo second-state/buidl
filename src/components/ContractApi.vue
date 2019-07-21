@@ -12,7 +12,7 @@
         "
         @click="use(c)"
       ></button>
-      <div class="addr">
+      <div class="addr" v-show="c.address" :title="c.address">
         {{ c.address }}
         <input :ref="`c${c.address}`" type="hidden" :value="c.address" />
         <div class="contract-op">

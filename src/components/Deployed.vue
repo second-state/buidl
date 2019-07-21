@@ -1,15 +1,28 @@
 <template>
   <div class="deployed-contracts">
     <div class="contract" v-for="(c, cIndex) in contracts" :key="c.address">
-      <h3 @click="toggleFuncs(cIndex)">{{ c.name }}</h3>
-      <div class="addr">
-        {{ c.address }}
+      <h3 @click="toggleFuncs(cIndex)" :class="c.address ? 'ready' : ''">
+        {{ c.name }}
+        <span class="pending" v-if="!c.address">(Pending)</span>
+      </h3>
+      <div class="tx-hash" v-show="c.txHash" :title="c.txHash">
+        <label>Tx:</label> {{ c.txHash }}
+        <input :ref="`c${c.txHash}`" type="hidden" :value="c.txHash" />
+        <div class="contract-op">
+          <a @click="copy(c.txHash, $event)">Copy</a>
+        </div>
+      </div>
+      <div class="addr" v-show="c.address" :title="c.address">
+        <label>Addr:</label> {{ c.address }}
         <input :ref="`c${c.address}`" type="hidden" :value="c.address" />
         <div class="contract-op">
           <a @click="copy(c.address, $event)">Copy</a>
         </div>
       </div>
-      <div class="contract-actions" v-show="shownFuncs.indexOf(cIndex) > -1">
+      <div
+        class="contract-actions"
+        v-show="c.address && shownFuncs.indexOf(cIndex) > -1"
+      >
         <template v-for="(abi, aIndex) in c.abi">
           <div
             class="contract-action"
@@ -164,13 +177,21 @@ export default class Deployed extends Vue {
       display inline-block
       padding 0
       margin 0 1rem 0.5em
-      text-decoration underline
-      cursor pointer
-    .addr
+      &.ready
+        text-decoration underline
+        cursor pointer
+      .pending
+        font-size 0.8em
+        color rgba($color, 0.5)
+    .addr, .tx-hash
+      white-space nowrap
       position relative
       padding 0 1rem 1em
       overflow-x hidden
       text-overflow ellipsis
+      label
+        font-size 0.8em
+        color rgba($color, 0.5)
       .contract-op
         display none
         position absolute

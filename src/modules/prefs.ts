@@ -15,6 +15,10 @@ export default {
     site: "lity",
     darkTheme: false,
     web3Provider: {
+      default: {
+        gasPrice: "0",
+        gasLimit: "8192000000"
+      },
       options: [
         {
           url: "https://devchain.secondstate.io:8545",
@@ -24,10 +28,14 @@ export default {
       using: "0",
       custom: {
         url: "",
-        chainId: ""
+        chainId: "",
+        customGas: true,
+        gasPrice: "",
+        gasLimit: ""
       },
       status: "pending",
-      checkInterval: 1 * 1000
+      confirmInterval: 1 * 1000,
+      extendConfirmInterval: 20 * 1000
     },
     esProvider: {
       options: [

@@ -145,42 +145,47 @@ export default class Contracts extends Vue {
       console.error(err);
       return;
     }
-    if (!contract.address) {
-      return;
-    }
     const c = {
       name: this.selectedContract,
       abi: this.contract.abi,
       bytecode: this.contract.evm.bytecode.object,
-      address: contract.address
+      address: contract.address || "",
+      txHash: contract.transactionHash
     };
-    if (this.$store.state.deployed.contracts.length == 0) {
-      this.$store.dispatch("events/setFirstDeployedContract", c);
+    if (!contract.address) {
+      if (this.$store.state.deployed.contracts.length == 0) {
+        this.$store.dispatch("events/setFirstDeployedContract", c);
+      }
+      this.$store.dispatch("deployed/pushContract", c);
+      this.$store.dispatch("events/setLityPanel", "Deployed");
+    } else {
+      this.$store.dispatch("deployed/updateContractAddress", c);
+      if (this.$store.state.deployed.contracts.length == 1) {
+        this.$store.dispatch("events/setFirstDeployedContract", c);
+      }
+      const es = this.newEs();
+      const abis = {};
+      const abisLog = {};
+      let i = 0;
+      for (const n in this.$store.state.contracts.contracts) {
+        (abis as any)[i] = {
+          abi: this.$store.state.contracts.contracts[n].abi
+        };
+        (abisLog as any)[n] = {
+          abi: JSON.stringify(this.$store.state.contracts.contracts[n].abi)
+        };
+        ++i;
+      }
+      es.submitManyAbis(abis, contract.transactionHash).then((result: any) => {
+        this.$store.dispatch(
+          `outputs/pushLityLogs`,
+          `New abis were submitted to es: <br/>\
+          ${JSON.stringify(abisLog, null, "  ")
+            .replace(/\n/g, "<br/>")
+            .replace(/\s\s/g, "&nbsp;&nbsp;")}`
+        );
+      });
     }
-    this.$store.dispatch("deployed/pushContract", c);
-    this.$store.dispatch("events/setLityPanel", "Deployed");
-    const es = this.newEs();
-    const abis = {};
-    const abisLog = {};
-    let i = 0;
-    for (const n in this.$store.state.contracts.contracts) {
-      (abis as any)[i] = {
-        abi: this.$store.state.contracts.contracts[n].abi
-      };
-      (abisLog as any)[n] = {
-        abi: JSON.stringify(this.$store.state.contracts.contracts[n].abi)
-      };
-      ++i;
-    }
-    es.submitManyAbis(abis, contract.transactionHash).then((result: any) => {
-      this.$store.dispatch(
-        `outputs/pushLityLogs`,
-        `New abis were submitted to es: <br/>\
-        ${JSON.stringify(abisLog, null, "  ")
-          .replace(/\n/g, "<br/>")
-          .replace(/\s\s/g, "&nbsp;&nbsp;")}`
-      );
-    });
   }
 
   at() {

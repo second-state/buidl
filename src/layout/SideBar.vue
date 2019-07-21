@@ -177,15 +177,23 @@ export default class SideBar extends Vue {
     }
     const customUrl = (this.$refs.nodePop as any).customUrl;
     const customChainId = (this.$refs.nodePop as any).customChainId;
-    if (
-      customUrl !== this.$store.state.prefs.web3Provider.customUrl ||
-      customChainId !== this.$store.state.prefs.web3Provider.custom
-    ) {
-      this.$store.dispatch("prefs/setWeb3ProviderCustom", {
-        url: customUrl,
-        chainId: customChainId
-      });
+    const customGas = (this.$refs.nodePop as any).customGas;
+    let customGasPrice = (this.$refs.nodePop as any).customGasPrice;
+    if (!/^\d+$/g.test(customGasPrice) || customGasPrice.length > 15) {
+      customGasPrice = this.$store.state.prefs.web3Provider.default.gasPrice;
+      (this.$refs.nodePop as any).customGasPrice = customGasPrice;
     }
+    let customGasLimit = (this.$refs.nodePop as any).customGasLimit;
+    if (!/^\d+$/g.test(customGasLimit) || customGasLimit.length > 10) {
+      customGasLimit = this.$store.state.prefs.web3Provider.default.gasLimit;
+    }
+    this.$store.dispatch("prefs/setWeb3ProviderCustom", {
+      url: customUrl,
+      chainId: customChainId,
+      customGas: customGas,
+      gasPrice: customGasPrice,
+      gasLimit: customGasLimit
+    });
 
     const esUsing = (this.$refs.nodePop as any).esUsing;
     if (esUsing !== this.$store.state.prefs.esProvider.using) {

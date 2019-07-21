@@ -9,6 +9,7 @@
         <option value="">Customize</option>
       </select>
       <input
+        type="text"
         ref="esCustomUrl"
         placeholder="Your endpoint"
         v-show="esUsing === ''"
@@ -25,6 +26,7 @@
         <option value="">Customize</option>
       </select>
       <input
+        type="text"
         ref="customUrl"
         placeholder="Your endpoint"
         v-show="using === ''"
@@ -32,11 +34,34 @@
         v-on:blur="reCheckCustom"
       />
       <input
+        type="text"
         ref="customChainId"
         placeholder="Your chainId"
         v-show="using === ''"
         v-model="customChainId"
       />
+      <div class="custom-gas" v-show="using === ''">
+        <div class="custom-gas-toggle">
+          <label>
+            <input type="checkbox" v-model="customGas" />
+            Custom Tx Gas
+          </label>
+        </div>
+        <div class="custom-gas-fields">
+          <input
+            type="text"
+            placeholder="Gas Price"
+            v-show="customGas === true"
+            v-model="customGasPrice"
+          />
+          <input
+            type="text"
+            placeholder="Gas Limit"
+            v-show="customGas === true"
+            v-model="customGasLimit"
+          />
+        </div>
+      </div>
       <div class="status">
         <strong>Status: </strong>
         <span class="status-text" :class="status">
@@ -63,6 +88,9 @@ export default class NodePop extends Vue {
   public customUrl: string;
   public customChainId: string;
   private oldCustomUrl: String | undefined = undefined;
+  private customGas: boolean;
+  private customGasPrice: string;
+  private customGasLimit: string;
   private providerHeight: any;
   private checkCount: number = 0;
 
@@ -73,6 +101,12 @@ export default class NodePop extends Vue {
     this.using = this.$store.state.prefs.web3Provider.using;
     this.customUrl = this.$store.state.prefs.web3Provider.custom.url;
     this.customChainId = this.$store.state.prefs.web3Provider.custom.chainId;
+    this.customGas =
+      this.$store.state.prefs.web3Provider.custom.customGas || false;
+    this.customGasPrice =
+      this.$store.state.prefs.web3Provider.custom.gasPrice || "";
+    this.customGasLimit =
+      this.$store.state.prefs.web3Provider.custom.gasLimit || "";
   }
 
   get status() {
@@ -127,6 +161,11 @@ export default class NodePop extends Vue {
   }
 
   doCheck(url: string, cc: number) {
+    const provider = this.$store.state.prefs.web3Provider;
+    const interval =
+      provider.using !== "" || !provider.custom.customGas
+        ? provider.confirmInterval
+        : provider.extendConfirmInterval;
     web3.checkProvider(
       url,
       cc,
@@ -140,7 +179,7 @@ export default class NodePop extends Vue {
             this.$forceUpdate();
             setTimeout(() => {
               this.doCheck(url, icc);
-            }, this.$store.state.prefs.web3Provider.checkInterval);
+            }, interval);
           }
         }
       }
@@ -162,12 +201,12 @@ export default class NodePop extends Vue {
 .node-pop
   position absolute
   width 400px
-  height 320px
+  height 360px
   border 1px dashed alpha($color, 0.5)
   background-color $backgroundColor
   border-radius 4px
   z-index 2
-  top -320px
+  top -360px
   cursor default
   color $color
   font-size 1rem
@@ -184,6 +223,18 @@ export default class NodePop extends Vue {
     font-size 0.9em
   select
     margin-bottom 1em
+  .custom-gas
+    .custom-gas-toggle
+      padding 0.2em 0
+      label
+        position relative
+        display inline
+        font-size 0.8em
+    .custom-gas-fields
+      display flex
+      justify-content space-between
+      input
+        width 45%
   .status
     margin-top 1em
     .status-text

@@ -24,11 +24,18 @@ function signTx(privateKey: string, nonce: Number, addr: string, data: string) {
     provider.using !== ""
       ? provider.options[provider.using].chainId
       : provider.custom.chainId;
+  const gasPrice =
+    provider.using !== "" || !provider.custom.customGas
+      ? provider.default.gasPrice
+      : provider.custom.gasPrice;
+  const gasLimit =
+    provider.using !== "" || !provider.custom.customGas
+      ? provider.default.gasLimit
+      : provider.custom.gasLimit;
   const rawTx = {
     nonce: nonce,
-    // gasPrice: "0x77359400",
-    gasPrice: "0x00",
-    gasLimit: "0x" + Number(8192000000).toString(16),
+    gasPrice: "0x" + Number(gasPrice).toString(16),
+    gasLimit: "0x" + Number(gasLimit).toString(16),
     to: addr,
     value: 0,
     data: data,
@@ -90,15 +97,27 @@ LityWeb3.prototype.checkTx = function(hash: string) {
         `<span class="error">${err}</span>`
       );
     } else if (!receipt) {
+      const provider = store.state.prefs.web3Provider;
+      const interval =
+        provider.using !== "" || !provider.custom.customGas
+          ? provider.confirmInterval
+          : provider.extendConfirmInterval;
       setTimeout(() => {
         this.checkTx(hash);
-      }, store.state.prefs.web3Provider.checkInterval);
+      }, interval);
     } else {
       if (receipt.status === "0x1") {
         store.dispatch(
           `outputs/push${this.type}Logs`,
           `${hash} <span class="success">Success</span>`
         );
+        if (receipt.contractAddress) {
+          const c = {
+            address: receipt.contractAddress,
+            txHash: receipt.transactionHash
+          };
+          store.dispatch("deployed/updateContractAddress", c);
+        }
       } else {
         store.dispatch(
           `outputs/push${this.type}Logs`,
