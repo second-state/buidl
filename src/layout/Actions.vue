@@ -46,6 +46,7 @@ export default class Actions extends Vue {}
 
 <style lang="stylus">
 @import "../assets/themes/dark.styl"
+@import "../assets/var.styl"
 
 body.dark-theme
   .actions
@@ -56,4 +57,8 @@ body.dark-theme
       &:hover
         label
           box-shadow 0 1px 0px 0px $color
+      &.danger
+        &:hover
+          label
+            box-shadow 0 1px 0px 0px darken($red, 14)
 </style>

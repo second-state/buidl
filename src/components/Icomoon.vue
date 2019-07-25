@@ -13,6 +13,7 @@ icon-clipboard = "\e9b8"
 icon-play3 = "\ea1c"
 icon-magic-wand = "\e997"
 icon-copy = "\e92c"
+icon-arrow-up = "\ea32"
 
 @font-face
   font-family 'icomoon'
@@ -69,4 +70,7 @@ icon-copy = "\e92c"
 .icon-copy
   &:before
     content icon-copy
+.icon-arrow-up
+  &:before
+    content icon-arrow-up
 </style>

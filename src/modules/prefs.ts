@@ -48,7 +48,8 @@ export default {
         url: ""
       },
       status: "pending"
-    }
+    },
+    updateAvail: false
   },
   mutations: {
     toggleTheme(state: any) {
@@ -76,6 +77,9 @@ export default {
     },
     setESProviderStatus(state: any, status: string) {
       state.esProvider.status = status;
+    },
+    updateAvail(state: any) {
+      state.updateAvail = true;
     }
   },
   actions: {
@@ -105,6 +109,9 @@ export default {
     },
     setESProviderStatus(context: ActionContext<any, any>, payload: string) {
       context.commit("setESProviderStatus", payload);
+    },
+    updateAvail(context: ActionContext<any, any>) {
+      context.commit("updateAvail");
     }
   }
 };

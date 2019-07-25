@@ -74,6 +74,14 @@
         <NodePop ref="nodePop" v-show="showNodePop" />
       </button>
       <Switcher size="small" @onChange="toggleTheme" :value="dt" />
+      <button v-if="updateAvail" class="side-btn update-avail">
+        <span
+          class="icon-arrow-up"
+          title="Close and reopen the browser tab to update"
+        >
+        </span>
+        <label>Upd Avail</label>
+      </button>
     </div>
   </div>
 </template>
@@ -94,6 +102,10 @@ import NodePop from "@/components/NodePop.vue";
 })
 export default class SideBar extends Vue {
   showNodePop = false;
+
+  get updateAvail(): boolean {
+    return this.$store.state.prefs.updateAvail;
+  }
 
   get dt(): string {
     return this.$store.state.prefs.darkTheme;
@@ -270,6 +282,8 @@ Vue.directive("click-outside", {
         color #008000
       &.unreachable
         color #f00
+    &.update-avail
+      cursor normal
     label
       font-size 0.6rem
       display block
