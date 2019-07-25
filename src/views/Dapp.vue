@@ -1,15 +1,25 @@
 <template>
   <Operating>
     <Actions>
-      <button @click="run">
+      <button
+        @click="run"
+        onClick="ga('send', 'event', 'dapp', 'toolbar', 'run');"
+      >
         <span class="icon-play3"></span>
         <label>Run</label>
       </button>
-      <button @click="copy">
+      <button
+        @click="copy"
+        onClick="ga('send', 'event', 'dapp', 'toolbar', 'copy');"
+      >
         <span class="icon-copy"></span>
         <label>Copy</label>
       </button>
-      <button @click="reset" class="danger">
+      <button
+        @click="reset"
+        class="danger"
+        onClick="ga('send', 'event', 'dapp', 'toolbar', 'reset');"
+      >
         <label>Reset All</label>
       </button>
       <div class="editor-tabs">

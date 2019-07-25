@@ -1,15 +1,26 @@
 <template>
   <Operating>
     <Actions>
-      <button @click="compile" :disabled="!$store.state.events.compilerReady">
+      <button
+        @click="compile"
+        :disabled="!$store.state.events.compilerReady"
+        onClick="ga('send', 'event', 'contract', 'toolbar', 'compile');"
+      >
         <span class="icon-wrench"></span>
         <label>Compile</label>
       </button>
-      <button @click="copy">
+      <button
+        @click="copy"
+        onClick="ga('send', 'event', 'contract', 'toolbar', 'copy');"
+      >
         <span class="icon-copy"></span>
         <label>Copy</label>
       </button>
-      <button @click="reset" class="danger">
+      <button
+        @click="reset"
+        class="danger"
+        onClick="ga('send', 'event', 'contract', 'toolbar', 'reset');"
+      >
         <label>Reset</label>
       </button>
     </Actions>

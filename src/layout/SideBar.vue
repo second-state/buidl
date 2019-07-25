@@ -7,6 +7,7 @@
       v-if="site === 'lity'"
       @click="toggleDeployedPanel"
       title="Deployed Contracts"
+      onClick="ga('send', 'event', 'contract', 'deployed');"
     >
       <span :class="deployedContracts > 0 ? 'icon-drawer' : 'icon-drawer2'">
       </span>
@@ -18,6 +19,7 @@
       v-if="site === 'lity'"
       @click="toggleContractsPanel"
       title="Compiled Contracts"
+      onClick="ga('send', 'event', 'contract', 'compiled');"
     >
       <span class="icon-file-play"></span>
       <label>Compiled</label>
@@ -28,6 +30,7 @@
       v-if="site === 'dapp'"
       @click="toggleResourcesPanel"
       title="Manage 3rd Party Resources"
+      onClick="ga('send', 'event', 'dapp', 'resources');"
     >
       <span class="icon-magic-wand"></span>
       <label>Resources</label>
@@ -38,6 +41,7 @@
       v-if="site === 'dapp'"
       @click="toggleContractApiPanel"
       title="Deployed Contracts"
+      onClick="ga('send', 'event', 'dapp', 'deployed');"
     >
       <span class="icon-clipboard"></span>
       <label>Deployed</label>
@@ -53,6 +57,7 @@
         "
         @click="toggleWalletPanel"
         title="Manage Accounts"
+        onClick="ga('send', 'event', 'sys', 'accounts');"
       >
         <span class="icon-pen"></span>
         <label>Accounts</label>
@@ -62,6 +67,7 @@
         :class="providerStatus"
         v-click-outside="hideNodePop"
         @click="toggleNodePop"
+        onClick="ga('send', 'event', 'sys', 'providers');"
       >
         <span class="icon-power" title="Manage Providers"></span>
         <label>Providers</label>
