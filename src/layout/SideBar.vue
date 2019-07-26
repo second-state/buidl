@@ -283,7 +283,7 @@ Vue.directive("click-outside", {
       &.unreachable
         color #f00
     &.update-avail
-      cursor normal
+      cursor default
     label
       font-size 0.6rem
       display block
