@@ -4,14 +4,14 @@
       <button
         @click="compile"
         :disabled="!$store.state.events.compilerReady"
-        onClick="ga('send', 'event', 'contract', 'toolbar', 'compile');"
+        onClick="gtag('event', 'contract', {'event_category': 'toolbar', 'event_label': 'compile'});"
       >
         <span class="icon-wrench"></span>
         <label>Compile</label>
       </button>
       <button
         @click="copy"
-        onClick="ga('send', 'event', 'contract', 'toolbar', 'copy');"
+        onClick="gtag('event', 'contract', {'event_category': 'toolbar', 'event_label': 'copy'});"
       >
         <span class="icon-copy"></span>
         <label>Copy</label>
@@ -19,7 +19,7 @@
       <button
         @click="reset"
         class="danger"
-        onClick="ga('send', 'event', 'contract', 'toolbar', 'reset');"
+        onClick="gtag('event', 'contract', {'event_category': 'toolbar', 'event_label': 'reset'});"
       >
         <label>Reset</label>
       </button>

@@ -3,14 +3,14 @@
     <Actions>
       <button
         @click="run"
-        onClick="ga('send', 'event', 'dapp', 'toolbar', 'run');"
+        onClick="gtag('event', 'dapp', {'event_category': 'toolbar', 'event_label': 'run'});"
       >
         <span class="icon-play3"></span>
         <label>Run</label>
       </button>
       <button
         @click="copy"
-        onClick="ga('send', 'event', 'dapp', 'toolbar', 'copy');"
+        onClick="gtag('event', 'dapp', {'event_category': 'toolbar', 'event_label': 'copy'});"
       >
         <span class="icon-copy"></span>
         <label>Copy</label>
@@ -18,7 +18,7 @@
       <button
         @click="reset"
         class="danger"
-        onClick="ga('send', 'event', 'dapp', 'toolbar', 'reset');"
+        onClick="gtag('event', 'dapp', {'event_category': 'toolbar', 'event_label': 'reset'});"
       >
         <label>Reset All</label>
       </button>

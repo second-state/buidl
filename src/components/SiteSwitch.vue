@@ -5,7 +5,7 @@
         class="site site-lity"
         :class="{ shown: site === 'lity' }"
         @click="switchSite('lity')"
-        onClick="ga('send', 'event', 'contract', 'switch');"
+        onClick="gtag('event', 'contract', {'event_category': 'switch'});"
       >
         C<sub>contract</sub>
       </div>
@@ -13,7 +13,7 @@
         class="site site-dapp"
         :class="{ shown: site === 'dapp' }"
         @click="switchSite('dapp')"
-        onClick="ga('send', 'event', 'dapp', 'switch');"
+        onClick="gtag('event', 'dapp', {'event_category': 'switch'});"
       >
         D<sub>dapp</sub>
       </div>
