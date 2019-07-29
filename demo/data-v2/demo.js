@@ -48,7 +48,8 @@ var contract = web3.ss.contract(abi);
 reload();
 
 function reload() {
-    document.querySelector("#tbody").innerHTML = "";
+    document.querySelector("#totalBody").innerHTML = "";
+    document.querySelector("#individualBody").innerHTML = "";
     var tbodyInner = "";
     esss.shaAbi(JSON.stringify(abi)).then((shaResult) => {
         var sha = JSON.parse(shaResult).abiSha3;
@@ -61,10 +62,33 @@ function reload() {
                     "</td><td>" + item.functionData.getAccountBalance +
                     "</td><td><button class='btn btn-info' onclick='setNumber(this)'>Update balance</button></td></tr>";
             }); // end of JSON iterator
+            document.querySelector("#individualBody").innerHTML = tbodyInner;
+            displayTotal();
 
-            document.querySelector("#tbody").innerHTML = tbodyInner;
         });
     }); // end of esss
+}
+
+function displayTotal() {
+    esss.shaAbi(JSON.stringify(abi)).then((shaResult) => {
+        var sha = JSON.parse(shaResult).abiSha3;
+        esss.searchUsingAbi(sha).then((searchResult) => {
+            var items = JSON.parse(searchResult);
+            var totalBodyInner = "";
+            var total = 0;
+            console.log("Calculating total ...")
+            items.forEach(function(item) {
+                total = total + parseInt(item.functionData.getAccountBalance);
+                console.log("Total -> " + total);
+            });
+            console.log(total)
+            totalBodyInner = totalBodyInner +
+                "<tr id='total'><td>" + total + "</tr>";
+            //"</td><td><button class='btn btn-info' onclick='calculateTotal(items)'>Calculate total</button></td></tr>";
+            document.querySelector("#totalBody").innerHTML = totalBodyInner;
+        });
+    }); // end of esss
+
 }
 
 function setNumber(element) {
@@ -82,6 +106,9 @@ function setNumber(element) {
             } else {
                 element.closest("td").previousSibling.innerHTML = r;
                 element.innerHTML = "Update Balance";
+                setTimeout(function() {
+                    displayTotal();
+                }, 3000);
             }
         });
     }, 2 * 1000);
@@ -89,10 +116,10 @@ function setNumber(element) {
 
 function compareItem(a, b) {
     let comparison = 0;
-    if (a.blockNumber < b.blockNumber) {
-        comparison = 1;
-    } else if (a.blockNumber > b.blockNumber) {
+    if (a.functionData.getAccountName < b.functionData.getAccountName) {
         comparison = -1;
+    } else if (a.functionData.getAccountName > b.functionData.getAccountName) {
+        comparison = 1;
     }
     return comparison;
 }
