@@ -1,22 +1,23 @@
 pragma solidity >= 0.4 .0 < 0.6 .0;
 
-contract TextAndNumbers {
-    string text;
-    uint number;
+contract AccountBalanceDemo {
 
-    function setText(string _text) public {
-        text = _text;
+    string accountName;
+    uint accountBalance;
+
+    constructor(string _accountName) public {
+        accountName = _accountName;
     }
 
-    function setNumber(uint _number) public {
-        number = _number;
+    function setAccountBalance(uint _accountBalance) public {
+        accountBalance = _accountBalance;
     }
 
-    function getText() public view returns(string) {
-        return text;
+    function getAccountName() public view returns(string) {
+        return accountName;
     }
 
-    function getNumber() public view returns(uint) {
-        return number;
+    function getAccountBalance() public view returns(uint) {
+        return accountBalance;
     }
 }
