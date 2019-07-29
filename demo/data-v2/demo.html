@@ -1,31 +1,42 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    
-    <title>Data Stores</title>
-  </head>
-  <body>
-    <div class="container">
-        <p>This page shows a list of individual accounts and their individual balances.</p>
-        <p>Each account entity (each instantiation of the smart contract) is not aware of the other accounts, or their balances</p>
-        <p>This page demonstrates how the smart contract search engine can provide the sum total of all accounts combined.</p>
-        <table class="table">
+   <head>
+      <!-- Required meta tags -->
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <!-- Bootstrap CSS -->
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+      <title>Data Stores</title>
+   </head>
+   <body>
+      <div class="container">
+         <p>This page shows a list of individual accounts and their individual balances.</p>
+         <p>Each account entity (each instantiation of the smart contract) is not aware of the other accounts, or their balances</p>
+         <p>This page demonstrates how the smart contract search engine can provide the sum total of all accounts combined.</p>
+         <br />
+         <b>Sum total of all accounts</b>
+         <table class="table">
             <thead>
-                <tr>
-                    <th scope="col">Account Name</th>
-                    <th scope="col">Account Balance</th>
-                    <th scope="col"></th>
-                </tr>
+               <tr>
+                  <th scope="col">Total</th>
+               </tr>
             </thead>
-            <tbody id="tbody">
+            <tbody id="totalBody">
             </tbody>
-        </table>
-    </div>
-
-  </body>
+         </table>
+         <br />
+         <b>Name and balance of individual accounts</b>
+         <table class="table">
+            <thead>
+               <tr>
+                  <th scope="col">Account Name</th>
+                  <th scope="col">Account Balance</th>
+                  <th scope="col"></th>
+               </tr>
+            </thead>
+            <tbody id="individualBody">
+            </tbody>
+         </table>
+      </div>
+   </body>
 </html>
