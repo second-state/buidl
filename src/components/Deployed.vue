@@ -224,8 +224,8 @@ export default class Deployed extends Vue {
 body.dark-theme
   .deployed-contracts
     .contract
-      .addr
-        .contract-op
+      .addr, .tx-hash
+        .contract-op, label
           color rgba($color, 0.5)
       .contract-actions
         background-color $minorBackgroundColor

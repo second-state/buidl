@@ -141,7 +141,7 @@ export default class Wallet extends Vue {
 <style lang="stylus">
 @import "../assets/themes/dark.styl"
 body.dark-theme
-  ..resources
+  .resources
     .res-actions
       button
         color $color
