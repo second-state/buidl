@@ -7,26 +7,8 @@ var instance = contract.at('');
 
 reload();
 
-function create (element) {
-  element.innerHTML = "Wait ...";
-  var data = '0x' + contract.new.getData({data:bytecode});
-  contract.new({
-    data: data
-  }, function (ee, i) {
-    if (ee) {
-      console.log("Error creating contract " + ee);
-    } else {
-      // May take a few seconds for i.address to return
-      setTimeout(function () {
-        reload();
-      }, 5 * 1000);
-    }
-  });
-}
-
 function reload () {
   document.querySelector("#create").innerHTML = "Create a new storage contract";
-  document.querySelector("#tbody").innerHTML = "";
   var tbodyInner = "";
   esss.shaAbi(JSON.stringify(abi)).then((shaResult) => {
     var sha = JSON.parse(shaResult).abiSha3;
@@ -39,10 +21,24 @@ function reload () {
           "</td><td>" + item.functionData.get + 
           "</td><td><button class='btn btn-info' onclick='setData(this)'>Set</button></td></tr>";
       }); // end of JSON iterator
-
       document.querySelector("#tbody").innerHTML = tbodyInner;
     });
   }); // end of esss
+}
+
+function create (element) {
+  element.innerHTML = "Wait ...";
+  var data = '0x' + contract.new.getData({data:bytecode});
+  contract.new({
+    data: data
+  }, function (ee, i) {
+    if (!ee && i.address != null) {
+      esss.submitAbi(JSON.stringify(abi), i.transactionHash);
+      setTimeout(function () {
+        reload ();
+      }, 5 * 1000);
+    }
+  });
 }
 
 function setData (element) {
@@ -54,10 +50,7 @@ function setData (element) {
   element.innerHTML = "Wait ...";
   setTimeout(function () {
     instance.get.call (function (e, r) {
-      if (e) {
-        console.log(e);
-        return;
-      } else {
+      if (!e) {
         element.closest("td").previousSibling.innerHTML = r;
         element.innerHTML = "Set";
       }
