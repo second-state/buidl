@@ -6,6 +6,7 @@ script:
   - npm i
   - sed -i 's/if(log.blockNumber !== null)/if(typeof log !== "object")return log;if(log.blockNumber !== null)/g' node_modules/web3/lib/web3/formatters.js
   - npm run build
+  - npm run build:embed
   - echo 'buidl.secondstate.io' > ./dist/CNAME
 
 deploy:
