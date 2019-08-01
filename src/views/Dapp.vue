@@ -170,6 +170,7 @@ document.querySelector("#s").addEventListener("click", function() {
 });
 document.querySelector("#g").addEventListener("click", function() {
   console.log(instance.get().toString());
+  alert(instance.get().toString());
 });`;
 
     const cssText =
