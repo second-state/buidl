@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --modern",
-    "build:embed": "webpack-cli src/embed/index.ts -o dist/embed/index.js --mode production",
+    "build:embed": "webpack-cli src/embed/index.js -o dist/embed/index.js --mode production",
     "lint": "vue-cli-service lint",
     "test:e2e": "vue-cli-service test:e2e",
     "test:unit": "vue-cli-service test:unit"
