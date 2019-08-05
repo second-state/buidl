@@ -1,8 +1,44 @@
 import Tx from "ethereumjs-tx";
 import Buffer from "safe-buffer";
+import { Signature } from "../modules/wallet";
+const EthUtil = require("ethereumjs-util");
+const Secp256k1 = require("secp256k1");
+const Crypto = require("crypto");
 
-const accounts = JSON.parse(window.localStorage.getItem("buidl") as string)
-  .wallet.all;
+function newSig(): Signature {
+  let privKey;
+  do {
+    privKey = Crypto.randomBytes(32);
+  } while (!Secp256k1.privateKeyVerify(privKey));
+
+  const address = EthUtil.privateToAddress(privKey);
+  return new Signature(
+    EthUtil.bufferToHex(address),
+    EthUtil.bufferToHex(privKey)
+  );
+}
+
+const storage = window.localStorage.getItem("buidl");
+let accounts: Array<any>;
+try {
+  accounts = JSON.parse(storage as string).wallet.all;
+} catch (e) {
+  accounts = [];
+}
+if (accounts.length === 0) {
+  for (let i = 0; i < 5; i++) {
+    let sig = newSig();
+    accounts.push(sig);
+  }
+  let storeObj = JSON.parse(storage as string);
+  if (storeObj === null) {
+    storeObj = {};
+  }
+  storeObj.wallet = {
+    all: accounts
+  };
+  window.localStorage.setItem("buidl", JSON.stringify(storeObj));
+}
 
 window.parent.postMessage(
   { accounts: accounts.map((a: any) => a.address) },

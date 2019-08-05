@@ -51,15 +51,13 @@ const LityWeb3 = function(this: any, provider: any, type: string) {
   Web3.call(this, provider);
   this.type = type;
 
-  this.lity = this.ss;
-
-  this.lity.sendTransaction = (transactionObject: any, callback?: Function) => {
+  this.ss.sendTransaction = (transactionObject: any, callback?: Function) => {
     const from = store.state.wallet.default;
     if (!from) {
       alert("Please set the default wallet first.");
       return;
     }
-    const nonce = this.lity.getTransactionCount(from.address);
+    const nonce = this.ss.getTransactionCount(from.address);
     const s = signTx(
       from.privateKey,
       nonce,
@@ -67,7 +65,7 @@ const LityWeb3 = function(this: any, provider: any, type: string) {
       transactionObject.data
     );
     store.dispatch(`events/set${type}OutputTab`, "logs");
-    this.lity.sendRawTransaction(s, (err: any, hash: string) => {
+    this.ss.sendRawTransaction(s, (err: any, hash: string) => {
       if (err) {
         store.dispatch(
           `outputs/push${type}Logs`,
@@ -90,7 +88,7 @@ LityWeb3.prototype = Object.create(Web3.prototype);
 LityWeb3.prototype.constructor = LityWeb3;
 
 LityWeb3.prototype.checkTx = function(hash: string) {
-  this.lity.getTransactionReceipt(hash, (err: any, receipt: any) => {
+  this.ss.getTransactionReceipt(hash, (err: any, receipt: any) => {
     if (err) {
       store.dispatch(
         `outputs/push${this.type}Logs`,

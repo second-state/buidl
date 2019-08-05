@@ -111,7 +111,7 @@ export default class Deployed extends Vue {
     }
     this.$store.dispatch(`events/setLityOutputTab`, "logs");
     const web3 = this.newLityWeb3();
-    const contract = web3.lity.contract(deployedContract.abi);
+    const contract = web3.ss.contract(deployedContract.abi);
     const instance = contract.at(deployedContract.address);
     const func = instance[deployedContract.abi[aIndex].name];
     this.$store.dispatch(
@@ -145,7 +145,7 @@ export default class Deployed extends Vue {
     }
 
     const web3 = this.newLityWeb3();
-    const contract = web3.lity.contract(deployedContract.abi);
+    const contract = web3.ss.contract(deployedContract.abi);
     const instance = contract.at(deployedContract.address);
     const func = instance[deployedContract.abi[aIndex].name];
 

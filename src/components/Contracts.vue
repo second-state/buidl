@@ -136,7 +136,7 @@ export default class Contracts extends Vue {
     params.push(this.deployed);
 
     const web3 = this.newLityWeb3();
-    const contract = web3.lity.contract(this.contract.abi);
+    const contract = web3.ss.contract(this.contract.abi);
     contract.new.apply(contract, params);
   }
 

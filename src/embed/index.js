@@ -1,15 +1,17 @@
 import Web3 from "web3-ss";
+import './index.styl'
 
 const LityWeb3 = function(provider) {
   Web3.call(this, provider);
 
   this.ss.sendTransaction = (transactionObject, callback) => {
-    const from = window.BuidlG.accounts[0];
+    const from = window.BuidlG.selectedAccount;
+    console.log(from);
     const nonce = this.ss.getTransactionCount(from);
     window.BuidlG.cb = callback;
     window.BuidlG.frame.postMessage({
       signTx: {
-        chainId: "27183",
+        chainId: window.Web3Provider.chainId,
         account: from,
         nonce: nonce,
         to: transactionObject.to,
@@ -47,10 +49,10 @@ LityWeb3.prototype.checkTx = function(hash) {
   });
 };
 
-const web3 = new LityWeb3(new Web3.providers.HttpProvider("https://devchain.secondstate.io:8545"));
+const web3 = new LityWeb3(new Web3.providers.HttpProvider(window.Web3Provider.url));
 
 const embedFrame = document.createElement("iframe");
-embedFrame.src = "http://localhost:8080/embed/frame.html";
+embedFrame.src = "https://buidl.secondstate.io/embed/frame.html";
 embedFrame.style.display = "none";
 document.body.appendChild(embedFrame);
 
@@ -60,7 +62,9 @@ function receiveMsg(event) {
   const data = event.data;
   if (data.accounts) {
     window.BuidlG.accounts = data.accounts;
+    window.BuidlG.selectedAccount = data.accounts[0];
     window.BuidlG.frame = event.source;
+    settleUI(window.BuidlG.accounts);
   } else if (data.signedTx) {
     web3.ss.sendRawTransaction(data.signedTx, (err, hash) => {
       if (err) {
@@ -78,5 +82,68 @@ function receiveMsg(event) {
 window.web3 = web3;
 window.BuidlG = {};
 
+// Settle ui
+function settleUI(accounts) {
+  const triggerMask = document.createElement("div");
+  triggerMask.className = "web3-trigger-mask";
+  document.body.appendChild(triggerMask);
 
+  const floatTrigger = document.createElement("div");
+  floatTrigger.className = "web3-float-trigger";
+  document.body.appendChild(floatTrigger);
+
+  let options = "";
+  for (let i = 0; i < accounts.length; i++) {
+    options += `<option value="${accounts[i]}">${accounts[i]}</option>`;
+  }
+
+  floatTrigger.innerHTML = `
+    <div class="handle">
+      <span class="left-arrow rotate"></span>
+    </div>
+    <div class="close">
+      <span class="right-arrow"></span>
+      <span class="left-arrow"></span>
+    </div>
+    <div class="account-selector">
+      <label>Select Account</label>
+      <select>
+        ${options}
+      </select>
+    </div>
+  `;
+
+  let expanded = true;
+
+  const accountSelector = document.querySelector(".web3-float-trigger .account-selector select");
+
+  document.querySelector(".web3-float-trigger .close").addEventListener("click", function() {
+    floatTrigger.remove();
+  });
+
+  document.querySelector(".web3-float-trigger .handle").addEventListener("click", function() {
+    if (expanded) {
+      this.children[0].className = "left-arrow";
+      triggerMask.style.display = "none";
+      accountSelector.parentElement.style.display = "none";
+      expanded = false;
+    } else {
+      this.children[0].className = "left-arrow rotate";
+      triggerMask.style.display = "block";
+      accountSelector.parentElement.style.display = "block";
+      expanded = true;
+    }
+  });
+
+  triggerMask.addEventListener("click", function() {
+    document.querySelector(".web3-float-trigger .handle").children[0].className = "left-arrow";
+    triggerMask.style.display = "none";
+    accountSelector.parentElement.style.display = "none";
+    expanded = false;
+  })
+
+  accountSelector.addEventListener("change", function() {
+    window.BuidlG.selectedAccount = window.BuidlG.accounts[this.selectedIndex];
+  })
+}
 

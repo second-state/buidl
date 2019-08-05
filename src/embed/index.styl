@@ -1,0 +1,85 @@
+.web3-trigger-mask
+  position fixed
+  top 0
+  left 0
+  bottom 0
+  right 0
+  z-index 2147483646
+  background-color rgba(#000, 0.5)
+.web3-float-trigger
+  position fixed
+  bottom 10px
+  right 10px
+  width 30px
+  height 60px
+  font-family Arial, sans-serif
+  z-index 2147483647
+
+  .handle
+    position relative
+    height 30px
+    background-color #d24242
+    cursor pointer
+    .left-arrow
+      top 7px
+      left 11px
+      &:after
+        border-right-color #d24242
+        margin-left 2px
+  .close
+    position relative
+    height 30px
+    background-color #20c370
+    cursor pointer
+    .left-arrow
+      top 7px
+      left 14px
+      &:after
+        content ''
+        border-width 9px 9px 9px 0
+        border-color transparent #20c370 transparent transparent
+        border-style solid
+        position absolute
+        margin-left 2px
+
+    .right-arrow
+      border-width 8px 0 8px 8px
+      border-color transparent transparent transparent white
+      top 7px
+      left 8px
+      &:after
+        content ''
+        border-width 9px 0 9px 9px
+        border-color transparent transparent transparent #20c370
+        border-style solid
+        position absolute
+        margin-left -11px
+
+  .left-arrow, .right-arrow
+    border-width 8px 8px 8px 0
+    border-color transparent white transparent transparent
+    border-style solid
+    position absolute
+    &:after
+      content ''
+      border-width 9px 9px 9px 0
+      border-color transparent #20c370 transparent transparent
+      border-style solid
+      position absolute
+      margin-top -9px
+    &.rotate
+      transform rotate(180deg)
+  .account-selector
+    position absolute
+    width 300px
+    left -300px
+    top 0
+    height 60px
+    padding 5px
+    box-sizing border-box
+    background-color #fff
+    border-radius 3px 0 0 3px
+    label
+      font-size 14px
+    select
+      width 270px

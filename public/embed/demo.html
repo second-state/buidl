@@ -17,7 +17,13 @@
     <button id="s">Set Data</button>
     <button id="g">Get Data</button>
 
-    <script type="text/javascript" src="http://localhost:8081/embed/index.js"></script>
+    <script type="text/javascript">
+    window.Web3Provider = {
+      url: "https://devchain.secondstate.io:8545",
+      chainId: "27183"
+    }
+    </script>
+    <script type="text/javascript" src="https://buidl.secondstate.io/embed/index.js"></script>
 
     <script type="text/javascript">
     /* Don't modify */

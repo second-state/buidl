@@ -21,7 +21,6 @@ export default {
       for (let i = 0; i < state.contracts.length; i++) {
         const c = state.contracts[i];
         if (c.txHash === contract.txHash) {
-          console.log(c.txHash);
           c.address = contract.address;
           break;
         }
