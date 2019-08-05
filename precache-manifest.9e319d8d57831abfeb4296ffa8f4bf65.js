@@ -236,19 +236,19 @@ self.__precacheManifest = [
     "url": "/js/chunk-vendors.3fd342a0.js"
   },
   {
-    "revision": "24f76610009b69814b70",
-    "url": "/js/frame.8dd257bf.js"
+    "revision": "b99d8262b41eaa617bda",
+    "url": "/js/frame.7d4682c8.js"
   },
   {
     "revision": "18b37729f7a52fc5c48885de5df57449",
     "url": "/json.worker.js"
   },
   {
-    "revision": "e4ac7f7e17c88f802275",
-    "url": "/js/index.0b27bc9a.js"
+    "revision": "3368f687ad041b793bde",
+    "url": "/js/index.7bd81eaa.js"
   },
   {
-    "revision": "8c4df2003c8d58199be5f6dd2a74a0fa",
+    "revision": "1b540491b8f05b7087eaef4682aff03a",
     "url": "/index.html"
   },
   {
@@ -272,11 +272,11 @@ self.__precacheManifest = [
     "url": "/html.worker.js"
   },
   {
-    "revision": "7754e84a1ec959271f98db587c8af3ae",
+    "revision": "ea762167143743156e96146e7506c71d",
     "url": "/embed/frame.html"
   },
   {
-    "revision": "a71d3cc7ae4f69aab312d3ccc5aaaf4d",
+    "revision": "adc295f6b96c9156c477ef5889aef302",
     "url": "/embed/demo.html"
   },
   {
@@ -288,7 +288,7 @@ self.__precacheManifest = [
     "url": "/dapp-frame.html"
   },
   {
-    "revision": "e4ac7f7e17c88f802275",
+    "revision": "3368f687ad041b793bde",
     "url": "/css/index.5fa19f95.css"
   },
   {
