@@ -1,5 +1,8 @@
 import Web3 from "web3-ss";
+const ES = require("../modules/es-ss.js");
 import './index.styl'
+
+window.esss = new ES(window.BuidlProviders.es.url);
 
 const LityWeb3 = function(provider) {
   Web3.call(this, provider);
@@ -11,7 +14,7 @@ const LityWeb3 = function(provider) {
     window.BuidlG.cb = callback;
     window.BuidlG.frame.postMessage({
       signTx: {
-        chainId: window.Web3Provider.chainId,
+        chainId: window.BuidlProviders.web3.chainId,
         account: from,
         nonce: nonce,
         to: transactionObject.to,
@@ -49,7 +52,7 @@ LityWeb3.prototype.checkTx = function(hash) {
   });
 };
 
-const web3 = new LityWeb3(new Web3.providers.HttpProvider(window.Web3Provider.url));
+const web3 = new LityWeb3(new Web3.providers.HttpProvider(window.BuidlProviders.web3.url));
 
 const embedFrame = document.createElement("iframe");
 embedFrame.src = "https://buidl.secondstate.io/embed/frame.html";
