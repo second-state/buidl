@@ -130,7 +130,16 @@ export default class Contracts extends Vue {
     for (let input of this.contractConstructorInputs) {
       let v = (this.$refs[input.name] as any)[0].value;
       if (input.type.indexOf("[]") > 0) {
-        v = JSON.parse(v);
+        try {
+          v = JSON.parse(v);
+        } catch (e) {
+          this.$store.dispatch(
+            "outputs/pushProblems",
+            e
+          );
+          this.$store.dispatch(`events/setLityOutputTab`, "problems");
+          return;
+        }
       }
       params.push(v);
     }
