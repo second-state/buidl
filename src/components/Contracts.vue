@@ -128,7 +128,11 @@ export default class Contracts extends Vue {
   deploy() {
     let params = [];
     for (let input of this.contractConstructorInputs) {
-      params.push((this.$refs[input.name] as any)[0].value);
+      let v = (this.$refs[input.name] as any)[0].value;
+      if (input.type.indexOf("[]") > 0) {
+        v = JSON.parse(v);
+      }
+      params.push(v);
     }
     params.push({
       data: `0x${this.contract.evm.bytecode.object}`

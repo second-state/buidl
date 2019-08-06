@@ -138,14 +138,15 @@ contract SimpleStorage {
             (result.errors[i] as any).formattedMessage
           );
         }
-        return;
       }
-      this.$store.dispatch(
-        "contracts/setContracts",
-        result.contracts["new.lity"]
-      );
-      this.$store.dispatch("events/setLityPanel", "Contracts");
-      this.$store.dispatch("events/triggerEditorResize");
+      if (result.contracts && result.contracts["new.lity"]) {
+        this.$store.dispatch(
+          "contracts/setContracts",
+          result.contracts["new.lity"]
+        );
+        this.$store.dispatch("events/setLityPanel", "Contracts");
+        this.$store.dispatch("events/triggerEditorResize");
+      }
     }
   }
 
