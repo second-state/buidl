@@ -19,9 +19,14 @@
     <button id="g">Get Data</button>
 
     <script type="text/javascript">
-    window.Web3Provider = {
-      url: "https://devchain.secondstate.io:8545",
-      chainId: "27183"
+    window.BuidlProviders = {
+      web3: {
+        url: "https://devchain.secondstate.io:8545",
+        chainId: "27183"
+      },
+      es: {
+        url: "https://devchain-es.secondstate.io"
+      }
     }
     </script>
     <script type="text/javascript" src="https://buidl.secondstate.io/embed/index.js"></script>
@@ -33,6 +38,13 @@
     var contract = web3.ss.contract(abi);
     var instance = contract.at('0x95ad60dd3403636a0e727900a566ce515c7d8807');
     /* Don't modify */
+
+    esss.shaAbi(JSON.stringify(abi)).then((shaResult) => {
+      var sha = JSON.parse(shaResult).abiSha3;
+      esss.searchUsingAbi(sha).then((searchResult) => {
+        console.log(searchResult);
+      });
+    });
 
     document.querySelector("#s").addEventListener("click", function() {
       var n = window.prompt("Input the number:");

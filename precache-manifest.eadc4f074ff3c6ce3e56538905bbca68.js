@@ -276,7 +276,7 @@ self.__precacheManifest = [
     "url": "/embed/frame.html"
   },
   {
-    "revision": "1c3980344d03ede8bc0c8459e1340212",
+    "revision": "15ff823ef70cd899098d5f23c12badb1",
     "url": "/embed/demo.html"
   },
   {
