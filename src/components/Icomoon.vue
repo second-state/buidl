@@ -14,6 +14,7 @@ icon-play3 = "\ea1c"
 icon-magic-wand = "\e997"
 icon-copy = "\e92c"
 icon-arrow-up = "\ea32"
+icon-share = "\ea7d"
 
 @font-face
   font-family 'icomoon'
@@ -73,4 +74,7 @@ icon-arrow-up = "\ea32"
 .icon-arrow-up
   &:before
     content icon-arrow-up
+.icon-share
+  &:before
+    content icon-share
 </style>

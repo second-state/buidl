@@ -50,7 +50,9 @@ function signTx(
   address: string,
   nonce: Number,
   addr: string,
-  data: string
+  data: string,
+  gasPrice: string,
+  gasLimit: string
 ) {
   let privateKey = "";
   for (let i = 0; i < accounts.length; i++) {
@@ -60,8 +62,8 @@ function signTx(
   }
   const rawTx = {
     nonce: nonce,
-    gasPrice: "0x" + Number(0).toString(16),
-    gasLimit: "0x" + Number(8192000000).toString(16),
+    gasPrice: "0x" + Number(gasPrice).toString(16),
+    gasLimit: "0x" + Number(gasLimit).toString(16),
     to: addr,
     value: 0,
     data: data,
@@ -79,7 +81,15 @@ function receiveMsg(event: any) {
   const data = event.data;
   if (data.signTx) {
     const st = data.signTx;
-    const signedTx = signTx(st.chainId, st.account, st.nonce, st.to, st.data);
+    const signedTx = signTx(
+      st.chainId,
+      st.account,
+      st.nonce,
+      st.to,
+      st.data,
+      st.gasPrice,
+      st.gasLimit
+    );
     window.parent.postMessage({ signedTx: signedTx }, "*");
   }
 }

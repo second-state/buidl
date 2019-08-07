@@ -16,6 +16,13 @@
         <label>Copy</label>
       </button>
       <button
+        @click="export_"
+        onClick="gtag('event', 'dapp', {'event_category': 'toolbar', 'event_label': 'export'});"
+      >
+        <span class="icon-share"></span>
+        <label>Export</label>
+      </button>
+      <button
         @click="reset"
         class="danger"
         onClick="gtag('event', 'dapp', {'event_category': 'toolbar', 'event_label': 'reset'});"
@@ -88,6 +95,7 @@ import ResizeBar from "@/components/ResizeBar.vue";
 import Web3 from "web3-ss";
 import LityWeb3 from "@/services/web3";
 const ES = require("@/modules/es-ss.js");
+import HtmlTemplate from "@/embed/template.ts";
 
 @Component({
   components: {
@@ -343,6 +351,61 @@ var instance = contract.at('${c.address}');
       document.execCommand("copy");
       ta.remove();
     }
+  }
+
+  generateFile(): string {
+    let html = HtmlTemplate;
+    html = html.replace("{{html}}", this.editorData.html.model.getValue());
+    html = html.replace("{{js}}", this.editorData.js.model.getValue());
+    html = html.replace("{{css}}", this.editorData.css.model.getValue());
+
+    const web3Provider = this.$store.state.prefs.web3Provider;
+    const web3Url =
+      web3Provider.using !== ""
+        ? web3Provider.options[web3Provider.using].url
+        : web3Provider.custom.url;
+    html = html.replace("{{web3ProviderUrl}}", web3Url);
+    const web3ChainId =
+      web3Provider.using !== ""
+        ? web3Provider.options[web3Provider.using].chainId
+        : web3Provider.custom.chainId;
+    html = html.replace("{{web3ProviderChainId}}", web3ChainId);
+
+    const gasPrice =
+      web3Provider.using !== "" || !web3Provider.custom.customGas
+        ? web3Provider.default.gasPrice
+        : web3Provider.custom.gasPrice;
+    html = html.replace("{{web3ProviderGasPrice}}", gasPrice);
+    const gasLimit =
+      web3Provider.using !== "" || !web3Provider.custom.customGas
+        ? web3Provider.default.gasLimit
+        : web3Provider.custom.gasLimit;
+    html = html.replace("{{web3ProviderGasLimit}}", gasLimit);
+
+    const esProvider = this.$store.state.prefs.esProvider;
+    const esUrl =
+      esProvider.using !== ""
+        ? esProvider.options[esProvider.using].url
+        : esProvider.custom.url;
+    html = html.replace("{{esProviderUrl}}", esUrl);
+
+    return html;
+  }
+
+  export_() {
+    var element = document.createElement("a");
+    element.setAttribute(
+      "href",
+      "data:text/plain;charset=utf-8," + encodeURIComponent(this.generateFile())
+    );
+    element.setAttribute("download", "buidl.html");
+
+    element.style.display = "none";
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
   }
 
   reset() {
