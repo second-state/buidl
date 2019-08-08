@@ -15,23 +15,23 @@
   font-family Arial, sans-serif
   z-index 2147483647
 
-  .handle
+  .wt-handle
     position relative
     height 30px
     background-color #d24242
     cursor pointer
-    .left-arrow
+    .wt-left-arrow
       top 7px
       left 11px
       &:after
         border-right-color #d24242
         margin-left 2px
-  .close
+  .wt-close
     position relative
     height 30px
     background-color #20c370
     cursor pointer
-    .left-arrow
+    .wt-left-arrow
       top 7px
       left 14px
       &:after
@@ -42,7 +42,7 @@
         position absolute
         margin-left 2px
 
-    .right-arrow
+    .wt-right-arrow
       border-width 8px 0 8px 8px
       border-color transparent transparent transparent white
       top 7px
@@ -55,7 +55,7 @@
         position absolute
         margin-left -11px
 
-  .left-arrow, .right-arrow
+  .wt-left-arrow, .wt-right-arrow
     border-width 8px 8px 8px 0
     border-color transparent white transparent transparent
     border-style solid
@@ -67,9 +67,9 @@
       border-style solid
       position absolute
       margin-top -9px
-    &.rotate
+    &.wt-rotate
       transform rotate(180deg)
-  .account-selector
+  .wt-account-selector
     position absolute
     width 300px
     left -300px

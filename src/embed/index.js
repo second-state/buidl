@@ -9,7 +9,6 @@ const LityWeb3 = function(provider) {
 
   this.ss.sendTransaction = (transactionObject, callback) => {
     const from = window.BuidlG.selectedAccount;
-    console.log(from);
     const nonce = this.ss.getTransactionCount(from);
     window.BuidlG.cb = callback;
     window.BuidlG.frame.postMessage({
@@ -84,6 +83,10 @@ function receiveMsg(event) {
   }
 }
 
+web3.ss.getAccounts = (cb) => {
+  cb(null, [window.BuidlG.selectedAccount]);
+};
+
 window.web3 = web3;
 window.BuidlG = {};
 
@@ -103,14 +106,14 @@ function settleUI(accounts) {
   }
 
   floatTrigger.innerHTML = `
-    <div class="handle">
-      <span class="left-arrow rotate"></span>
+    <div class="wt-handle">
+      <span class="wt-left-arrow wt-rotate"></span>
     </div>
-    <div class="close">
-      <span class="right-arrow"></span>
-      <span class="left-arrow"></span>
+    <div class="wt-close">
+      <span class="wt-right-arrow"></span>
+      <span class="wt-left-arrow"></span>
     </div>
-    <div class="account-selector">
+    <div class="wt-account-selector">
       <label>Select Account</label>
       <select>
         ${options}
@@ -120,20 +123,20 @@ function settleUI(accounts) {
 
   let expanded = true;
 
-  const accountSelector = document.querySelector(".web3-float-trigger .account-selector select");
+  const accountSelector = document.querySelector(".web3-float-trigger .wt-account-selector select");
 
-  document.querySelector(".web3-float-trigger .close").addEventListener("click", function() {
+  document.querySelector(".web3-float-trigger .wt-close").addEventListener("click", function() {
     floatTrigger.remove();
   });
 
-  document.querySelector(".web3-float-trigger .handle").addEventListener("click", function() {
+  document.querySelector(".web3-float-trigger .wt-handle").addEventListener("click", function() {
     if (expanded) {
-      this.children[0].className = "left-arrow";
+      this.children[0].className = "wt-left-arrow";
       triggerMask.style.display = "none";
       accountSelector.parentElement.style.display = "none";
       expanded = false;
     } else {
-      this.children[0].className = "left-arrow rotate";
+      this.children[0].className = "wt-left-arrow wt-rotate";
       triggerMask.style.display = "block";
       accountSelector.parentElement.style.display = "block";
       expanded = true;
@@ -141,7 +144,7 @@ function settleUI(accounts) {
   });
 
   triggerMask.addEventListener("click", function() {
-    document.querySelector(".web3-float-trigger .handle").children[0].className = "left-arrow";
+    document.querySelector(".web3-float-trigger .wt-handle").children[0].className = "wt-left-arrow";
     triggerMask.style.display = "none";
     accountSelector.parentElement.style.display = "none";
     expanded = false;
