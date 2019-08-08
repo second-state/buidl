@@ -83,12 +83,18 @@ function receiveMsg(event) {
   }
 }
 
-web3.ss.getAccounts = (cb) => {
-  cb(null, [window.BuidlG.selectedAccount]);
-};
-
 window.web3 = web3;
 window.BuidlG = {};
+
+web3.ss.getAccounts = (cb) => {
+  if (!window.BuidlG.selectedAccount) {
+    setTimeout(function() {
+      web3.ss.getAccounts(cb);
+    }, 100);
+  } else {
+    cb(null, [window.BuidlG.selectedAccount]);
+  }
+};
 
 // Settle ui
 function settleUI(accounts) {
