@@ -101,6 +101,7 @@ function settleUI(accounts) {
   const triggerMask = document.createElement("div");
   triggerMask.className = "web3-trigger-mask";
   document.body.appendChild(triggerMask);
+  triggerMask.style.display = "none";
 
   const floatTrigger = document.createElement("div");
   floatTrigger.className = "web3-float-trigger";
@@ -113,13 +114,13 @@ function settleUI(accounts) {
 
   floatTrigger.innerHTML = `
     <div class="wt-handle">
-      <span class="wt-left-arrow wt-rotate"></span>
+      <span class="wt-left-arrow"></span>
     </div>
     <div class="wt-close">
       <span class="wt-right-arrow"></span>
       <span class="wt-left-arrow"></span>
     </div>
-    <div class="wt-account-selector">
+    <div class="wt-account-selector" style="display:none;">
       <label>Select Account</label>
       <select>
         ${options}
@@ -127,7 +128,7 @@ function settleUI(accounts) {
     </div>
   `;
 
-  let expanded = true;
+  let expanded = false;
 
   const accountSelector = document.querySelector(".web3-float-trigger .wt-account-selector select");
 
