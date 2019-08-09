@@ -98,7 +98,7 @@ contract SimpleStorage {
       document.getElementById("lity-editor") as HTMLElement,
       {
         value: text,
-        language: "solidity",
+        language: "sol",
         theme: this.$store.state.prefs.darkTheme ? "vs-dark" : ""
       }
     );
