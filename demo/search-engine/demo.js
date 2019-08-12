@@ -451,6 +451,11 @@ var c1dAddress = "";
 // Address of contract 2 post deployment
 var c2dAddress = "";
 
+// Contract instance 1
+var instance1;
+// Contract instance 2
+var instance2;
+
 document.querySelector("#c1d").addEventListener("click", function() {
     $("#c1d_deployParentAndIndexExpectation1").empty();
     $("#c1d_deployParentAndIndexResults1").empty();
@@ -465,6 +470,7 @@ document.querySelector("#c1d").addEventListener("click", function() {
             console.log("Transaction Hash:" + i.transactionHash);
             console.log("Address:" + i.address);
             c1dAddress = i.address;
+            instance1 = contract1.at(c1dAddress);
 
             esss2.shaAbi(JSON.stringify(parentAbi)).then((shaResult1) => {
                 var parentSha = JSON.parse(shaResult1).abiSha3;
@@ -515,9 +521,9 @@ document.querySelector("#c2d").addEventListener("click", function() {
     $("#c2d_deployParentAndIndexResults1").empty();
     $("#c2d_deployParentAndIndexResults2").empty();
 
-    var contract1 = web3.ss.contract(childAbi);
+    var contract2 = web3.ss.contract(childAbi);
     var data1 = '0x' + childBytecode;
-    contract1.new({
+    contract2.new({
         data: data1,
     }, function(ee, i) {
         if (!ee && i.address != null) {
@@ -525,6 +531,7 @@ document.querySelector("#c2d").addEventListener("click", function() {
             console.log("Transaction Hash:" + i.transactionHash);
             console.log("Address:" + i.address);
             c2dAddress = i.address;
+            instance2 = contract2.at(c2dAddress);
             esss2.shaAbi(JSON.stringify(parentAbi)).then((shaResult1) => {
                 var parentSha = JSON.parse(shaResult1).abiSha3;
                 $("#c2d_deployParentAndIndexExpectation1").append(parentSha);
@@ -571,7 +578,6 @@ document.querySelector("#c2i").addEventListener("click", function() {
     console.log("Querying index using address: " + c2dAddress)
     esss2.searchUsingAddress(c2dAddress).then((c2i) => {
         var data = JSON.parse(c2i);
-        console.log(JSON.stringify(data));
         resultToDisplay = JSON.stringify(data.functionData.getChildContractData);
         $("#c2i_interactionResult1").text(resultToDisplay.replace(/['"]+/g, ''));
     });
