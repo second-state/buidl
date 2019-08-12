@@ -214,12 +214,12 @@ class ESSS {
     describeUsingTx(_transactionHash) {
         let url = this.searchEngineBaseUrl + "/api/describe_using_tx";
         return new Promise(function(resolve, reject) {
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", url, true);
-        xhr.setRequestHeader("Content-Type", "application/json");
-        //data
-        var data = {};
-        data["hash"] = _transactionHash;
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", url, true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            //data
+            var data = {};
+            data["hash"] = _transactionHash;
             xhr.onload = function(e) {
                 if (xhr.readyState === 4) {
                     if (xhr.status === 200) {
@@ -325,7 +325,9 @@ class ESSS {
             xhr.onload = function(e) {
                 if (xhr.readyState === 4) {
                     if (xhr.status === 200) {
-                        resolve(xhr.responseText);
+                        var jsonResponse = JSON.parse(xhr.responseText);
+                        var allRecord = JSON.stringify(jsonResponse[0]);
+                        resolve(allRecord);
                     }
                 }
             };
@@ -492,7 +494,6 @@ document.querySelector("#c1d").addEventListener("click", function() {
             }, 4 * 1000);
         }
     });
-
 });
 
 
@@ -502,11 +503,10 @@ document.querySelector("#c1i").addEventListener("click", function() {
     $("#c1i_interactionExpectation1").append("1");
     console.log("Querying index using address: " + c1dAddress)
     esss2.searchUsingAddress(c1dAddress).then((c1i) => {
-        console.log(c1i)
-        //var data = JSON.parse(c1i).getParentContractData;
-        $("#c1i_interactionResult1").append(data);
+        var data = JSON.parse(c1i);
+        resultToDisplay = JSON.stringify(data.functionData.getParentContractData);
+        $("#c1i_interactionResult1").text(resultToDisplay.replace(/['"]+/g, ''))
     });
-
 });
 
 document.querySelector("#c2d").addEventListener("click", function() {
