@@ -703,7 +703,7 @@ document.querySelector("#c3d").addEventListener("click", function() {
                     var resultToDisplay = JSON.stringify(JSON.parse(txResult).abiShaList[0]);
                     $("#c3d_deployParentAndIndexResults1").text(resultToDisplay.replace(/['"]+/g, ''));
                 });
-            }, 6 * 1000);
+            }, 10 * 1000);
         }
     });
 });
@@ -736,7 +736,7 @@ document.querySelector("#c4d").addEventListener("click", function() {
                     var resultToDisplay = JSON.stringify(JSON.parse(txResult).abiShaList[0]);
                     $("#c4d_deployParentAndIndexResults1").text(resultToDisplay.replace(/['"]+/g, ''));
                 });
-            }, 6 * 1000);
+            }, 10 * 1000);
         }
     });
 });
