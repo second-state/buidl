@@ -569,9 +569,10 @@ document.querySelector("#c2i").addEventListener("click", function() {
     $("#c2i_interactionResult1").empty();
     $("#c2i_interactionExpectation1").append("1");
     console.log("Querying index using address: " + c2dAddress)
-    esss2.getDataUsingAddress(c2dAddress).then((c1i) => {
-        var data = JSON.parse(c2i).getParentContractData;
-        $("#c2i_interactionResult1").append(data);
+    esss2.searchUsingAddress(c2dAddress).then((c2i) => {
+        var data = JSON.parse(c2i);
+        resultToDisplay = JSON.stringify(data.functionData.getParentContractData);
+        $("#c2i_interactionResult1").text(resultToDisplay.replace(/['"]+/g, ''))
     });
 
 });
