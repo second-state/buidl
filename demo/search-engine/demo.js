@@ -471,7 +471,7 @@ document.querySelector("#c1d").addEventListener("click", function() {
                 $("#c1d_deployParentAndIndexExpectation1").append(parentSha);
             });
             setTimeout(function() {
-                console.log("Indexing ABI and TxHash into search engine")
+                console.log("Indexing ABI and TxHash into search engine");
                 var abiSubmission = esss2.submitAbi(JSON.stringify(parentAbi), i.transactionHash);
                 abiSubmission.then(function(error, result) {
                         if (!error) {
@@ -485,7 +485,7 @@ document.querySelector("#c1d").addEventListener("click", function() {
                     });
             }, 2 * 1000);
             setTimeout(function() {
-                console.log("Fetching results from search engine")
+                console.log("Fetching results from search engine");
                 console.log("Using Tx: " + i.transactionHash);
                 esss2.describeUsingTx(i.transactionHash).then((txResult) => {
                     var resultToDisplay = JSON.stringify(JSON.parse(txResult).abiShaList[0]);
@@ -501,11 +501,11 @@ document.querySelector("#c1i").addEventListener("click", function() {
     $("#c1i_interactionExpectation1").empty();
     $("#c1i_interactionResult1").empty();
     $("#c1i_interactionExpectation1").append("1");
-    console.log("Querying index using address: " + c1dAddress)
+    console.log("Querying index using address: " + c1dAddress);
     esss2.searchUsingAddress(c1dAddress).then((c1i) => {
         var data = JSON.parse(c1i);
         resultToDisplay = JSON.stringify(data.functionData.getParentContractData);
-        $("#c1i_interactionResult1").text(resultToDisplay.replace(/['"]+/g, ''))
+        $("#c1i_interactionResult1").text(resultToDisplay.replace(/['"]+/g, ''));
     });
 });
 
@@ -554,7 +554,7 @@ document.querySelector("#c2d").addEventListener("click", function() {
                     var resultToDisplay = JSON.parse(txResult).abiShaList;
                     for (var i = 0; i < resultToDisplay.length; i++) {
                         $("#c2d_deployParentAndIndexResults1").append(resultToDisplay[i]);
-                        $("#c2d_deployParentAndIndexResults1").append("<br />")
+                        $("#c2d_deployParentAndIndexResults1").append("<br />");
                     }
                 });
             }, 10 * 1000);
@@ -571,8 +571,9 @@ document.querySelector("#c2i").addEventListener("click", function() {
     console.log("Querying index using address: " + c2dAddress)
     esss2.searchUsingAddress(c2dAddress).then((c2i) => {
         var data = JSON.parse(c2i);
-        resultToDisplay = JSON.stringify(data.functionData.getParentContractData);
-        $("#c2i_interactionResult1").text(resultToDisplay.replace(/['"]+/g, ''))
+        console.log(JSON.stringify(data));
+        resultToDisplay = JSON.stringify(data.functionData.getChildContractData);
+        $("#c2i_interactionResult1").text(resultToDisplay.replace(/['"]+/g, ''));
     });
 
 });
