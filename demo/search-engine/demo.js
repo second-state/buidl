@@ -515,6 +515,48 @@ document.querySelector("#c1i").addEventListener("click", function() {
     });
 });
 
+document.querySelector("#c1i2").addEventListener("click", function() {
+    instance1.incrementParentContractData();
+    $("#c1i2_interactionExpectation1").empty();
+    $("#c1i2_interactionResult1").empty();
+    setTimeout(function() {
+    esss2.searchUsingAddress(c1dAddress).then((c1i) => {
+        var data = JSON.parse(c1i);
+        resultToDisplay = JSON.stringify(data.functionData.getParentContractData);
+        $("#c1i2_interactionExpectation1").text(parseInt(resultToDisplay.replace(/['"]+/g, '')) + 1);
+    });
+    }, 500);
+    console.log("Querying index using address: " + c1dAddress);
+    setTimeout(function() {
+    esss2.searchUsingAddress(c1dAddress).then((c1i) => {
+        var data = JSON.parse(c1i);
+        resultToDisplay = JSON.stringify(data.functionData.getParentContractData);
+        $("#c1i2_interactionResult1").text(resultToDisplay.replace(/['"]+/g, ''));
+    });
+    }, 5 * 1000);
+});
+
+document.querySelector("#c1i3").addEventListener("click", function() {
+    instance1.decrementParentContractData();
+    $("#c1i3_interactionExpectation1").empty();
+    $("#c1i3_interactionResult1").empty();
+    setTimeout(function() {
+    esss2.searchUsingAddress(c1dAddress).then((c1i) => {
+        var data = JSON.parse(c1i);
+        resultToDisplay = JSON.stringify(data.functionData.getParentContractData);
+        $("#c1i3_interactionExpectation1").text(parseInt(resultToDisplay.replace(/['"]+/g, '')) - 1);
+    });
+    }, 500);
+    console.log("Querying index using address: " + c1dAddress);
+    setTimeout(function() {
+    esss2.searchUsingAddress(c1dAddress).then((c1i) => {
+        var data = JSON.parse(c1i);
+        resultToDisplay = JSON.stringify(data.functionData.getParentContractData);
+        $("#c1i3_interactionResult1").text(resultToDisplay.replace(/['"]+/g, ''));
+    });
+    }, 5 * 1000);
+});
+
 document.querySelector("#c2d").addEventListener("click", function() {
     $("#c2d_deployParentAndIndexExpectation1").empty();
     $("#c2d_deployParentAndIndexExpectation2").empty();
@@ -557,7 +599,7 @@ document.querySelector("#c2d").addEventListener("click", function() {
             }, 2 * 1000);
             setTimeout(function() {
                 console.log("Fetching results from search engine")
-                esss2.describeUsingTx(i.transactionHash).then((txResult) => {
+                    esss2.describeUsingTx(i.transactionHash).then((txResult) => {
                     var resultToDisplay = JSON.parse(txResult).abiShaList;
                     for (var i = 0; i < resultToDisplay.length; i++) {
                         $("#c2d_deployParentAndIndexResults1").append(resultToDisplay[i]);
