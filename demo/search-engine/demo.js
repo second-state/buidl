@@ -612,7 +612,6 @@ document.querySelector("#c2d").addEventListener("click", function() {
 
 });
 
-
 document.querySelector("#c2i").addEventListener("click", function() {
     $("#c2i_interactionExpectation1").empty();
     $("#c2i_interactionResult1").empty();
@@ -624,4 +623,46 @@ document.querySelector("#c2i").addEventListener("click", function() {
         $("#c2i_interactionResult1").text(resultToDisplay.replace(/['"]+/g, ''));
     });
 
+});
+
+document.querySelector("#c2i2").addEventListener("click", function() {
+    instance2.incrementChildContractData();
+    $("#c2i2_interactionExpectation1").empty();
+    $("#c2i2_interactionResult1").empty();
+    setTimeout(function() {
+    esss2.searchUsingAddress(c2dAddress).then((c1i) => {
+        var data = JSON.parse(c1i);
+        resultToDisplay = JSON.stringify(data.functionData.getChildContractData);
+        $("#c2i2_interactionExpectation1").text(parseInt(resultToDisplay.replace(/['"]+/g, '')) + 1);
+    });
+    }, 500);
+    console.log("Querying index using address: " + c2dAddress);
+    setTimeout(function() {
+    esss2.searchUsingAddress(c2dAddress).then((c1i) => {
+        var data = JSON.parse(c1i);
+        resultToDisplay = JSON.stringify(data.functionData.getChildContractData);
+        $("#c2i2_interactionResult1").text(resultToDisplay.replace(/['"]+/g, ''));
+    });
+    }, 5 * 1000);
+});
+
+document.querySelector("#c2i3").addEventListener("click", function() {
+    instance2.decrementChildContractData();
+    $("#c2i3_interactionExpectation1").empty();
+    $("#c2i3_interactionResult1").empty();
+    setTimeout(function() {
+    esss2.searchUsingAddress(c2dAddress).then((c1i) => {
+        var data = JSON.parse(c1i);
+        resultToDisplay = JSON.stringify(data.functionData.getChildContractData);
+        $("#c2i3_interactionExpectation1").text(parseInt(resultToDisplay.replace(/['"]+/g, '')) - 1);
+    });
+    }, 500);
+    console.log("Querying index using address: " + c2dAddress);
+    setTimeout(function() {
+    esss2.searchUsingAddress(c2dAddress).then((c1i) => {
+        var data = JSON.parse(c1i);
+        resultToDisplay = JSON.stringify(data.functionData.getChildContractData);
+        $("#c2i3_interactionResult1").text(resultToDisplay.replace(/['"]+/g, ''));
+    });
+    }, 5 * 1000);
 });
