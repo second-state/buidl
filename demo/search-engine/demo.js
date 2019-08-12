@@ -214,12 +214,12 @@ class ESSS {
     describeUsingTx(_transactionHash) {
         let url = this.searchEngineBaseUrl + "/api/describe_using_tx";
         return new Promise(function(resolve, reject) {
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", url, true);
-            xhr.setRequestHeader("Content-Type", "application/json");
-            //data
-            var data = {};
-            data["hash"] = _transactionHash;
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        //data
+        var data = {};
+        data["hash"] = _transactionHash;
             xhr.onload = function(e) {
                 if (xhr.readyState === 4) {
                     if (xhr.status === 200) {
@@ -481,7 +481,7 @@ document.querySelector("#c1d").addEventListener("click", function() {
                     .catch(function() {
                         console.log("Error");
                     });
-            }, 3 * 1000);
+            }, 2 * 1000);
             setTimeout(function() {
                 console.log("Fetching results from search engine")
                 console.log("Using Tx: " + i.transactionHash);
@@ -489,7 +489,7 @@ document.querySelector("#c1d").addEventListener("click", function() {
                     var resultToDisplay = JSON.stringify(JSON.parse(txResult).abiShaList[0]);
                     $("#c1d_deployParentAndIndexResults1").text(resultToDisplay.replace(/['"]+/g, ''));
                 });
-            }, 6 * 1000);
+            }, 4 * 1000);
         }
     });
 
@@ -501,8 +501,9 @@ document.querySelector("#c1i").addEventListener("click", function() {
     $("#c1i_interactionResult1").empty();
     $("#c1i_interactionExpectation1").append("1");
     console.log("Querying index using address: " + c1dAddress)
-    esss2.getDataUsingAddress(c1dAddress).then((c1i) => {
-        var data = JSON.parse(c1i).getParentContractData;
+    esss2.searchUsingAddress(c1dAddress).then((c1i) => {
+        console.log(c1i)
+        //var data = JSON.parse(c1i).getParentContractData;
         $("#c1i_interactionResult1").append(data);
     });
 
