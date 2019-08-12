@@ -747,3 +747,25 @@ document.querySelector("#c4d").addEventListener("click", function() {
         }
     });
 });
+
+document.querySelector("#c3r").addEventListener("click", function() {
+        $("#c3d_deployParentAndIndexResults1").empty();
+        esss2.searchUsingAddress(c3dAddress).then((c1i) => {
+                    var resultToDisplay = JSON.parse(c1i).abiShaList;
+                    for (var i = 0; i < resultToDisplay.length; i++) {
+                        $("#c3d_deployParentAndIndexResults1").append(resultToDisplay[i]);
+                        $("#c3d_deployParentAndIndexResults1").append("<br />");
+                    }
+                });
+});
+
+document.querySelector("#c4r").addEventListener("click", function() {
+    $("#c4d_deployParentAndIndexResults1").empty();
+        esss2.searchUsingAddress(c4dAddress).then((c1i) => {
+                    var resultToDisplay = JSON.parse(c1i).abiShaList;
+                    for (var i = 0; i < resultToDisplay.length; i++) {
+                        $("#c4d_deployParentAndIndexResults1").append(resultToDisplay[i]);
+                        $("#c4d_deployParentAndIndexResults1").append("<br />");
+                    }
+                });
+});
