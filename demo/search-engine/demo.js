@@ -214,12 +214,12 @@ class ESSS {
     describeUsingTx(_transactionHash) {
         let url = this.searchEngineBaseUrl + "/api/describe_using_tx";
         return new Promise(function(resolve, reject) {
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", url, true);
-        xhr.setRequestHeader("Content-Type", "application/json");
-        //data
-        var data = {};
-        data["hash"] = _transactionHash;
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", url, true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            //data
+            var data = {};
+            data["hash"] = _transactionHash;
             xhr.onload = function(e) {
                 if (xhr.readyState === 4) {
                     if (xhr.status === 200) {
@@ -436,6 +436,9 @@ class ESSS {
     }
 }
 
+
+// Start of DEMO
+
 var esss2 = new ESSS("https://devchain-es.secondstate.io");
 esss2.getMostRecentIndexedBlockNumber().then((theResult) => {
     var blockNumber = JSON.parse(theResult);
@@ -483,8 +486,8 @@ document.querySelector("#c1d").addEventListener("click", function() {
                 console.log("Fetching results from search engine")
                 console.log("Using Tx: " + i.transactionHash);
                 esss2.describeUsingTx(i.transactionHash).then((txResult) => {
-                    var resultToDisplay = JSON.stringify(JSON.parse(txResult).abiShaList);
-                    $("#c1d_deployParentAndIndexResults1").text(resultToDisplay);
+                    var resultToDisplay = JSON.stringify(JSON.parse(txResult).abiShaList[0]);
+                    $("#c1d_deployParentAndIndexResults1").text(resultToDisplay.replace(/['"]+/g, ''));
                 });
             }, 6 * 1000);
         }
