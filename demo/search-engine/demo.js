@@ -723,18 +723,25 @@ document.querySelector("#c4d").addEventListener("click", function() {
             console.log("Address:" + i.address);
             c4dAddress = i.address;
             instance4 = contract4.at(c4dAddress);
+            esss2.shaAbi(JSON.stringify(parentAbi)).then((shaResult1) => {
+                var parentSha = JSON.parse(shaResult1).abiSha3;
+                $("#c4d_deployParentAndIndexExpectation1").append(parentSha);
+            });
 
-            esss2.shaAbi(JSON.stringify(childAbi)).then((shaResult1) => {
-                var childSha = JSON.parse(shaResult1).abiSha3;
-                $("#c4d_deployParentAndIndexExpectation1").append(childSha);
+            esss.shaAbi(JSON.stringify(childAbi)).then((shaResult2) => {
+                var childSha = JSON.parse(shaResult2).abiSha3;
+                $("#c4d_deployParentAndIndexExpectation2").append(childSha);
             });
 
             setTimeout(function() {
                 console.log("Fetching results from search engine");
                 console.log("Using Tx: " + i.transactionHash);
                 esss2.describeUsingTx(i.transactionHash).then((txResult) => {
-                    var resultToDisplay = JSON.stringify(JSON.parse(txResult).abiShaList[0]);
-                    $("#c4d_deployParentAndIndexResults1").text(resultToDisplay.replace(/['"]+/g, ''));
+                    var resultToDisplay = JSON.parse(txResult).abiShaList;
+                    for (var i = 0; i < resultToDisplay.length; i++) {
+                        $("#c4d_deployParentAndIndexResults1").append(resultToDisplay[i]);
+                        $("#c4d_deployParentAndIndexResults1").append("<br />");
+                    }
                 });
             }, 10 * 1000);
         }
