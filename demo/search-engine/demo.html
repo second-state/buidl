@@ -2,7 +2,9 @@
 <br />
 <!-- START DEPLOY -->
 <div class="form-row text-center">
-   <div class="col-sm-12"><b>Contract 1 - Deployment</b></div>
+   <div class="col-sm-12"><b>Contract 1 - Deployment</b>
+   <br />Deploying the parent contract; a small contract which is inherited by the child contract.
+   </div>
 </div>
 <br />
 <div class="form-row text-center">
@@ -20,14 +22,16 @@
    <div class="col-sm-12">Actual</div>
 </div>
 <div class="form-row text-center">
-   <div class="col-sm-6" id="c1d_deployParentAndIndexResults1"></div>
+   <div class="col-sm-12" id="c1d_deployParentAndIndexResults1"></div>
 </div>
 <br />
 <hr />
 <!-- END DEPLOY -->
 <!-- START INTERACTION -->
 <div class="form-row text-center">
-   <div class="col-sm-12"><b>Contract 1 - Interaction</b></div>
+   <div class="col-sm-12"><b>Contract 1 - First Interaction</b>
+   <br />Reading the data from the parent contract; which is set to 1 by default.
+</div>
 </div>
 <br />
 <div class="form-row text-center">
@@ -45,17 +49,79 @@
    <div class="col-sm-12">Actual</div>
 </div>
 <div class="form-row text-center">
-   <div class="col-sm-6" id="c1i_interactionResult1"></div>
+   <div class="col-sm-12" id="c1i_interactionResult1"></div>
 </div>
 <br />
 <hr />
 <!-- END INTERACTION -->
+
+
+<!-- START INTERACTION -->
+<div class="form-row text-center">
+   <div class="col-sm-12"><b>Contract 1 - Second Interaction</b>
+   <br />Incrementing the parent contract by one
+</div>
+</div>
+<br />
+<div class="form-row text-center">
+   <div class="col-sm-12"><button type="button" class="btn btn-primary btn-sm" id="c1i2">Get new data</button></div>
+</div>
+<br />
+<div class="form-row text-center">
+   <div class="col-sm-12">Expected</div>
+</div>
+<div class="form-row text-center">
+   <div class="col-sm-12" id="c1i2_interactionExpectation1"></div>
+</div>
+<br />
+<div class="form-row text-center">
+   <div class="col-sm-12">Actual</div>
+</div>
+<div class="form-row text-center">
+   <div class="col-sm-12" id="c1i2_interactionResult1"></div>
+</div>
+<br />
+<hr />
+<!-- END INTERACTION -->
+
+<!-- START INTERACTION -->
+<div class="form-row text-center">
+   <div class="col-sm-12"><b>Contract 1 - Third Interaction</b>
+   <br />Decrementing the parent contract by one
+</div>
+</div>
+<br />
+<div class="form-row text-center">
+   <div class="col-sm-12"><button type="button" class="btn btn-primary btn-sm" id="c1i3">Get new data</button></div>
+</div>
+<br />
+<div class="form-row text-center">
+   <div class="col-sm-12">Expected</div>
+</div>
+<div class="form-row text-center">
+   <div class="col-sm-12" id="c1i3_interactionExpectation1"></div>
+</div>
+<br />
+<div class="form-row text-center">
+   <div class="col-sm-12">Actual</div>
+</div>
+<div class="form-row text-center">
+   <div class="col-sm-12" id="c1i3_interactionResult1"></div>
+</div>
+<br />
+<hr />
+<!-- END INTERACTION -->
+
+
 <!-- END FIRST CONTRACT -->
 
 <!-- START SECOND CONTRACT -->
 <!-- START DEPLOY -->
 <div class="form-row text-center">
-   <div class="col-sm-12"><b>Contract 2 - Deployment</b></div>
+   <div class="col-sm-12"><b>Contract 2 - Deployment</b>
+   <br />Deploying the child contract; a newer contract which inherits the parent contract and therefore has two ABIs.
+   <br />Please note, we are only explicitly indexing the child contract so the record has to organically find its parent ABI (for both to show in the actual results)
+</div>
 </div>
 <br />
 <div class="form-row text-center">
@@ -76,7 +142,7 @@
    <div class="col-sm-12">Actual</div>
 </div>
 <div class="form-row text-center">
-   <div class="col-sm-6" id="c2d_deployParentAndIndexResults1"></div>
+   <div class="col-sm-12" id="c2d_deployParentAndIndexResults1"></div>
 </div>
 <br />
 <hr />
@@ -84,7 +150,9 @@
 
 <!-- START INTERACTION -->
 <div class="form-row text-center">
-   <div class="col-sm-12"><b>Contract 2 - Interaction</b></div>
+   <div class="col-sm-12"><b>Contract 2 - Interaction</b>
+   <br />Reading the data from the child contract which by default was set to 1.
+</div>
 </div>
 <br />
 <div class="form-row text-center">
@@ -102,7 +170,7 @@
    <div class="col-sm-12">Actual</div>
 </div>
 <div class="form-row text-center">
-   <div class="col-sm-6" id="c2i_interactionResult1"></div>
+   <div class="col-sm-12" id="c2i_interactionResult1"></div>
 </div>
 <br />
 <hr />
