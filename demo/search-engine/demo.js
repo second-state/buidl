@@ -547,15 +547,17 @@ document.querySelector("#c2d").addEventListener("click", function() {
                     .catch(function() {
                         console.log("Error");
                     });
-            }, 3 * 1000);
+            }, 2 * 1000);
             setTimeout(function() {
                 console.log("Fetching results from search engine")
                 esss2.describeUsingTx(i.transactionHash).then((txResult) => {
-                    var shas = JSON.parse(txResult).abiShaList;
-                    console.log(shas);
-                    //If parentSha in shas && childSha in shas then $("#c2d_deployParentAndIndexResults1").text("Success" + childSha + " " + parentSha);
+                    var resultToDisplay = JSON.parse(txResult).abiShaList;
+                    for (var i = 0; i < resultToDisplay.length; i++) {
+                        $("#c2d_deployParentAndIndexResults1").append(resultToDisplay[i]);
+                        $("#c2d_deployParentAndIndexResults1").append("<br />")
+                    }
                 });
-            }, 6 * 1000);
+            }, 10 * 1000);
         }
     });
 
