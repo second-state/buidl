@@ -66,7 +66,6 @@ function receiveMsg(event) {
   const data = event.data;
   if (data.accounts) {
     window.BuidlG.accounts = data.accounts;
-    window.BuidlG.selectedAccount = data.accounts[0];
     window.BuidlG.frame = event.source;
     settleUI(window.BuidlG.accounts);
   } else if (data.signedTx) {
@@ -107,9 +106,24 @@ function settleUI(accounts) {
   floatTrigger.className = "web3-float-trigger";
   document.body.appendChild(floatTrigger);
 
+  const store = window.localStorage.getItem("buidl-embed");
+  let storeAccount = null;
+  if (store) {
+    try {
+      storeAccount = JSON.parse(store).selectedAccount;
+    } catch(e) {}
+  }
+
+  window.BuidlG.selectedAccount = accounts[0];
+  
   let options = "";
   for (let i = 0; i < accounts.length; i++) {
-    options += `<option value="${accounts[i]}">${accounts[i]}</option>`;
+    if (accounts[i] === storeAccount) {
+      options += `<option value="${accounts[i]}" selected>${accounts[i]}</option>`;
+      window.BuidlG.selectedAccount = storeAccount;
+    } else {
+      options += `<option value="${accounts[i]}">${accounts[i]}</option>`;
+    }
   }
 
   floatTrigger.innerHTML = `
@@ -134,6 +148,7 @@ function settleUI(accounts) {
 
   document.querySelector(".web3-float-trigger .wt-close").addEventListener("click", function() {
     floatTrigger.remove();
+    triggerMask.remove();
   });
 
   document.querySelector(".web3-float-trigger .wt-handle").addEventListener("click", function() {
@@ -159,6 +174,7 @@ function settleUI(accounts) {
 
   accountSelector.addEventListener("change", function() {
     window.BuidlG.selectedAccount = window.BuidlG.accounts[this.selectedIndex];
+    window.localStorage.setItem("buidl-embed", JSON.stringify({selectedAccount: window.BuidlG.selectedAccount}));
   })
 }
 
