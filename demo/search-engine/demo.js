@@ -505,7 +505,7 @@ document.querySelector("#c1d").addEventListener("click", function() {
                     var resultToDisplay = JSON.stringify(JSON.parse(txResult).abiShaList[0]);
                     $("#c1d_deployParentAndIndexResults1").text(resultToDisplay.replace(/['"]+/g, ''));
                 });
-            }, 4 * 1000);
+            }, 6 * 1000);
         }
     });
 });
@@ -541,7 +541,7 @@ document.querySelector("#c1i2").addEventListener("click", function() {
         resultToDisplay = JSON.stringify(data.functionData.getParentContractData);
         $("#c1i2_interactionResult1").text(resultToDisplay.replace(/['"]+/g, ''));
     });
-    }, 5 * 1000);
+    }, 6 * 1000);
 });
 
 document.querySelector("#c1i3").addEventListener("click", function() {
@@ -562,7 +562,7 @@ document.querySelector("#c1i3").addEventListener("click", function() {
         resultToDisplay = JSON.stringify(data.functionData.getParentContractData);
         $("#c1i3_interactionResult1").text(resultToDisplay.replace(/['"]+/g, ''));
     });
-    }, 5 * 1000);
+    }, 6 * 1000);
 });
 
 document.querySelector("#c2d").addEventListener("click", function() {
@@ -651,7 +651,7 @@ document.querySelector("#c2i2").addEventListener("click", function() {
         resultToDisplay = JSON.stringify(data.functionData.getChildContractData);
         $("#c2i2_interactionResult1").text(resultToDisplay.replace(/['"]+/g, ''));
     });
-    }, 5 * 1000);
+    }, 6 * 1000);
 });
 
 document.querySelector("#c2i3").addEventListener("click", function() {
@@ -672,7 +672,7 @@ document.querySelector("#c2i3").addEventListener("click", function() {
         resultToDisplay = JSON.stringify(data.functionData.getChildContractData);
         $("#c2i3_interactionResult1").text(resultToDisplay.replace(/['"]+/g, ''));
     });
-    }, 5 * 1000);
+    }, 6 * 1000);
 });
 
 document.querySelector("#c3d").addEventListener("click", function() {
