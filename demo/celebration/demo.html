@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+   <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+      <title>Data Stores</title>
+   </head>
+   <body>
+      <div class="container">
+         <br/>
+         <div class="jumbotron">
+            <p class="lead" id="greeting"></p>
+            <hr/>
+            <form id="form" class="form-inline">
+               <div class="form-group mx-sm-3 mb-2">
+                  <input type="text" class="form-control" id="name" placeholder="Your name">
+               </div>
+               <button type="button" id="submit" onclick="like();" class="btn btn-primary mb-2">Like</button>
+            </form>
+            <p id="me" style="display:none">Thank you, <span id="myname" class="badge badge-info"></span></p>
+         </div>
+         <p id="likes"></p>
+      </div>
+   </body>
+</html>
