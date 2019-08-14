@@ -104,6 +104,30 @@ class ESSS {
         console.log("Search Engine Base URL set to: " + this.searchEngineBaseUrl);
     }
 
+    updateStateOfContractAddress(_abi, _address) {
+        var url = this.searchEngineBaseUrl + "/api/update_state_of_contract_address";
+        return new Promise(function(resolve, reject) {
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", url, true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            //data
+            var data = {};
+            data["abi"] = _abi;
+            data["address"] = _address;
+            xhr.onload = function(e) {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        resolve(xhr.responseText);
+                    }
+                }
+            };
+            xhr.onerror = reject;
+            xhr.open("POST", url, true);
+            xhr.send(JSON.stringify(data));
+        });
+    }
+
     updateQualityScore(_contractAddress, _qualityScore) {
         var url = this.searchEngineBaseUrl + "/api/es_update_quality";
         return new Promise(function(resolve, reject) {
@@ -439,6 +463,7 @@ class ESSS {
 }
 
 
+
 // Start of DEMO
 
 var esss2 = new ESSS("https://devchain-es.secondstate.io");
@@ -501,75 +526,128 @@ document.querySelector("#c1d").addEventListener("click", function() {
             setTimeout(function() {
                 console.log("Fetching results from search engine");
                 console.log("Using Tx: " + i.transactionHash);
-                esss2.describeUsingTx(i.transactionHash).then((txResult) => {
+                esss2.searchUsingAddress(c1dAddress).then((txResult) => {
                     var resultToDisplay = JSON.stringify(JSON.parse(txResult).abiShaList[0]);
                     $("#c1d_deployParentAndIndexResults1").text(resultToDisplay.replace(/['"]+/g, ''));
                 });
-            }, 6 * 1000);
+            }, 8 * 1000);
         }
     });
 });
 
+document.querySelector("#c1r0").addEventListener("click", function() {
+    $("#c1d_deployParentAndIndexResults1").empty();
+    esss2.searchUsingAddress(c1dAddress).then((txResult) => {
+        var resultToDisplay = JSON.stringify(JSON.parse(txResult).abiShaList[0]);
+        $("#c1d_deployParentAndIndexResults1").text(resultToDisplay.replace(/['"]+/g, ''));
+    });
+});
 
-document.querySelector("#c1i").addEventListener("click", function() {
-    $("#c1i_interactionExpectation1").empty();
-    $("#c1i_interactionResult1").empty();
-    $("#c1i_interactionExpectation1").append("1");
+document.querySelector("#c1i1").addEventListener("click", function() {
+    $("#c1i1_interactionExpectation1").empty();
+    $("#c1i1_interactionResult1").empty();
+    $("#c1i1_interactionExpectation1").append("1");
     console.log("Querying index using address: " + c1dAddress);
-    esss2.searchUsingAddress(c1dAddress).then((c1i) => {
-        var data = JSON.parse(c1i);
+    esss2.searchUsingAddress(c1dAddress).then((c1i1) => {
+        var data = JSON.parse(c1i1);
         resultToDisplay = JSON.stringify(data.functionData.getParentContractData);
-        $("#c1i_interactionResult1").text(resultToDisplay.replace(/['"]+/g, ''));
+        $("#c1i1_interactionResult1").text(resultToDisplay.replace(/['"]+/g, ''));
+    });
+});
+
+document.querySelector("#c1r1").addEventListener("click", function() {
+    $("#c1i1_interactionResult1").empty();
+    esss2.searchUsingAddress(c1dAddress).then((c1i1) => {
+        var data = JSON.parse(c1i1);
+        resultToDisplay = JSON.stringify(data.functionData.getParentContractData);
+        $("#c1i1_interactionResult1").text(resultToDisplay.replace(/['"]+/g, ''));
     });
 });
 
 document.querySelector("#c1i2").addEventListener("click", function() {
-    instance1.incrementParentContractData();
+    // Calculate expected output
     $("#c1i2_interactionExpectation1").empty();
     $("#c1i2_interactionResult1").empty();
-    setTimeout(function() {
     esss2.searchUsingAddress(c1dAddress).then((c1i) => {
         var data = JSON.parse(c1i);
         resultToDisplay = JSON.stringify(data.functionData.getParentContractData);
         $("#c1i2_interactionExpectation1").text(parseInt(resultToDisplay.replace(/['"]+/g, '')) + 1);
     });
-    }, 500);
-    console.log("Querying index using address: " + c1dAddress);
+
+    // Update blockchain data/state
+    instance1.incrementParentContractData();
+
+    // Update search engine index
+    console.log("Updating index using address: " + c1dAddress);
     setTimeout(function() {
+        esss2.updateStateOfContractAddress(JSON.stringify(parentAbi), c1dAddress).then((c2i) => {
+            var data = JSON.parse(c2i);
+            console.log(JSON.stringify(data))
+            setTimeout(function() {
+                esss2.searchUsingAddress(c1dAddress).then((c1i) => {
+                    var data = JSON.parse(c1i);
+                    resultToDisplay = JSON.stringify(data.functionData.getParentContractData);
+                    $("#c1i2_interactionResult1").text(resultToDisplay.replace(/['"]+/g, ''));
+                });
+            }, 1 * 1000);
+
+        });
+    }, 1 * 1000);
+});
+
+document.querySelector("#c1r2").addEventListener("click", function() {
+    $("#c1i2_interactionResult1").empty();
     esss2.searchUsingAddress(c1dAddress).then((c1i) => {
         var data = JSON.parse(c1i);
         resultToDisplay = JSON.stringify(data.functionData.getParentContractData);
         $("#c1i2_interactionResult1").text(resultToDisplay.replace(/['"]+/g, ''));
     });
-    }, 6 * 1000);
 });
 
 document.querySelector("#c1i3").addEventListener("click", function() {
-    instance1.decrementParentContractData();
+    // Calculate expected output
     $("#c1i3_interactionExpectation1").empty();
     $("#c1i3_interactionResult1").empty();
-    setTimeout(function() {
-    esss2.searchUsingAddress(c1dAddress).then((c1i) => {
-        var data = JSON.parse(c1i);
+    esss2.searchUsingAddress(c1dAddress).then((c1i3) => {
+        var data = JSON.parse(c1i3);
         resultToDisplay = JSON.stringify(data.functionData.getParentContractData);
         $("#c1i3_interactionExpectation1").text(parseInt(resultToDisplay.replace(/['"]+/g, '')) - 1);
     });
-    }, 500);
-    console.log("Querying index using address: " + c1dAddress);
+
+    // Update blockchain data/state
+    instance1.decrementParentContractData();
+
+    // Update search engine index
+    console.log("Updating index using address: " + c1dAddress);
     setTimeout(function() {
+        esss2.updateStateOfContractAddress(JSON.stringify(parentAbi), c1dAddress).then((c2i3) => {
+            var data = JSON.parse(c2i3);
+            console.log(JSON.stringify(data))
+            setTimeout(function() {
+                esss2.searchUsingAddress(c1dAddress).then((c1i3) => {
+                    var data = JSON.parse(c1i3);
+                    resultToDisplay = JSON.stringify(data.functionData.getParentContractData);
+                    $("#c1i3_interactionResult1").text(resultToDisplay.replace(/['"]+/g, ''));
+                });
+            }, 1 * 1000);
+
+        });
+    }, 1 * 1000);
+});
+
+document.querySelector("#c1r3").addEventListener("click", function() {
+    $("#c1i3_interactionResult1").empty();
     esss2.searchUsingAddress(c1dAddress).then((c1i) => {
         var data = JSON.parse(c1i);
         resultToDisplay = JSON.stringify(data.functionData.getParentContractData);
         $("#c1i3_interactionResult1").text(resultToDisplay.replace(/['"]+/g, ''));
     });
-    }, 6 * 1000);
 });
 
 document.querySelector("#c2d").addEventListener("click", function() {
-    $("#c2d_deployParentAndIndexExpectation1").empty();
+    $("#c2d_deployChildAndIndexExpectation1").empty();
     $("#c2d_deployParentAndIndexExpectation2").empty();
-    $("#c2d_deployParentAndIndexResults1").empty();
-    $("#c2d_deployParentAndIndexResults2").empty();
+    $("#c2d_deployChildAndIndexResults1").empty();
 
     var contract2 = web3.ss.contract(childAbi);
     var data1 = '0x' + childBytecode;
@@ -584,12 +662,12 @@ document.querySelector("#c2d").addEventListener("click", function() {
             instance2 = contract2.at(c2dAddress);
             esss2.shaAbi(JSON.stringify(parentAbi)).then((shaResult1) => {
                 var parentSha = JSON.parse(shaResult1).abiSha3;
-                $("#c2d_deployParentAndIndexExpectation1").append(parentSha);
+                $("#c2d_deployChildAndIndexExpectation1").append(parentSha);
             });
 
             esss.shaAbi(JSON.stringify(childAbi)).then((shaResult2) => {
                 var childSha = JSON.parse(shaResult2).abiSha3;
-                $("#c2d_deployParentAndIndexExpectation2").append(childSha);
+                $("#c2d_deployChildAndIndexExpectation2").append(childSha);
             });
             setTimeout(function() {
                 console.log("Indexing ABI and TxHash into search engine")
@@ -607,11 +685,11 @@ document.querySelector("#c2d").addEventListener("click", function() {
             }, 2 * 1000);
             setTimeout(function() {
                 console.log("Fetching results from search engine")
-                    esss2.describeUsingTx(i.transactionHash).then((txResult) => {
+                esss2.describeUsingTx(i.transactionHash).then((txResult) => {
                     var resultToDisplay = JSON.parse(txResult).abiShaList;
                     for (var i = 0; i < resultToDisplay.length; i++) {
-                        $("#c2d_deployParentAndIndexResults1").append(resultToDisplay[i]);
-                        $("#c2d_deployParentAndIndexResults1").append("<br />");
+                        $("#c2d_deployChildAndIndexResults1").append(resultToDisplay[i]);
+                        $("#c2d_deployChildAndIndexResults1").append("<br />");
                     }
                 });
             }, 10 * 1000);
@@ -620,59 +698,117 @@ document.querySelector("#c2d").addEventListener("click", function() {
 
 });
 
-document.querySelector("#c2i").addEventListener("click", function() {
-    $("#c2i_interactionExpectation1").empty();
-    $("#c2i_interactionResult1").empty();
-    $("#c2i_interactionExpectation1").append("1");
+document.querySelector("#c2r0").addEventListener("click", function() {
+    $("#c2d_deployChildAndIndexResults1").empty();
+    esss2.searchUsingAddress(c2dAddress).then((txResult) => {
+        var resultToDisplay = JSON.parse(txResult).abiShaList;
+        for (var i = 0; i < resultToDisplay.length; i++) {
+            $("#c2d_deployChildAndIndexResults1").append(resultToDisplay[i]);
+            $("#c2d_deployChildAndIndexResults1").append("<br />");
+        }
+    });
+});
+
+document.querySelector("#c2i1").addEventListener("click", function() {
+    $("#c2i1_interactionExpectation1").empty();
+    $("#c2i1_interactionResult1").empty();
+    $("#c2i1_interactionExpectation1").append("1");
     console.log("Querying index using address: " + c2dAddress)
-    esss2.searchUsingAddress(c2dAddress).then((c2i) => {
-        var data = JSON.parse(c2i);
+    esss2.searchUsingAddress(c2dAddress).then((c2i1) => {
+        var data = JSON.parse(c2i1);
         resultToDisplay = JSON.stringify(data.functionData.getChildContractData);
-        $("#c2i_interactionResult1").text(resultToDisplay.replace(/['"]+/g, ''));
+        $("#c2i1_interactionResult1").text(resultToDisplay.replace(/['"]+/g, ''));
     });
 
+});
+
+document.querySelector("#c2r1").addEventListener("click", function() {
+    $("#c2i1_interactionResult1").empty();
+    esss2.searchUsingAddress(c2dAddress).then((c2i1) => {
+        var data = JSON.parse(c2i1);
+        resultToDisplay = JSON.stringify(data.functionData.getChildContractData);
+        $("#c2i1_interactionResult1").text(resultToDisplay.replace(/['"]+/g, ''));
+    });
 });
 
 document.querySelector("#c2i2").addEventListener("click", function() {
-    instance2.incrementChildContractData();
+    // Calculate expected output
     $("#c2i2_interactionExpectation1").empty();
     $("#c2i2_interactionResult1").empty();
-    setTimeout(function() {
-    esss2.searchUsingAddress(c2dAddress).then((c1i) => {
-        var data = JSON.parse(c1i);
+    esss2.searchUsingAddress(c2dAddress).then((c2i) => {
+        var data = JSON.parse(c2i);
         resultToDisplay = JSON.stringify(data.functionData.getChildContractData);
         $("#c2i2_interactionExpectation1").text(parseInt(resultToDisplay.replace(/['"]+/g, '')) + 1);
     });
-    }, 500);
-    console.log("Querying index using address: " + c2dAddress);
+
+    // Update blockchain data/state
+    instance2.incrementChildContractData();
+
+    // Update search engine index
+    console.log("Updating index using address: " + c2dAddress);
     setTimeout(function() {
-    esss2.searchUsingAddress(c2dAddress).then((c1i) => {
-        var data = JSON.parse(c1i);
+        esss2.updateStateOfContractAddress(JSON.stringify(childAbi), c2dAddress).then((c2i) => {
+            var data = JSON.parse(c2i);
+            console.log(JSON.stringify(data))
+            setTimeout(function() {
+                esss2.searchUsingAddress(c2dAddress).then((c2i2) => {
+                    var data = JSON.parse(c2i2);
+                    resultToDisplay = JSON.stringify(data.functionData.getChildContractData);
+                    $("#c2i2_interactionResult1").text(resultToDisplay.replace(/['"]+/g, ''));
+                });
+            }, 1 * 1000);
+
+        });
+    }, 1 * 1000);
+});
+
+document.querySelector("#c2r2").addEventListener("click", function() {
+    $("#c2i2_interactionResult1").empty();
+    esss2.searchUsingAddress(c2dAddress).then((c2i) => {
+        var data = JSON.parse(c2i);
         resultToDisplay = JSON.stringify(data.functionData.getChildContractData);
         $("#c2i2_interactionResult1").text(resultToDisplay.replace(/['"]+/g, ''));
     });
-    }, 6 * 1000);
 });
 
 document.querySelector("#c2i3").addEventListener("click", function() {
-    instance2.decrementChildContractData();
+    // Calculate expected output
     $("#c2i3_interactionExpectation1").empty();
     $("#c2i3_interactionResult1").empty();
-    setTimeout(function() {
-    esss2.searchUsingAddress(c2dAddress).then((c1i) => {
-        var data = JSON.parse(c1i);
+    esss2.searchUsingAddress(c2dAddress).then((c2i) => {
+        var data = JSON.parse(c2i);
         resultToDisplay = JSON.stringify(data.functionData.getChildContractData);
         $("#c2i3_interactionExpectation1").text(parseInt(resultToDisplay.replace(/['"]+/g, '')) - 1);
     });
-    }, 500);
-    console.log("Querying index using address: " + c2dAddress);
+
+    // Update blockchain data/state
+    instance2.decrementChildContractData();
+
+    // Update search engine index
+    console.log("Updating index using address: " + c2dAddress);
     setTimeout(function() {
-    esss2.searchUsingAddress(c2dAddress).then((c1i) => {
-        var data = JSON.parse(c1i);
+        esss2.updateStateOfContractAddress(JSON.stringify(childAbi), c2dAddress).then((c2i) => {
+            var data = JSON.parse(c2i);
+            console.log(JSON.stringify(data))
+            setTimeout(function() {
+                esss2.searchUsingAddress(c2dAddress).then((c2i2) => {
+                    var data = JSON.parse(c2i2);
+                    resultToDisplay = JSON.stringify(data.functionData.getChildContractData);
+                    $("#c2i3_interactionResult1").text(resultToDisplay.replace(/['"]+/g, ''));
+                });
+            }, 1 * 1000);
+
+        });
+    }, 1 * 1000);
+});
+
+document.querySelector("#c2r3").addEventListener("click", function() {
+    $("#c2i3_interactionResult1").empty();
+    esss2.searchUsingAddress(c2dAddress).then((c2i) => {
+        var data = JSON.parse(c2i);
         resultToDisplay = JSON.stringify(data.functionData.getChildContractData);
         $("#c2i3_interactionResult1").text(resultToDisplay.replace(/['"]+/g, ''));
     });
-    }, 6 * 1000);
 });
 
 document.querySelector("#c3d").addEventListener("click", function() {
@@ -749,23 +885,23 @@ document.querySelector("#c4d").addEventListener("click", function() {
 });
 
 document.querySelector("#c3r").addEventListener("click", function() {
-        $("#c3d_deployParentAndIndexResults1").empty();
-        esss2.searchUsingAddress(c3dAddress).then((c1i) => {
-                    var resultToDisplay = JSON.parse(c1i).abiShaList;
-                    for (var i = 0; i < resultToDisplay.length; i++) {
-                        $("#c3d_deployParentAndIndexResults1").append(resultToDisplay[i]);
-                        $("#c3d_deployParentAndIndexResults1").append("<br />");
-                    }
-                });
+    $("#c3d_deployParentAndIndexResults1").empty();
+    esss2.searchUsingAddress(c3dAddress).then((c1i) => {
+        var resultToDisplay = JSON.parse(c1i).abiShaList;
+        for (var i = 0; i < resultToDisplay.length; i++) {
+            $("#c3d_deployParentAndIndexResults1").append(resultToDisplay[i]);
+            $("#c3d_deployParentAndIndexResults1").append("<br />");
+        }
+    });
 });
 
 document.querySelector("#c4r").addEventListener("click", function() {
     $("#c4d_deployParentAndIndexResults1").empty();
-        esss2.searchUsingAddress(c4dAddress).then((c1i) => {
-                    var resultToDisplay = JSON.parse(c1i).abiShaList;
-                    for (var i = 0; i < resultToDisplay.length; i++) {
-                        $("#c4d_deployParentAndIndexResults1").append(resultToDisplay[i]);
-                        $("#c4d_deployParentAndIndexResults1").append("<br />");
-                    }
-                });
+    esss2.searchUsingAddress(c4dAddress).then((c1i) => {
+        var resultToDisplay = JSON.parse(c1i).abiShaList;
+        for (var i = 0; i < resultToDisplay.length; i++) {
+            $("#c4d_deployParentAndIndexResults1").append(resultToDisplay[i]);
+            $("#c4d_deployParentAndIndexResults1").append("<br />");
+        }
+    });
 });
