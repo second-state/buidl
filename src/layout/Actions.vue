@@ -37,11 +37,34 @@ export default class Actions extends Vue {}
       label
         cursor pointer
         box-shadow 0 1px 0px 0px $color
+    &:disabled:hover
+      label
+        cursor not-allowed
+        box-shadow none
     &.danger
-      color darken($red, 14)
+      color $red
       &:hover
         label
-          box-shadow 0 1px 0px 0px darken($red, 14)
+          box-shadow 0 1px 0px 0px $red
+    label
+      position relative
+      sub
+        position absolute
+        left 0
+        top 1.6rem
+        &.error
+          color $red
+        a
+          position relative
+          color $color
+          &:hover
+            &:before
+              content ''
+              position absolute
+              width 200%
+              height 1px
+              top -1px
+              background-color $minorBackgroundColor
 </style>
 
 <style lang="stylus">
@@ -57,8 +80,18 @@ body.dark-theme
       &:hover
         label
           box-shadow 0 1px 0px 0px $color
+      &:disabled:hover
+        label
+          box-shadow none
       &.danger
         &:hover
           label
-            box-shadow 0 1px 0px 0px darken($red, 14)
+            box-shadow 0 1px 0px 0px $red
+      label
+        sub
+          a
+            color $color
+            &:hover
+              &:before
+                background-color $minorBackgroundColor
 </style>
