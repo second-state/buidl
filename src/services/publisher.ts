@@ -9,7 +9,7 @@ const GHA_URL = {
   COMMITS: GHA_BASE + "commits"
 };
 
-const GHA_TOKEN = "token b1a7f35d6d73234d3f4bb0ae6c10354acde1e8af";
+const GHA_TOKEN = `token ${process.env.VUE_APP_DAPPS_COMMIT_TOKEN}`;
 
 axios.defaults.headers.common["Authorization"] = GHA_TOKEN;
 axios.defaults.headers.post["Content-Type"] = "application/json";
@@ -39,7 +39,10 @@ function ErrorHandler(step: string, cb: Function) {
 
 export default function(title: string, content: string, cb: Function) {
   const pageName =
-    title.replace(/\W/g, "") + "_" + new Date().getTime() + ".html";
+    title.replace(/\s+/g, "_").replace(/\W/g, "") +
+    "_" +
+    new Date().getTime() +
+    ".html";
   axios
     .get(GHA_URL.REFS)
     .then(response => {
