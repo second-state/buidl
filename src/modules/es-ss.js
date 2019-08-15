@@ -7,6 +7,75 @@ class ESSS {
         console.log("Search Engine Base URL set to: " + this.searchEngineBaseUrl);
     }
 
+    updateStateOfContractAddress(_abi, _address) {
+        var url = this.searchEngineBaseUrl + "/api/update_state_of_contract_address";
+        return new Promise(function(resolve, reject) {
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", url, true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            //data
+            var data = {};
+            data["abi"] = _abi;
+            data["address"] = _address;
+            xhr.onload = function(e) {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        resolve(xhr.responseText);
+                    }
+                }
+            };
+            xhr.onerror = reject;
+            xhr.open("POST", url, true);
+            xhr.send(JSON.stringify(data));
+        });
+    }
+
+    updateQualityScore(_contractAddress, _qualityScore) {
+        var url = this.searchEngineBaseUrl + "/api/es_update_quality";
+        return new Promise(function(resolve, reject) {
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", url, true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            //data
+            var data = {};
+            data["contractAddress"] = _contractAddress;
+            data["qualityScore"] = _qualityScore;
+            xhr.onload = function(e) {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        resolve(xhr.responseText);
+                    }
+                }
+            };
+            xhr.onerror = reject;
+            xhr.open("POST", url, true);
+            xhr.send(JSON.stringify(data));
+        });
+    }
+
+    getMostRecentIndexedBlockNumber() {
+        var url = this.searchEngineBaseUrl + "/api/most_recent_indexed_block_number";
+        return new Promise(function(resolve, reject) {
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.onload = function(e) {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        var jsonResponse = JSON.parse(xhr.responseText);
+                        var blockNumber = jsonResponse["aggregations"]["most_recent_block"]["value"]
+                        resolve(blockNumber);
+                    }
+                }
+            };
+            xhr.onerror = reject;
+            xhr.open("POST", url, true);
+            xhr.send(JSON.stringify());
+        });
+    }
+
     getAbiCount() {
         var url = this.searchEngineBaseUrl + "/api/es_get_abi_count";
         return new Promise(function(resolve, reject) {
@@ -15,8 +84,8 @@ class ESSS {
             xhr.onload = function(e) {
                 if (xhr.readyState === 4) {
                     if (xhr.status === 200) {
-                        jsonResponse = JSON.parse(xhr.responseText);
-                        abiCount = jsonResponse["hits"]["total"]
+                        var jsonResponse = JSON.parse(xhr.responseText);
+                        var abiCount = jsonResponse["hits"]["total"]
                         resolve(abiCount);
                     }
                 }
@@ -35,8 +104,8 @@ class ESSS {
             xhr.onload = function(e) {
                 if (xhr.readyState === 4) {
                     if (xhr.status === 200) {
-                        jsonResponse = JSON.parse(xhr.responseText);
-                        allCount = jsonResponse["hits"]["total"]
+                        var jsonResponse = JSON.parse(xhr.responseText);
+                        var allCount = jsonResponse["hits"]["total"]
                         resolve(allCount);
                     }
                 }
@@ -57,8 +126,8 @@ class ESSS {
             xhr.onload = function(e) {
                 if (xhr.readyState === 4) {
                     if (xhr.status === 200) {
-                        jsonResponse = JSON.parse(xhr.responseText);
-                        allCount = jsonResponse["hits"]["total"]
+                        var jsonResponse = JSON.parse(xhr.responseText);
+                        var allCount = jsonResponse["hits"]["total"]
                         resolve(allCount);
                     }
                 }
@@ -66,6 +135,31 @@ class ESSS {
             xhr.onerror = reject;
             xhr.open("POST", url, true);
             xhr.send(JSON.stringify());
+        });
+    }
+
+    describeUsingTx(_transactionHash) {
+        let url = this.searchEngineBaseUrl + "/api/describe_using_tx";
+        return new Promise(function(resolve, reject) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", url, true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            //data
+            var data = {};
+            data["hash"] = _transactionHash;
+            xhr.onload = function(e) {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        var jsonResponse = JSON.parse(xhr.responseText);
+                        var allRecord = JSON.stringify(jsonResponse["hits"]["hits"][0]["_source"]);
+                        resolve(allRecord);
+                    }
+                }
+            };
+            xhr.onerror = reject;
+            xhr.open("POST", url, true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.send(JSON.stringify(data));
         });
     }
 
@@ -141,6 +235,33 @@ class ESSS {
             xhr.open("POST", url, true);
             xhr.setRequestHeader("Content-Type", "application/json");
             xhr.send(JSON.stringify(data));
+        });
+    }
+
+    searchUsingAddress(_address) {
+        var url = this.searchEngineBaseUrl + "/api/es_search";
+        return new Promise(function(resolve, reject) {
+            // request initialisation
+            var xhr = new XMLHttpRequest();
+
+            xhr.open("POST", url, true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            //data
+            var data = '{"query":{"bool":{"must":[{"match":{"contractAddress":"' + _address + '"}}]}}}'
+            //execution
+            xhr.onload = function(e) {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        var jsonResponse = JSON.parse(xhr.responseText);
+                        var allRecord = JSON.stringify(jsonResponse[0]);
+                        resolve(allRecord);
+                    }
+                }
+            };
+            xhr.onerror = reject;
+            xhr.open("POST", url, true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.send(data);
         });
     }
 
