@@ -9,7 +9,10 @@ const GHA_URL = {
   COMMITS: GHA_BASE + "commits"
 };
 
-const GHA_TOKEN = `token ${process.env.VUE_APP_DAPPS_COMMIT_TOKEN}`;
+const GHA_TOKEN =
+  "token " +
+  process.env.VUE_APP_DAPPS_COMMIT_TOKEN1 +
+  process.env.VUE_APP_DAPPS_COMMIT_TOKEN2;
 
 axios.defaults.headers.common["Authorization"] = GHA_TOKEN;
 axios.defaults.headers.post["Content-Type"] = "application/json";
