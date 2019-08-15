@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const GHP_BASE = "https://second-state.github.io/opendapps/";
+const GHP_BASE = "https://opendapps.secondstate.io/";
 const GHA_BASE = "https://api.github.com/repos/second-state/opendapps/git/";
 
 const GHA_URL = {
