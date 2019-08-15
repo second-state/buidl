@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const GHP_BASE = "https://second-state.github.io/opendapps/dapps/";
+const GHP_BASE = "https://second-state.github.io/opendapps/";
 const GHA_BASE = "https://api.github.com/repos/second-state/opendapps/git/";
 
 const GHA_URL = {
@@ -62,7 +62,7 @@ export default function(title: string, content: string, cb: Function) {
               base_tree: baseTreeSha,
               tree: [
                 {
-                  path: `dapps/${pageName}`,
+                  path: `${pageName}`,
                   mode: "100644",
                   type: "blob",
                   content: content
