@@ -91,5 +91,14 @@ function receiveMsg(event: any) {
       st.gasLimit
     );
     window.parent.postMessage({ signedTx: signedTx }, "*");
+  } else if (data.importPK) {
+    const pk = data.importPK;
+    const address = EthUtil.bufferToHex(EthUtil.privateToAddress(pk));
+
+    const store = JSON.parse(window.localStorage.getItem("buidl") as string);
+    accounts.push(new Signature(address, pk));
+    store.wallet.all = accounts;
+    window.localStorage.setItem("buidl", JSON.stringify(store));
+    window.parent.postMessage({ importedAccount: address }, "*");
   }
 }
