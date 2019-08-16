@@ -35,10 +35,12 @@ function create(element) {
         data: data
     }, function(ee, i) {
         if (!ee && i.address != null) {
-            esss.submitAbi(JSON.stringify(abi), i.transactionHash);
-            setTimeout(function() {
-                reload();
-            }, 5 * 1000);
+            esss.submitAbi(JSON.stringify(abi), i.transactionHash).then((submitResults) => {
+                console.log(submitResults);
+                setTimeout(function() {
+                    reload();
+                }, 3 * 1000);
+            });
         }
     });
 }
