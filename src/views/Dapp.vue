@@ -16,11 +16,21 @@
         <label>Copy</label>
       </button>
       <button
-        @click="export_"
-        onClick="gtag('event', 'dapp', {'event_category': 'toolbar', 'event_label': 'export'});"
+        @click="publish"
+        :disabled="pubStatus !== 'normal'"
+        onClick="gtag('event', 'dapp', {'event_category': 'toolbar', 'event_label': 'publish'});"
       >
         <span class="icon-share"></span>
-        <label>Export</label>
+        <label v-if="pubStatus === 'normal'"
+          >Publish
+          <sub v-if="pubResult !== null">
+            <a :href="pubResult" target="_blank" v-on:click.stop="">Launched</a>
+          </sub>
+          <sub v-else-if="pubError !== null" class="error">Failed</sub>
+        </label>
+        <label v-else
+          >Publishing...<sub>{{ pubProgress }}%</sub>
+        </label>
       </button>
       <button
         @click="reset"
@@ -96,6 +106,7 @@ import Web3 from "web3-ss";
 import LityWeb3 from "@/services/web3";
 const ES = require("@/modules/es-ss.js");
 import HtmlTemplate from "@/embed/template.ts";
+import Publisher from "@/services/publisher";
 
 @Component({
   components: {
@@ -117,6 +128,11 @@ export default class Dapp extends Vue {
   editorData: any;
 
   currentEditorTab = "html";
+
+  pubStatus = "normal";
+  pubProgress = 0;
+  pubResult = null;
+  pubError = null;
 
   private monacoEditor: monaco.editor.IStandaloneCodeEditor | undefined;
   private windowResizeListener = () => {
@@ -173,7 +189,7 @@ esss.shaAbi(JSON.stringify(abi)).then((shaResult) => {
 });
 
 document.querySelector("#s").addEventListener("click", function() {
-  var n = window.prompt("Input the number:");
+  var n = window.prompt("Enter the number:");
   n && instance.set(n);
 });
 document.querySelector("#g").addEventListener("click", function() {
@@ -353,8 +369,9 @@ var instance = contract.at('${c.address}');
     }
   }
 
-  generateFile(): string {
+  generateFile(title: string): string {
     let html = HtmlTemplate;
+    html = html.replace("{{title}}", title);
     html = html.replace("{{html}}", this.editorData.html.model.getValue());
     html = html.replace("{{js}}", this.editorData.js.model.getValue());
     html = html.replace("{{css}}", this.editorData.css.model.getValue());
@@ -392,20 +409,30 @@ var instance = contract.at('${c.address}');
     return html;
   }
 
-  export_() {
-    var element = document.createElement("a");
-    element.setAttribute(
-      "href",
-      "data:text/plain;charset=utf-8," + encodeURIComponent(this.generateFile())
-    );
-    element.setAttribute("download", "buidl.html");
+  publish() {
+    var title: string | null = "";
+    while (title === "") {
+      title = window.prompt("Enter the page title:");
+    }
+    if (title === null) {
+      return;
+    }
+    const pageContent = this.generateFile(title.replace("<", "&lt;"));
+    this.pubProgress = 10;
+    this.pubStatus = "publishing";
 
-    element.style.display = "none";
-    document.body.appendChild(element);
-
-    element.click();
-
-    document.body.removeChild(element);
+    Publisher(title, pageContent, (error: any, result: any) => {
+      if (error !== null) {
+        this.pubStatus = "normal";
+        this.pubError = error;
+        return;
+      }
+      this.pubProgress = result.progress;
+      if (result.progress === 100) {
+        this.pubStatus = "normal";
+        this.pubResult = result.url;
+      }
+    });
   }
 
   reset() {
