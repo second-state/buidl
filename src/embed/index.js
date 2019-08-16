@@ -79,6 +79,18 @@ function receiveMsg(event) {
       window.BuidlG.cb && window.BuidlG.cb(null, hash);
       web3.checkTx(hash);
     });
+  } else if (data.importedAccount) {
+    const acc = data.importedAccount;
+    const newOption = document.createElement("option");
+    newOption.setAttribute("value", acc);
+    newOption.appendChild(document.createTextNode(acc));
+    const accountSelector = document.querySelector(".web3-float-trigger .wt-account-selector select");
+    accountSelector.appendChild(newOption);
+    accountSelector.selectedIndex = window.BuidlG.accounts.length;
+    window.BuidlG.accounts.push(acc);
+    window.BuidlG.selectedAccount = acc;
+    window.localStorage.setItem("buidl-embed", JSON.stringify({selectedAccount: window.BuidlG.selectedAccount}));
+    alert(`${acc}\nhas been imported and selected as default.`);
   }
 }
 
@@ -136,6 +148,7 @@ function settleUI(accounts) {
     </div>
     <div class="wt-account-selector" style="display:none;">
       <label>Select Account</label>
+      <a href="#" class="import-pk">Import Private Key</a>
       <select>
         ${options}
       </select>
@@ -176,5 +189,17 @@ function settleUI(accounts) {
     window.BuidlG.selectedAccount = window.BuidlG.accounts[this.selectedIndex];
     window.localStorage.setItem("buidl-embed", JSON.stringify({selectedAccount: window.BuidlG.selectedAccount}));
   })
+
+  document.querySelector(".web3-float-trigger .wt-account-selector .import-pk").addEventListener("click", function(event) {
+    event.preventDefault();
+    const pk = window.prompt("Enter your Private Key (Begin with 0x):");
+    if (pk !== null) {
+      if (/^0x[0-9a-zA-Z]{64}$/.test(pk)) {
+        window.BuidlG.frame.postMessage({ importPK: pk }, "*");
+      } else {
+        alert("Invalid Private Key");
+      }
+    }
+  });
 }
 
