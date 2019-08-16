@@ -417,7 +417,7 @@ var instance = contract.at('${c.address}');
     if (title === null) {
       return;
     }
-    const pageContent = this.generateFile(title);
+    const pageContent = this.generateFile(title.replace("<", "&lt;"));
     this.pubProgress = 10;
     this.pubStatus = "publishing";
 
