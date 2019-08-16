@@ -12,8 +12,8 @@ self.__precacheManifest = [
     "url": "/typescript.worker.js"
   },
   {
-    "revision": "6e93190dc89e4941a2c7",
-    "url": "/js/chunk-2d21b84a.b9fd655d.js"
+    "revision": "daecf3b783e29c243533",
+    "url": "/js/chunk-2d217e5b.73284392.js"
   },
   {
     "revision": "e13dbff107e64d57b016",
@@ -152,12 +152,12 @@ self.__precacheManifest = [
     "url": "/second-state.png"
   },
   {
-    "revision": "daecf3b783e29c243533",
-    "url": "/js/chunk-2d217e5b.73284392.js"
-  },
-  {
     "revision": "e98f34c967987b153a9e",
     "url": "/js/chunk-2d0abc00.e0c858d7.js"
+  },
+  {
+    "revision": "6e93190dc89e4941a2c7",
+    "url": "/js/chunk-2d21b84a.b9fd655d.js"
   },
   {
     "revision": "08fb7373004a4560236d",
@@ -294,9 +294,5 @@ self.__precacheManifest = [
   {
     "revision": "c75043f994c2823f2aef0dacc97e70e8",
     "url": "/css.worker.js"
-  },
-  {
-    "revision": "d41d8cd98f00b204e9800998ecf8427e",
-    "url": "/.nojekyll"
   }
 ];
