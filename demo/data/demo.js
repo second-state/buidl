@@ -1,30 +1,8 @@
 /* Don't modify */
-var abi = [{
-    "constant": false,
-    "inputs": [{
-        "name": "x",
-        "type": "uint256"
-    }],
-    "name": "set",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-}, {
-    "constant": true,
-    "inputs": [],
-    "name": "get",
-    "outputs": [{
-        "name": "",
-        "type": "uint256"
-    }],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-}];
+var abi = [{"constant":false,"inputs":[{"name":"x","type":"uint256"}],"name":"set","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"get","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"}];
 var bytecode = '608060405234801561001057600080fd5b5060df8061001f6000396000f3006080604052600436106049576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806360fe47b114604e5780636d4ce63c146078575b600080fd5b348015605957600080fd5b5060766004803603810190808035906020019092919050505060a0565b005b348015608357600080fd5b50608a60aa565b6040518082815260200191505060405180910390f35b8060008190555050565b600080549050905600a165627a7a723058208cc6da6bb0565c3213219d167226eb4ff952e6d1bc2eef0fa542fbb9922666350029';
 var contract = web3.ss.contract(abi);
-var instance = contract.at('0x5194fb953cf2db7850dd1f452d8f2bb0170fe482');
+var instance = contract.at('');
 /* Don't modify */
 
 reload();
