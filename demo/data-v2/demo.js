@@ -51,10 +51,14 @@ function setNumber(element) {
     instance = contract.at(tr.id);
     var n = window.prompt("Input a number:");
     n && instance.setAccountBalance(n);
-    element.innerHTML = "Wait ...";
     setTimeout(function() {
-        reload();
-    }, 5 * 1000);
+        esss.updateStateOfContractAddress(JSON.stringify(abi), instance.address).then((c2i) => {
+            element.innerHTML = "Wait ...";
+            setTimeout(function() {
+                reload();
+            }, 5 * 1000);
+        });
+    }, 1 * 1000);
 }
 
 function compareItem(a, b) {
