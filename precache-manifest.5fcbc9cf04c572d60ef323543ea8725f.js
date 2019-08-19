@@ -8,20 +8,20 @@ self.__precacheManifest = [
     "url": "/soljson.js"
   },
   {
+    "revision": "ba5e6d551832fa609e53b66bbe784cb5",
+    "url": "/sw-supplement.js"
+  },
+  {
     "revision": "4ab213c022471ad2d14150bf2367f121",
     "url": "/typescript.worker.js"
   },
   {
-    "revision": "daecf3b783e29c243533",
-    "url": "/js/chunk-2d217e5b.73284392.js"
+    "revision": "6e93190dc89e4941a2c7",
+    "url": "/js/chunk-2d21b84a.b9fd655d.js"
   },
   {
-    "revision": "e13dbff107e64d57b016",
-    "url": "/js/chunk-2d0aab07.edd2015f.js"
-  },
-  {
-    "revision": "c48209e05945c8c2eeb6",
-    "url": "/js/chunk-2d0ae937.389f3c11.js"
+    "revision": "e98f34c967987b153a9e",
+    "url": "/js/chunk-2d0abc00.e0c858d7.js"
   },
   {
     "revision": "be9eae6bd1af87498a8f",
@@ -152,12 +152,12 @@ self.__precacheManifest = [
     "url": "/second-state.png"
   },
   {
-    "revision": "e98f34c967987b153a9e",
-    "url": "/js/chunk-2d0abc00.e0c858d7.js"
+    "revision": "daecf3b783e29c243533",
+    "url": "/js/chunk-2d217e5b.73284392.js"
   },
   {
-    "revision": "6e93190dc89e4941a2c7",
-    "url": "/js/chunk-2d21b84a.b9fd655d.js"
+    "revision": "c48209e05945c8c2eeb6",
+    "url": "/js/chunk-2d0ae937.389f3c11.js"
   },
   {
     "revision": "08fb7373004a4560236d",
@@ -244,11 +244,11 @@ self.__precacheManifest = [
     "url": "/json.worker.js"
   },
   {
-    "revision": "247a9b73133fd8d7dddc",
-    "url": "/js/index.af2386dd.js"
+    "revision": "22ba019324375774e872",
+    "url": "/js/index.40b5b409.js"
   },
   {
-    "revision": "b9edd5c5fe578bb881bff64ab8899b74",
+    "revision": "258b563ebd1d942c10d1016546638ecb",
     "url": "/index.html"
   },
   {
@@ -256,12 +256,16 @@ self.__precacheManifest = [
     "url": "/js/chunk-2d0a3577.0c6ed0e5.js"
   },
   {
+    "revision": "9a4484bbd46ff51f75ec",
+    "url": "/js/chunk-2d0aa90c.e613e3b1.js"
+  },
+  {
     "revision": "90d4a8415c0cededb6ae",
     "url": "/js/chunk-2d0a43df.3f172ac8.js"
   },
   {
-    "revision": "9a4484bbd46ff51f75ec",
-    "url": "/js/chunk-2d0aa90c.e613e3b1.js"
+    "revision": "e13dbff107e64d57b016",
+    "url": "/js/chunk-2d0aab07.edd2015f.js"
   },
   {
     "revision": "73ceb5a7ef4249be4927c8b34619150e",
@@ -284,7 +288,7 @@ self.__precacheManifest = [
     "url": "/dapp-frame.html"
   },
   {
-    "revision": "247a9b73133fd8d7dddc",
+    "revision": "22ba019324375774e872",
     "url": "/css/index.03c5878c.css"
   },
   {
