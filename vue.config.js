@@ -18,5 +18,10 @@ module.exports = {
       new MonacoWebpackPlugin()
     ]
   },
+  pwa: {
+    workboxOptions: {
+      importScripts: 'sw-supplement.js'
+    }
+  },
   chainWebpack: config => config.resolve.symlinks(false)
 }

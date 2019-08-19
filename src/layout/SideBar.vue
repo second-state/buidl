@@ -77,11 +77,11 @@
       <button
         v-if="updateAvail"
         class="side-btn update-avail"
-        @click="reopenToUpdate"
+        @click="refreshToUpdate"
       >
         <span
           class="icon-arrow-up"
-          title="Close and reopen the browser tab to update"
+          title="Click to update"
         >
         </span>
         <label>Upd Avail</label>
@@ -108,7 +108,7 @@ export default class SideBar extends Vue {
   showNodePop = false;
 
   get updateAvail(): boolean {
-    return this.$store.state.prefs.updateAvail;
+    return this.$store.state.prefs.updateAvail !== null;
   }
 
   get dt(): string {
@@ -239,8 +239,9 @@ export default class SideBar extends Vue {
     }
   }
 
-  reopenToUpdate() {
-    alert("Close and reopen the browser tab to update.");
+  refreshToUpdate() {
+    this.$store.state.prefs.updateAvail.postMessage({ type: 'SKIP_WAITING'});
+    window.location.reload();
   }
 }
 

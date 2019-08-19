@@ -20,9 +20,9 @@ if (process.env.NODE_ENV === "production") {
     updatefound() {
       // console.log("New content is downloading.");
     },
-    updated() {
+    updated(req) {
       // console.log("New content is available; please refresh.");
-      store.dispatch("prefs/updateAvail");
+      store.dispatch("prefs/updateAvail", req.waiting);
     },
     offline() {
       // console.log(
