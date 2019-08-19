@@ -5,6 +5,19 @@ class ESSS {
     constructor(_searchEngineBaseUrl) {
         this.searchEngineBaseUrl = _searchEngineBaseUrl;
         console.log("Search Engine Base URL set to: " + this.searchEngineBaseUrl);
+        this.indexStatus = {};
+    }
+
+    setIndexStatusToTrue(_transactionHash){
+        this.indexStatus[_transactionHash] = true;
+    }
+
+    setIndexStatusToFalse(_transactionHash){
+        this.indexStatus[_transactionHash] = false;
+    }
+
+    getIndexStatus(_transactionHash){
+        return this.indexStatus[_transactionHash];
     }
 
     updateStateOfContractAddress(_abi, _address) {
@@ -76,6 +89,24 @@ class ESSS {
         });
     }
 
+    getBlockInterval() {
+        var url = this.searchEngineBaseUrl + "/api/get_block_interval";
+        return new Promise(function(resolve, reject) {
+
+            var xhr = new XMLHttpRequest();
+            xhr.onload = function(e) {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        resolve(xhr.responseText);
+                    }
+                }
+            };
+            xhr.onerror = reject;
+            xhr.open("POST", url, true);
+            xhr.send(JSON.stringify());
+        });
+    }
+
     getAbiCount() {
         var url = this.searchEngineBaseUrl + "/api/es_get_abi_count";
         return new Promise(function(resolve, reject) {
@@ -135,6 +166,29 @@ class ESSS {
             xhr.onerror = reject;
             xhr.open("POST", url, true);
             xhr.send(JSON.stringify());
+        });
+    }
+
+    confirmDeployment(_transactionHash) {
+        let url = this.searchEngineBaseUrl + "/api/confirm_deployment";
+        return new Promise(function(resolve, reject) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", url, true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            //data
+            var data = {};
+            data["hash"] = _transactionHash;
+            xhr.onload = function(e) {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        resolve(xhr.responseText);
+                    }
+                }
+            };
+            xhr.onerror = reject;
+            xhr.open("POST", url, true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.send(JSON.stringify(data));
         });
     }
 
