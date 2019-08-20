@@ -57,39 +57,17 @@ function create(element) {
         data: data
     }, function(err, myContract) {
         if (!err) {
-            esss.setIndexStatusToFalse(myContract.transactionHash);
-            if ((!myContract.address) && (myContract.transactionHash != null) && (esss.getIndexStatus(myContract.transactionHash) == false)) {
+            if ((myContract.address != null) && (myContract.transactionHash != null)) {
                 esss.confirmDeployment(myContract.transactionHash).then((theResult) => {
                     element.innerHTML = "Deployed";
                     esss.submitAbi(JSON.stringify(abi), myContract.transactionHash).then((submitResults) => {
                         element.innerHTML = "Indexed";
-                        esss.setIndexStatusToTrue(myContract.transactionHash);
-                        esss.getBlockInterval().then((theBlockInterval) => {
-                            theBlockInterval = parseInt(theBlockInterval.replace(/['"]+/g, ''));
-                            setTimeout(function() {
-                                element.innerHTML = "Reloading page data ..";
-                                reload();
-                            }, theBlockInterval * 1000);
-                        })
+                        setTimeout(function() {
+                            element.innerHTML = "Reloading page data ..";
+                            reload();
+                        }, 1 * 1000);
                     });
                 });
-            }
-            if ((myContract.address != null) && (myContract.transactionHash != null) && (esss.getIndexStatus(myContract.transactionHash) == false)) {
-                esss.getBlockInterval().then((theBlockInterval) => {
-                    theBlockInterval = parseInt(theBlockInterval.replace(/['"]+/g, ''));
-                    setTimeout(function() {
-                        if (esss.getIndexStatus(myContract.transactionHash) == false) {
-                            esss.submitAbi(JSON.stringify(abi), myContract.transactionHash).then((submitResults) => {
-                                element.innerHTML = "Indexed";
-                                esss.setIndexStatusToTrue(myContract.transactionHash)
-                                setTimeout(function() {
-                                    element.innerHTML = "Reloading page data ..";
-                                    reload();
-                                }, theBlockInterval * 1000);
-                            });
-                        }
-                    }, theBlockInterval * 1000);
-                })
             }
         }
     });
@@ -101,8 +79,6 @@ function setData(element) {
     instance = contract.at(tr.id);
     var n = window.prompt("Input a number:");
     n && instance.set(n);
-    esss.getBlockInterval().then((theBlockInterval) => {
-    theBlockInterval = parseInt(theBlockInterval.replace(/['"]+/g, ''));
     setTimeout(function() {
         esss.updateStateOfContractAddress(JSON.stringify(abi), instance.address).then((c2i) => {
             console.log("Updating index for contract " + instance.address)
@@ -113,10 +89,9 @@ function setData(element) {
                     element.closest("td").previousSibling.innerHTML = resultToDisplay.replace(/['"]+/g, '');
                     element.innerHTML = "Set";
                 });
-            }, theBlockInterval * 1000);
+            }, 1 * 1000);
         });
-    }, theBlockInterval * 1000);
-    });
+    }, 3 * 1000);
     element.innerHTML = "Wait ...";
 }
 
