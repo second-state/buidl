@@ -89,9 +89,11 @@ function setData(element) {
                     element.closest("td").previousSibling.innerHTML = resultToDisplay.replace(/['"]+/g, '');
                     element.innerHTML = "Set";
                 });
+            // Provide a second for the new state to reach the search engine index
             }, 1 * 1000);
         });
-    }, 3 * 1000);
+    // Provide a few seconds for the blockchain state to be updated
+    }, 1 * 1000);
     element.innerHTML = "Wait ...";
 }
 
