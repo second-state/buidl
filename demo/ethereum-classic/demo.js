@@ -122,10 +122,19 @@ document.querySelector("#c1d").addEventListener("click", function() {
     $("#c1d_deployParentAndIndexExpectation1").empty();
     $("#c1d_deployParentAndIndexResults1").empty();
 
-    var contract1 = web3.ss.contract(parentAbi);
+    
     var data1 = '0x' + parentBytecode;
+    var contract1 = web3.ss.contract(parentAbi);
+    var theGasPrice = web3.ss.gasPrice;
+    console.log("Gas price raw: " + theGasPrice)
+    console.log("Gas price in gwei: " + web3.fromWei(theGasPrice, 'gwei'))
+    var gasEstimateToDeployContract1 = web3.ss.estimateGas({data: data1});
+    console.log("Gas estimate: " + gasEstimateToDeployContract1)
+    
     contract1.new({
         data: data1,
+        gas: gasEstimateToDeployContract1,
+        gasPrice: theGasPrice,
     }, function(ee, i) {
         if (!ee && i.address != null) {
             console.log("Created item");
@@ -161,7 +170,11 @@ document.querySelector("#c1d").addEventListener("click", function() {
                 });
             }, 8 * 1000);
         }
+        else{
+        console.log(ee);
+        }
     });
+    
 });
 
 document.querySelector("#c1r0").addEventListener("click", function() {
