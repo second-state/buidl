@@ -56,6 +56,7 @@
 import Web3 from "web3-ss";
 import { Component, Vue } from "vue-property-decorator";
 import LityWeb3 from "@/services/web3";
+import JSVM from "@/services/jsvm.ts";
 @Component({
   components: {}
 })
@@ -100,7 +101,10 @@ export default class Deployed extends Vue {
     const deployedContract = this.contracts[cIndex];
 
     let params = [];
+    let inputTypes = [];
+    let outputTypes = [];
     for (let input of deployedContract.abi[aIndex].inputs) {
+      inputTypes.push(input.type);
       params.push(
         (this.$refs[
           `${deployedContract.address}_${deployedContract.abi[aIndex].name}_${
@@ -109,7 +113,62 @@ export default class Deployed extends Vue {
         ] as any)[0].value
       );
     }
+    for (let output of deployedContract.abi[aIndex].outputs) {
+      outputTypes.push(output.type);
+    }
+
     this.$store.dispatch(`events/setLityOutputTab`, "logs");
+
+    switch (deployedContract.provider) {
+      case "JavaScript VM":
+        this.callJSVM(
+          deployedContract,
+          aIndex,
+          params,
+          inputTypes,
+          outputTypes
+        );
+        break;
+      case "Web3 Provider":
+        this.callWeb3(deployedContract, aIndex, params);
+        break;
+      default:
+        console.log("Provider not found");
+        break;
+    }
+  }
+
+  callJSVM(
+    deployedContract: any,
+    aIndex: number,
+    params: any[],
+    inputTypes: any[],
+    outputTypes: any[]
+  ) {
+    this.$store.dispatch(
+      "outputs/pushLityLogs",
+      `Call {${deployedContract.abi[aIndex].name}} at
+        ${deployedContract.address} returned:`
+    );
+    JSVM.call(
+      deployedContract.address,
+      deployedContract.abi[aIndex].name,
+      params,
+      inputTypes,
+      outputTypes
+    )
+      .then(result => {
+        if (result) this.$store.dispatch("outputs/pushLityLogs", result);
+      })
+      .catch(err => {
+        this.$store.dispatch(
+          "outputs/pushLityLogs",
+          `<span class="error">${err}</span>`
+        );
+      });
+  }
+
+  callWeb3(deployedContract: any, aIndex: number, params: any) {
     const web3 = this.newLityWeb3();
     const contract = web3.lity.contract(deployedContract.abi);
     const instance = contract.at(deployedContract.address);
@@ -134,7 +193,10 @@ export default class Deployed extends Vue {
     const deployedContract = this.contracts[cIndex];
 
     let params = [];
+    let inputTypes = [];
+    let outputTypes = [];
     for (let input of deployedContract.abi[aIndex].inputs) {
+      inputTypes.push(input.type);
       params.push(
         (this.$refs[
           `${deployedContract.address}_${deployedContract.abi[aIndex].name}_${
@@ -143,7 +205,55 @@ export default class Deployed extends Vue {
         ] as any)[0].value
       );
     }
+    for (let output of deployedContract.abi[aIndex].outputs) {
+      outputTypes.push(output.type);
+    }
 
+    switch (deployedContract.provider) {
+      case "JavaScript VM":
+        this.transactJSVM(
+          deployedContract,
+          aIndex,
+          params,
+          inputTypes,
+          outputTypes
+        );
+        break;
+      case "Web3 Provider":
+        this.transactWeb3(deployedContract, aIndex, params);
+        break;
+      default:
+        console.log("Provider not found");
+        break;
+    }
+  }
+
+  transactJSVM(
+    deployedContract: any,
+    aIndex: number,
+    params: any[],
+    inputTypes: any[],
+    outputTypes: any[]
+  ) {
+    JSVM.transact(
+      deployedContract.address,
+      deployedContract.abi[aIndex].name,
+      params,
+      inputTypes,
+      outputTypes
+    )
+      .then(result => {
+        if (result) this.$store.dispatch("outputs/pushLityLogs", result);
+      })
+      .catch(err => {
+        this.$store.dispatch(
+          "outputs/pushLityLogs",
+          `<span class="error">${err}</span>`
+        );
+      });
+  }
+
+  transactWeb3(deployedContract: any, aIndex: number, params: any) {
     const web3 = this.newLityWeb3();
     const contract = web3.lity.contract(deployedContract.abi);
     const instance = contract.at(deployedContract.address);
