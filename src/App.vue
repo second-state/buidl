@@ -15,6 +15,7 @@
     >
       <Deployed v-show="lityPanel === 'Deployed'"></Deployed>
       <Contracts v-show="lityPanel === 'Contracts'"></Contracts>
+      <Debugger v-show="lityPanel === 'Debugger'"></Debugger>
     </Panel>
     <Panel
       v-show="site === 'dapp' && dappPanel !== 'Wallet' && dappPanel !== ''"
@@ -39,6 +40,7 @@ import SideBar from "@/layout/SideBar.vue";
 import Panel from "@/layout/Panel.vue";
 import Deployed from "@/components/Deployed.vue";
 import Contracts from "@/components/Contracts.vue";
+import Debugger from "@/components/Debugger.vue";
 import ContractApi from "@/components/ContractApi.vue";
 import Resources from "@/components/Resources.vue";
 import Wallet from "@/components/Wallet.vue";
@@ -51,6 +53,7 @@ export default {
     Panel,
     Deployed,
     Contracts,
+    Debugger,
     ContractApi,
     Resources,
     Wallet
