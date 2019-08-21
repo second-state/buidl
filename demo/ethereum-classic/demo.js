@@ -121,10 +121,10 @@ var instance4;
 document.querySelector("#c1d").addEventListener("click", function() {
     $("#c1d_deployParentAndIndexExpectation1").empty();
     $("#c1d_deployParentAndIndexResults1").empty();
-
-    
     var data1 = '0x' + parentBytecode;
     var contract1 = web3.ss.contract(parentAbi);
+        
+    // GAS //
     var theGasPrice = web3.ss.gasPrice;
     console.log("Gas price raw: " + theGasPrice)
     console.log("Gas price in gwei: " + web3.fromWei(theGasPrice, 'gwei'))
