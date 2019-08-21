@@ -1,22 +1,23 @@
-const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin')
+const MonacoWebpackPlugin = require("monaco-editor-webpack-plugin");
 
 module.exports = {
   pages: {
     index: {
-      entry: 'src/main.ts',
-      template: 'public/index.html',
-      filename: 'index.html'
+      entry: "src/main.ts",
+      template: "public/index.html",
+      filename: "index.html"
     },
     frame: {
-      entry: 'src/embed/frame.ts',
-      template: 'public/embed/frame.html',
-      filename: 'embed/frame.html'
+      entry: "src/embed/frame.ts",
+      template: "public/embed/frame.html",
+      filename: "embed/frame.html"
     }
   },
   configureWebpack: {
-    plugins: [
-      new MonacoWebpackPlugin()
-    ]
+    plugins: [new MonacoWebpackPlugin()]
+  },
+  devServer: {
+    disableHostCheck: true
   },
   chainWebpack: config => config.resolve.symlinks(false)
-}
+};
