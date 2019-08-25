@@ -14,6 +14,7 @@ icon-play3 = "\ea1c"
 icon-magic-wand = "\e997"
 icon-copy = "\e92c"
 icon-arrow-up = "\ea32"
+icon-bug1 = "\e901"
 
 @font-face
   font-family 'icomoon'
@@ -73,4 +74,7 @@ icon-arrow-up = "\ea32"
 .icon-arrow-up
   &:before
     content icon-arrow-up
+.icon-bug1
+  &:before
+    content icon-bug1
 </style>

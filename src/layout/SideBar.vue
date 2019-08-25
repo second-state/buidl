@@ -32,7 +32,7 @@
       title="Debug Contracts"
       onClick="gtag('event', 'contract', {'event_category': 'debugger'});"
     >
-      <span class="icon-file-play"></span>
+      <span class="icon-bug1"></span>
       <label>Debugger</label>
     </button>
     <button
