@@ -12,8 +12,9 @@
         <div class="dropDownList">
           <div
             v-for="(item, index) in trace"
+            class="dropDownItem"
             :class="[index == stepIndex ? 'active' : '', '']"
-            :key="item.pc"
+            :key="index"
           >
             {{ item.pc }} {{ item.op }}
           </div>
@@ -29,7 +30,7 @@
         <div
           v-for="(item, key, index) in detailList"
           class="detailBox"
-          :key="index"
+          :key="key"
         >
           <div class="detailBoxItem" @click="toggle(index)">
             <span>&#9654;</span>{{ key }}
@@ -53,6 +54,7 @@ export default class Debugger extends Vue {
   private isStart: boolean = false;
   private trace: any[] = [];
   private stepIndex: number = 0;
+  private debugManager: any;
   private traceManager: any;
   private activateList: boolean[] = [];
 
@@ -60,20 +62,22 @@ export default class Debugger extends Vue {
     return this.$store.state.contracts.contracts2;
   }
 
-  get gas() {
-    if (!this.isStart) return 0;
-    return this.trace[this.stepIndex].gasCost;
-  }
-
   get remainingGas() {
     if (!this.isStart) return 0;
     return this.trace[this.stepIndex].gas;
   }
 
+  get gas() {
+    if (!this.isStart) return 0;
+    return this.trace[this.stepIndex].gasCost;
+  }
+
   get detailList(): any {
     return {
-      "Stack": { value: this.stack },
-      "Memory": { value: this.memory },
+      "Solidity State": { value: this.solidityState },
+      "Solidity Locals": { value: this.solidityLocals },
+      Stack: { value: this.stack },
+      Memory: { value: this.memory },
       "Call Stack": { value: this.callStack },
       "Call Data": { value: this.callData },
       "Return Value": { value: this.returnValue }
@@ -115,24 +119,85 @@ export default class Debugger extends Vue {
     }
   }
 
+  get solidityState() {
+    if (!this.isStart) return 0;
+    const state = EthDebugger.getSolidityState(this.stepIndex);
+    let result = "";
+    for (let item in state) {
+      result +=
+        item + ": " + state[item].value + " (" + state[item].type + ")\n";
+    }
+    return result;
+  }
+
+  get solidityLocals() {
+    if (!this.isStart) return 0;
+    const locals = EthDebugger.getSolidityLocals(this.stepIndex);
+    let result = "";
+    for (let item in locals) {
+      result +=
+        item + ": " + locals[item].value + " (" + locals[item].type + ")\n";
+    }
+    if (result === "") result = "no locals";
+    return result;
+  }
+
   startDebug() {
-    EthDebugger.createDebugManager(this.txHash, this.contract);
-    this.traceManager = EthDebugger.getVmTraceManager();
-    this.trace = this.traceManager.trace;
-    this.isStart = true;
-    this.stepIndex = 0;
+    EthDebugger.createDebugManager(
+      this.txHash,
+      this.contract,
+      (debugManager: any) => {
+        this.debugManager = debugManager;
+        //console.log(debugManager)
+        this.traceManager = this.debugManager.traceManager;
+        this.trace = this.traceManager.trace;
+        this.isStart = true;
+        this.stepIndex = 0;
+        this.setCodeHighLight();
+      }
+    );
   }
 
   stepBack() {
-    if (this.stepIndex > 0) this.stepIndex -= 1;
+    if (this.stepIndex > 0) {
+      this.stepIndex -= 1;
+      this.dropDownListScroll();
+      this.setCodeHighLight();
+    }
   }
 
   stepForward() {
-    if (this.stepIndex < this.trace.length - 1) this.stepIndex += 1;
+    if (this.stepIndex < this.trace.length - 1) {
+      this.stepIndex += 1;
+      this.dropDownListScroll();
+      this.setCodeHighLight();
+    }
   }
 
   toggle(index: number) {
     this.$set(this.activateList, index, !this.activateList[index]);
+  }
+
+  dropDownListScroll() {
+    const list = document.getElementsByClassName(
+      "dropDownList"
+    )[0] as HTMLElement;
+    const item = document.getElementsByClassName("dropDownItem")[
+      this.stepIndex
+    ] as HTMLElement;
+    const offsetTop = item.offsetTop - list.offsetTop;
+    list.scrollTop = offsetTop;
+  }
+
+  setCodeHighLight() {
+    const res = EthDebugger.getSourceLocation(this.stepIndex);
+    const lineElements = document.querySelectorAll(".view-line span span");
+    lineElements.forEach((element: Element) => {
+      element.classList.remove("selectionHighlight"); //monaco-editor-hover
+    });
+    for (let line = res.from; line <= res.to; line++) {
+      lineElements[line - 1].classList.add("selectionHighlight"); //selectionHighlight
+    }
   }
 }
 </script>
