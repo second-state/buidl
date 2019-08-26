@@ -133,10 +133,7 @@ export default class Contracts extends Vue {
         try {
           v = JSON.parse(v);
         } catch (e) {
-          this.$store.dispatch(
-            "outputs/pushProblems",
-            e
-          );
+          this.$store.dispatch("outputs/pushProblems", e);
           this.$store.dispatch(`events/setLityOutputTab`, "problems");
           return;
         }

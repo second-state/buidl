@@ -40,7 +40,7 @@ export default {
     esProvider: {
       options: [
         {
-          url: "https://devchain-es.secondstate.io"
+          url: "https://devchain.ss.search.secondstate.io"
         }
       ],
       using: "0",

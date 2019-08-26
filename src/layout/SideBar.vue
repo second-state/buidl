@@ -79,11 +79,7 @@
         class="side-btn update-avail"
         @click="refreshToUpdate"
       >
-        <span
-          class="icon-arrow-up"
-          title="Click to update"
-        >
-        </span>
+        <span class="icon-arrow-up" title="Click to update"></span>
         <label>Upd Avail</label>
       </button>
     </div>
@@ -240,7 +236,7 @@ export default class SideBar extends Vue {
   }
 
   refreshToUpdate() {
-    this.$store.state.prefs.updateAvail.postMessage({ type: 'SKIP_WAITING'});
+    this.$store.state.prefs.updateAvail.postMessage({ type: "SKIP_WAITING" });
     window.location.reload();
   }
 }
