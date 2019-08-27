@@ -236,19 +236,19 @@ self.__precacheManifest = [
     "url": "/js/chunk-vendors.d17bad3d.js"
   },
   {
-    "revision": "8001f973e52704b8c820",
-    "url": "/js/frame.f7e46983.js"
+    "revision": "3935e3db936352849531",
+    "url": "/js/frame.ebfd6c34.js"
   },
   {
     "revision": "1d4b44e36f3d8b59792946b5ab5719de",
     "url": "/json.worker.js"
   },
   {
-    "revision": "7dff14f4d6ed9192b5ad",
-    "url": "/js/index.f3a47ae0.js"
+    "revision": "83ec5510268353b74f6d",
+    "url": "/js/index.48e54a8b.js"
   },
   {
-    "revision": "0fa05f667eefdfacfebd4211cd42b440",
+    "revision": "45287b0539c5090e91368ca6bf7e0d87",
     "url": "/index.html"
   },
   {
@@ -276,7 +276,7 @@ self.__precacheManifest = [
     "url": "/html.worker.js"
   },
   {
-    "revision": "94437249e7449ce5fc00bd05fe58ea23",
+    "revision": "173b71356f9162f5120fe56bd3c05d62",
     "url": "/embed/frame.html"
   },
   {
@@ -288,8 +288,8 @@ self.__precacheManifest = [
     "url": "/dapp-frame.html"
   },
   {
-    "revision": "7dff14f4d6ed9192b5ad",
-    "url": "/css/index.03c5878c.css"
+    "revision": "83ec5510268353b74f6d",
+    "url": "/css/index.624917e5.css"
   },
   {
     "revision": "692b90506bb50071a773",
