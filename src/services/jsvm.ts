@@ -112,23 +112,20 @@ class jsvm {
       data = abi.methodID(functionName, []);
     }
 
-    const greetResult = await this.vm.runCall({
+    const result = await this.vm.runCall({
       to: contractAddress,
       caller: this.accountAddress,
       origin: this.accountAddress,
       data: data
     });
 
-    if (greetResult.execResult.exceptionError) {
-      throw greetResult.execResult.exceptionError;
+    if (result.execResult.exceptionError) {
+      throw result.execResult.exceptionError;
     }
 
     // return data
     if (outputTypes.length != 0) {
-      const results = abi.rawDecode(
-        outputTypes,
-        greetResult.execResult.returnValue
-      ); // return BN
+      const results = abi.rawDecode(outputTypes, result.execResult.returnValue); // return BN
       return results[0];
     }
     return null;
