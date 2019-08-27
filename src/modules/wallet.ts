@@ -1,7 +1,7 @@
 import { ActionContext } from "vuex";
 
 export class Signature {
-  private address: string;
+  public address: string;
   private privateKey: string;
 
   constructor(addr: string, pk: string) {
@@ -18,6 +18,11 @@ export default {
   },
   mutations: {
     addSig(state: any, sig: Signature) {
+      for (let i = 0; i < state.all.length; i++) {
+        if (state.all[i].address === sig.address) {
+          return;
+        }
+      }
       state.all.push(sig);
     },
     removeSig(state: any, index: number) {

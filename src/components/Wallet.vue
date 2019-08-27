@@ -2,7 +2,12 @@
   <div class="wallet">
     <div class="sig-actions">
       <h3>Accounts</h3>
-      <button @click="newSig" title="New Account">+</button>
+      <div>
+        <button @click="importSig" title="Import From Private Key">
+          Import
+        </button>
+        <button @click="newSig" title="New Account">New</button>
+      </div>
     </div>
     <ul>
       <li class="sig-item" v-for="(sig, index) in allSigs" :key="sig.address">
@@ -46,6 +51,23 @@ function newSig(): Signature {
     EthUtil.bufferToHex(privKey)
   );
 }
+
+function importSig(): Signature | null {
+  const privKey = window.prompt("Enter your Private Key (Begin with 0x):");
+  if (privKey !== null) {
+    if (/^0x[0-9a-zA-Z]{64}$/.test(privKey)) {
+      const address = EthUtil.privateToAddress(privKey);
+      return new Signature(
+        EthUtil.bufferToHex(address),
+        EthUtil.bufferToHex(privKey)
+      );
+    } else {
+      alert("Invalid Private Key");
+    }
+  }
+  return null;
+}
+
 // init
 if ((store.state as any).wallet.all.length === 0) {
   for (let i = 0; i < 5; i++) {
@@ -72,6 +94,13 @@ export default class Wallet extends Vue {
   newSig() {
     let sig = newSig();
     this.$store.dispatch("wallet/addSig", sig);
+  }
+
+  importSig() {
+    let sig = importSig();
+    if (sig) {
+      this.$store.dispatch("wallet/addSig", sig);
+    }
   }
 
   removeSig(index: number) {
@@ -103,7 +132,7 @@ export default class Wallet extends Vue {
   flex-direction column
   height 100%
   .sig-actions
-    padding 0 0.5em
+    padding 0.5em 0.5em
     display flex
     align-items baseline
     justify-content space-between
@@ -111,12 +140,13 @@ export default class Wallet extends Vue {
       margin 0
       font-size 0.9em
     button
-      font-size 1.5em
+      font-size .75em
       background transparent
       border 0
       box-shadow none
       color $color
       padding 0
+      margin 0 0.5em
       line-height 1.5
       cursor pointer
   ul
