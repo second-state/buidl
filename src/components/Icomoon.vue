@@ -15,6 +15,7 @@ icon-magic-wand = "\e997"
 icon-copy = "\e92c"
 icon-arrow-up = "\ea32"
 icon-share = "\ea7d"
+icon-bug1 = "\e901"
 
 @font-face
   font-family 'icomoon'
@@ -77,4 +78,7 @@ icon-share = "\ea7d"
 .icon-share
   &:before
     content icon-share
+.icon-bug1
+  &:before
+    content icon-bug1
 </style>

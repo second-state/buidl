@@ -24,6 +24,15 @@
             <input type="text" :ref="input.name" :placeholder="input.name" />
           </div>
         </div>
+        <select v-model="selectedProvider">
+          <option
+            v-for="n in ['Web3 Provider', 'JavaScript VM']"
+            :key="n"
+            :value="n"
+          >
+            {{ n }}
+          </option>
+        </select>
         <button @click="deploy">
           <span class="icon-cogs"></span> Deploy to the chain
         </button>
@@ -59,6 +68,7 @@
 import Web3 from "web3-ss";
 import { Component, Vue, Watch } from "vue-property-decorator";
 import LityWeb3 from "@/services/web3";
+import JSVM from "@/services/jsvm.ts";
 const ES = require("@/modules/es-ss.js");
 
 @Component({
@@ -67,6 +77,7 @@ const ES = require("@/modules/es-ss.js");
 export default class Contracts extends Vue {
   private selectedContract: string = "";
   private atAddr: string = "";
+  private selectedProvider: string = "Web3 Provider";
 
   get contractNames() {
     let names: string[] = [];
@@ -127,6 +138,7 @@ export default class Contracts extends Vue {
 
   deploy() {
     let params = [];
+    let types = [];
     for (let input of this.contractConstructorInputs) {
       let v = (this.$refs[input.name] as any)[0].value;
       if (input.type.indexOf("[]") > 0) {
@@ -139,15 +151,60 @@ export default class Contracts extends Vue {
         }
       }
       params.push(v);
+      types.push(input.type);
     }
-    params.push({
-      data: `0x${this.contract.evm.bytecode.object}`
-    });
-    params.push(this.deployed);
 
-    const web3 = this.newLityWeb3();
-    const contract = web3.ss.contract(this.contract.abi);
-    contract.new.apply(contract, params);
+    let web3;
+    let contract;
+    switch (this.selectedProvider) {
+      case "JavaScript VM":
+        this.$store.dispatch(`events/setLityOutputTab`, "logs");
+        JSVM.deployContract(
+          `0x${this.contract.evm.bytecode.object}`,
+          params,
+          types
+        )
+          .then(result => {
+            this.JSVMdeployed(undefined, result);
+          })
+          .catch(err => {
+            this.JSVMdeployed(err, undefined);
+          });
+        break;
+      case "Web3 Provider":
+        params.push({
+          data: `0x${this.contract.evm.bytecode.object}`
+        });
+        params.push(this.deployed);
+        web3 = this.newLityWeb3();
+        contract = web3.ss.contract(this.contract.abi);
+        contract.new.apply(contract, params);
+        break;
+    }
+  }
+
+  JSVMdeployed(err: any, contract: any) {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    const c = {
+      name: this.selectedContract,
+      abi: this.contract.abi,
+      bytecode: this.contract.evm.bytecode.object,
+      address: contract.address || "",
+      txHash: contract.transactionHash,
+      provider: this.selectedProvider
+    };
+    if (this.$store.state.deployed.contracts.length == 0) {
+      this.$store.dispatch("events/setFirstDeployedContract", c);
+    }
+    this.$store.dispatch("deployed/pushContract", c);
+    this.$store.dispatch("events/setLityPanel", "Deployed");
+    this.$store.dispatch("deployed/updateContractAddress", c);
+    if (this.$store.state.deployed.contracts.length == 1) {
+      this.$store.dispatch("events/setFirstDeployedContract", c);
+    }
   }
 
   deployed(err: any, contract: any) {
@@ -160,7 +217,8 @@ export default class Contracts extends Vue {
       abi: this.contract.abi,
       bytecode: this.contract.evm.bytecode.object,
       address: contract.address || "",
-      txHash: contract.transactionHash
+      txHash: contract.transactionHash,
+      provider: this.selectedProvider
     };
     if (!contract.address) {
       if (this.$store.state.deployed.contracts.length == 0) {
@@ -204,7 +262,8 @@ export default class Contracts extends Vue {
         name: this.selectedContract,
         abi: this.contract.abi,
         bytecode: this.contract.evm.bytecode.object,
-        address: this.atAddr
+        address: this.atAddr,
+        provider: this.selectedProvider
       };
       if (this.$store.state.deployed.contracts.length == 0) {
         this.$store.dispatch("events/setFirstDeployedContract", c);

@@ -6,6 +6,7 @@ export interface DeployedContract {
   bytecode: string;
   address: string;
   txHash: string;
+  provider: string;
 }
 
 export default {

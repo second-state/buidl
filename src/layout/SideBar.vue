@@ -26,6 +26,17 @@
     </button>
     <button
       class="side-btn"
+      :class="lityPanel === 'Debugger' ? 'side-btn-active' : ''"
+      v-if="site === 'lity'"
+      @click="toggleDebuggerPanel"
+      title="Debug Contracts"
+      onClick="gtag('event', 'contract', {'event_category': 'debugger'});"
+    >
+      <span class="icon-bug1"></span>
+      <label>Debugger</label>
+    </button>
+    <button
+      class="side-btn"
       :class="dappPanel === 'Resources' ? 'side-btn-active' : ''"
       v-if="site === 'dapp'"
       @click="toggleResourcesPanel"
@@ -145,6 +156,15 @@ export default class SideBar extends Vue {
       this.$store.dispatch("events/setLityPanel", "");
     } else {
       this.$store.dispatch("events/setLityPanel", "Contracts");
+    }
+    this.$store.dispatch("events/triggerEditorResize");
+  }
+
+  toggleDebuggerPanel(): void {
+    if (this.$store.state.events.lityPanel === "Debugger") {
+      this.$store.dispatch("events/setLityPanel", "");
+    } else {
+      this.$store.dispatch("events/setLityPanel", "Debugger");
     }
     this.$store.dispatch("events/triggerEditorResize");
   }

@@ -144,6 +144,7 @@ contract SimpleStorage {
           "contracts/setContracts",
           result.contracts["new.lity"]
         );
+        this.$store.dispatch("contracts/setContracts2", result);
         this.$store.dispatch("events/setLityPanel", "Contracts");
         this.$store.dispatch("events/triggerEditorResize");
       }
