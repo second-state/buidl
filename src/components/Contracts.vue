@@ -160,6 +160,7 @@ export default class Contracts extends Vue {
           .catch(err => {
             this.JSVMdeployed(err, undefined);
           });
+        // JSVM.deployContract(`0x${this.contract.evm.bytecode.object}`,params,types,this.JSVMdeployed)
         break;
       case "Web3 Provider":
         params.push({
