@@ -20,29 +20,31 @@
         </div>
       </div>
       <div class="contract-actions" v-show="shownFuncs.indexOf(cIndex) > -1">
-        <div
-          class="contract-action"
-          v-for="abi in c.abi"
-          :key="`${abi.name}_${abi.inputs.length}`"
-        >
-          <div v-if="abi.type === 'function'">
-            <h4 :class="abi.constant ? 'view' : ''">{{ abi.name }}</h4>
-            <ul
-              class="action-input-item"
-              v-for="input in abi.inputs"
-              :key="`${abi.name}${input.name}`"
-            >
-              <li>{{ input.name }}: {{ input.type }}</li>
-            </ul>
-            <ul
-              class="action-output-item"
-              v-for="(output, oIndex) in abi.outputs"
-              :key="`${abi.name}${oIndex}`"
-            >
-              <li>{{ output.name }}: {{ output.type }}</li>
-            </ul>
+        <template v-for="abi in c.abi">
+          <div
+            class="contract-action"
+            v-if="abi.type === 'function' && abi.name !== ''"
+            :key="`${abi.name}_${abi.inputs.length}`"
+          >
+            <div v-if="abi.type === 'function'">
+              <h4 :class="abi.constant ? 'view' : ''">{{ abi.name }}</h4>
+              <ul
+                class="action-input-item"
+                v-for="input in abi.inputs"
+                :key="`${abi.name}${input.name}`"
+              >
+                <li>{{ input.name }}: {{ input.type }}</li>
+              </ul>
+              <ul
+                class="action-output-item"
+                v-for="(output, oIndex) in abi.outputs"
+                :key="`${abi.name}${oIndex}`"
+              >
+                <li>{{ output.name }}: {{ output.type }}</li>
+              </ul>
+            </div>
           </div>
-        </div>
+        </template>
       </div>
     </div>
   </div>
