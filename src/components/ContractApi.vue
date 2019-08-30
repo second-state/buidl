@@ -30,8 +30,8 @@
               <h4 :class="abi.constant ? 'view' : ''">{{ abi.name }}</h4>
               <ul
                 class="action-input-item"
-                v-for="input in abi.inputs"
-                :key="`${abi.name}${input.name}`"
+                v-for="(input, i) in abi.inputs"
+                :key="`${abi.name}${input.name}${i}`"
               >
                 <li>{{ input.name }}: {{ input.type }}</li>
               </ul>
