@@ -126,7 +126,7 @@ export default class NodePop extends Vue {
   }
 
   created() {
-    if (this.$store.state.prefs.esProvider.using === "0") {
+    if (this.$store.state.prefs.esProvider.using == "0") {
       this.$store.dispatch("prefs/setESProviderUsing", "");
     }
     this.reCheck();
