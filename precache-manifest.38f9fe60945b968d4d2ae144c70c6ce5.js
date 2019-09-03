@@ -244,11 +244,11 @@ self.__precacheManifest = [
     "url": "/json.worker.js"
   },
   {
-    "revision": "1be0035640200b7517ef",
-    "url": "/js/index.e75e588f.js"
+    "revision": "a44c2d7400f274a51e32",
+    "url": "/js/index.7403825d.js"
   },
   {
-    "revision": "a4c14d79b8ce60670ab5058280b4a40f",
+    "revision": "5e327bc36e58ee3c5d19c71f3af53f4b",
     "url": "/index.html"
   },
   {
@@ -288,7 +288,7 @@ self.__precacheManifest = [
     "url": "/dapp-frame.html"
   },
   {
-    "revision": "1be0035640200b7517ef",
+    "revision": "a44c2d7400f274a51e32",
     "url": "/css/index.312a6fdd.css"
   },
   {
