@@ -122,7 +122,11 @@ export default class Contracts extends Vue {
       provider.using !== ""
         ? provider.options[provider.using].url
         : provider.custom.url;
-    return new ES(pUrl);
+    if (pUrl !== "") {
+      return new ES(pUrl);
+    } else {
+      return null;
+    }
   }
 
   deploy() {
@@ -174,27 +178,31 @@ export default class Contracts extends Vue {
         this.$store.dispatch("events/setFirstDeployedContract", c);
       }
       const es = this.newEs();
-      const abis = {};
-      const abisLog = {};
-      let i = 0;
-      for (const n in this.$store.state.contracts.contracts) {
-        (abis as any)[i] = {
-          abi: this.$store.state.contracts.contracts[n].abi
-        };
-        (abisLog as any)[n] = {
-          abi: JSON.stringify(this.$store.state.contracts.contracts[n].abi)
-        };
-        ++i;
-      }
-      es.submitManyAbis(abis, contract.transactionHash).then((result: any) => {
-        this.$store.dispatch(
-          `outputs/pushLityLogs`,
-          `New abis were submitted to es: <br/>\
-          ${JSON.stringify(abisLog, null, "  ")
-            .replace(/\n/g, "<br/>")
-            .replace(/\s\s/g, "&nbsp;&nbsp;")}`
+      if (es != null) {
+        const abis = {};
+        const abisLog = {};
+        let i = 0;
+        for (const n in this.$store.state.contracts.contracts) {
+          (abis as any)[i] = {
+            abi: this.$store.state.contracts.contracts[n].abi
+          };
+          (abisLog as any)[n] = {
+            abi: JSON.stringify(this.$store.state.contracts.contracts[n].abi)
+          };
+          ++i;
+        }
+        es.submitManyAbis(abis, contract.transactionHash).then(
+          (result: any) => {
+            this.$store.dispatch(
+              `outputs/pushLityLogs`,
+              `New abis were submitted to es: <br/>\
+              ${JSON.stringify(abisLog, null, "  ")
+                .replace(/\n/g, "<br/>")
+                .replace(/\s\s/g, "&nbsp;&nbsp;")}`
+            );
+          }
         );
-      });
+      }
     }
   }
 

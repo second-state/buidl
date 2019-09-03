@@ -2,7 +2,7 @@
   <div class="node-pop">
     <div class="wrapper es-wrapper">
       <h3>Set ES Provider Endpoint</h3>
-      <select v-model="esUsing">
+      <select v-model="esUsing" style="display:none;">
         <option v-for="(opt, index) in esOptions" :key="opt" :value="index">{{
           opt
         }}</option>
@@ -201,12 +201,12 @@ export default class NodePop extends Vue {
 .node-pop
   position absolute
   width 400px
-  height 360px
+  height 320px
   border 1px dashed alpha($color, 0.5)
   background-color $backgroundColor
   border-radius 4px
   z-index 2
-  top -360px
+  top -320px
   cursor default
   color $color
   font-size 1rem

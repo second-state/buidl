@@ -181,12 +181,12 @@ var contract = web3.ss.contract(abi);
 var instance = contract.at('');
 /* Don't modify */
 
-esss.shaAbi(JSON.stringify(abi)).then((shaResult) => {
-  var sha = JSON.parse(shaResult).abiSha3;
-  esss.searchUsingAbi(sha).then((searchResult) => {
-    console.log(searchResult);
-  });
-});
+// esss.shaAbi(JSON.stringify(abi)).then((shaResult) => {
+//   var sha = JSON.parse(shaResult).abiSha3;
+//   esss.searchUsingAbi(sha).then((searchResult) => {
+//     console.log(searchResult);
+//   });
+// });
 
 document.querySelector("#s").addEventListener("click", function() {
   var n = window.prompt("Enter the number:");
