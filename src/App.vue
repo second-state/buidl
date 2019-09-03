@@ -84,10 +84,16 @@ export default {
         }
       }
       if (q["web3_provider"]) {
-        this.$store.dispatch("prefs/setWeb3ProviderCustom", {
+        let c = {
           url: q["web3_provider"],
           chainId: q["web3_chainId"] || ""
-        });
+        };
+        if (q["gas_price"] || q["gas_limit"]) {
+          c.customGas = true;
+          c.gasPrice = q["gas_price"] || "";
+          c.gasLimit = q["gas_limit"] || "";
+        }
+        this.$store.dispatch("prefs/setWeb3ProviderCustom", c);
         this.$store.dispatch("prefs/setWeb3ProviderUsing", "");
       }
       if (q["es_provider"]) {
