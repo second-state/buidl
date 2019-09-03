@@ -15,7 +15,7 @@ importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox
 
 importScripts(
   "sw-supplement.js",
-  "/precache-manifest.ace6642d2e3dbf123acdae0431212baa.js"
+  "/precache-manifest.216d68f77cfe11c3e2c25e7ac85c091d.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "buidl"});
