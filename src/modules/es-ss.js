@@ -20,6 +20,26 @@ class ESSS {
         return this.indexStatus[_transactionHash];
     }
 
+    queryUsingDsl(_query) {
+        var url = this.searchEngineBaseUrl + "/api/es_search";
+        return new Promise(function(resolve, reject) {
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", url, true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.onload = function(e) {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        resolve(xhr.responseText);
+                    }
+                }
+            };
+            xhr.onerror = reject;
+            xhr.open("POST", url, true);
+            xhr.send(JSON.stringify(_query));
+        });
+    }
+
     updateStateOfContractAddress(_abi, _address) {
         var url = this.searchEngineBaseUrl + "/api/update_state_of_contract_address";
         return new Promise(function(resolve, reject) {
