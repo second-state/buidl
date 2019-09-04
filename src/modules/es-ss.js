@@ -312,6 +312,28 @@ class ESSS {
         });
     }
 
+    sortAbi(_abi) {
+        var url = this.searchEngineBaseUrl + "/api/sort_an_abi";
+        return new Promise(function(resolve, reject) {
+            //data
+            var data = {};
+            data["abi"] = _abi;
+            var xhr = new XMLHttpRequest();
+
+            xhr.onload = function(e) {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        resolve(xhr.responseText);
+                    }
+                }
+            };
+            xhr.onerror = reject;
+            xhr.open("POST", url, true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.send(JSON.stringify(data));
+        });
+    }
+
     searchUsingAddress(_address) {
         var url = this.searchEngineBaseUrl + "/api/es_search";
         return new Promise(function(resolve, reject) {
