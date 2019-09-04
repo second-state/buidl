@@ -43,7 +43,7 @@ export default {
           url: "https://devchain.ss.search.secondstate.io"
         }
       ],
-      using: "",
+      using: "0",
       custom: {
         url: ""
       },
