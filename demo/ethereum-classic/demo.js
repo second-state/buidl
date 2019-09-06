@@ -217,10 +217,10 @@ document.querySelector("#c1i2").addEventListener("click", function() {
     });
 
     // Update blockchain data/state
-    var cli2Gas = instance1.incrementParentContractData.estimateGas({from: "0x886bbcb434bfbdb1f76e52a9bce238833aae84fc"});
+    var cli2Gas = instance1.incrementParentContractData.estimateGas();
     var cli2GasPrice = web3.ss.gasPrice;
     setTimeout(function() {
-      instance1.incrementParentContractData({gas: cli2Gas, gasPrice: cli2GasPrice, from: "0x886bbcb434bfbdb1f76e52a9bce238833aae84fc"});
+      instance1.incrementParentContractData({gas: cli2Gas, gasPrice: cli2GasPrice});
     }, 1 * 1000);
 
 
