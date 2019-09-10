@@ -376,6 +376,20 @@ var instance = contract.at('${c.address}');
     html = html.replace("{{js}}", this.editorData.js.model.getValue());
     html = html.replace("{{css}}", this.editorData.css.model.getValue());
 
+    const jsLibs = this.$store.state.resources.js;
+    let jsLS = "";
+    for (let i = 0; i < jsLibs.length; i++) {
+      jsLS += `<script src="${jsLibs[i]}"></scri` + `pt>`;
+    }
+    html = html.replace("{{jsLibs}}", jsLS);
+
+    const cssLibs = this.$store.state.resources.css;
+    let cssLS = "";
+    for (let i = 0; i < cssLibs.length; i++) {
+      cssLS += `<link rel="stylesheet" href="${cssLibs[i]}" />`;
+    }
+    html = html.replace("{{cssLibs}}", cssLS);
+
     const web3Provider = this.$store.state.prefs.web3Provider;
     const web3Url =
       web3Provider.using !== ""
