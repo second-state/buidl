@@ -36,5 +36,5 @@ contract ChildContract is ParentContract {
 }
 
 // Please note:
-// Whole contract has an ABI hash of 0x225f0096508d06088d4d9259ba30506439a852e88d5fb947177b0180316aa342
-// The inner ParentContract, alone, has an ABI hash of 0x0762cd5459273ec4400821158f74f8912b0d9ef353263a11f30b91f0770d7fc0
+// Whole contract has an ABI hash of 0xfff42d5688beb1a00c28d1418ae7f160176ffd4dd0c5980e1cc3850b76e27b5a
+// The inner ParentContract, alone, has an ABI hash of 0x29f9c761286d7d0857f6141ce739ac694aa0ba94740c172a49a16e507020d9bc
