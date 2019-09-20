@@ -1,7 +1,7 @@
 self.__precacheManifest = [
   {
-    "revision": "21fac6e80ae7280bd6c0",
-    "url": "/js/chunk-2d20f745-legacy.20ba6202.js"
+    "revision": "d5c625f7b52c2dd0e164",
+    "url": "/js/chunk-2d2138c7-legacy.6ab48f6e.js"
   },
   {
     "revision": "c39cbd4c3cd0ec463bac",
@@ -140,12 +140,12 @@ self.__precacheManifest = [
     "url": "/js/chunk-2d209408-legacy.ed8d8b14.js"
   },
   {
-    "revision": "90d4a8415c0cededb6ae",
-    "url": "/js/chunk-2d0a43df-legacy.3f172ac8.js"
+    "revision": "21fac6e80ae7280bd6c0",
+    "url": "/js/chunk-2d20f745-legacy.20ba6202.js"
   },
   {
-    "revision": "d5c625f7b52c2dd0e164",
-    "url": "/js/chunk-2d2138c7-legacy.6ab48f6e.js"
+    "revision": "90d4a8415c0cededb6ae",
+    "url": "/js/chunk-2d0a43df-legacy.3f172ac8.js"
   },
   {
     "revision": "7f6c1f589612dac602cd",
@@ -244,20 +244,28 @@ self.__precacheManifest = [
     "url": "/json.worker.js"
   },
   {
-    "revision": "c152812e0b31abf53b20",
-    "url": "/js/index-legacy.48f5b557.js"
+    "revision": "b852a638fff8fdc7f029",
+    "url": "/js/index-legacy.9312c92e.js"
   },
   {
-    "revision": "845897f8403d8e922f13c7b6fdca43d8",
+    "revision": "ec78036a361467fced30a7e3dbff76b9",
     "url": "/index.html"
   },
   {
-    "revision": "73ceb5a7ef4249be4927c8b34619150e",
-    "url": "/img/icomoon.73ceb5a7.svg"
+    "revision": "296772efbb1bc1846f39410186fcd024",
+    "url": "/img/icomoon.296772ef.svg"
   },
   {
     "revision": "09b8618d8a4d3d508f67001084452a43",
     "url": "/html.worker.js"
+  },
+  {
+    "revision": "d15158def4b931b2ecf3507f3785e83c",
+    "url": "/fonts/icomoon.d15158de.ttf"
+  },
+  {
+    "revision": "c396e144e196ffafdb90294f349ef912",
+    "url": "/fonts/icomoon.c396e144.woff"
   },
   {
     "revision": "89bfeb38450350f821c087d005ea4ed4",
@@ -268,8 +276,8 @@ self.__precacheManifest = [
     "url": "/editor.worker.js"
   },
   {
-    "revision": "c152812e0b31abf53b20",
-    "url": "/css/index.8ba9093d.css"
+    "revision": "b852a638fff8fdc7f029",
+    "url": "/css/index.c80973de.css"
   },
   {
     "revision": "692b90506bb50071a773",
