@@ -1,6 +1,9 @@
 <style lang="stylus">
 icomoon-font-path ?= "../assets/fonts"
 
+icon-etc = "\e902"
+icon-eth = "\e901"
+icon-cmt = "\e900"
 icon-file-play = "\e929"
 icon-pen = "\e908"
 icon-power = "\e9b5"
@@ -35,6 +38,15 @@ icon-share = "\ea7d"
   -webkit-font-smoothing antialiased
   -moz-osx-font-smoothing grayscale
 
+.icon-eth
+  &:before
+    content icon-eth
+.icon-etc
+  &:before
+    content icon-etc
+.icon-cmt
+  &:before
+    content icon-cmt
 .icon-file-play
   &:before
     content icon-file-play

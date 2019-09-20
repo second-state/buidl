@@ -69,7 +69,7 @@
         @click="toggleNodePop"
         onClick="gtag('event', 'sys', {'event_category': 'providers'});"
       >
-        <span class="icon-power" title="Manage Providers"></span>
+        <span :class="`icon-${providerChain}`" title="Manage Providers"></span>
         <label>Providers</label>
         <NodePop ref="nodePop" v-show="showNodePop" />
       </button>
@@ -125,6 +125,27 @@ export default class SideBar extends Vue {
 
   get deployedContracts(): number {
     return this.$store.state.deployed.contracts.length;
+  }
+
+  get providerChain(): string {
+    const provider = this.$store.state.prefs.web3Provider;
+    if (provider.using === "") {
+      const chainId = provider.custom.chainId;
+      switch (chainId) {
+        case "1":
+        case "3":
+        case "4":
+        case "42":
+          return "eth";
+        case "61":
+        case "62":
+          return "etc";
+        case "18":
+        case "19":
+          return "cmt";
+      }
+    }
+    return "power";
   }
 
   toggleTheme(): void {
