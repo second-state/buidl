@@ -18,18 +18,29 @@ export let web3 = {
   }
 };
 
-function signTx(privateKey: string, nonce: Number, addr: string, data: string) {
+function signTx(
+  privateKey: string,
+  nonce: Number,
+  addr: string,
+  data: string,
+  gasPrice: number,
+  gasLimit: number
+) {
   const provider = store.state.prefs.web3Provider;
   const chainId =
     provider.using !== ""
       ? provider.options[provider.using].chainId
       : provider.custom.chainId;
-  const gasPrice =
-    provider.using !== "" || !provider.custom.customGas
+  gasPrice =
+    gasPrice != undefined
+      ? gasPrice
+      : provider.using !== "" || !provider.custom.customGas
       ? provider.default.gasPrice
       : provider.custom.gasPrice;
-  const gasLimit =
-    provider.using !== "" || !provider.custom.customGas
+  gasLimit =
+    gasLimit != undefined
+      ? gasLimit
+      : provider.using !== "" || !provider.custom.customGas
       ? provider.default.gasLimit
       : provider.custom.gasLimit;
   const rawTx = {
@@ -62,7 +73,9 @@ const LityWeb3 = function(this: any, provider: any, type: string) {
       from.privateKey,
       nonce,
       transactionObject.to,
-      transactionObject.data
+      transactionObject.data,
+      transactionObject.gasPrice,
+      transactionObject.gasLimit
     );
     store.dispatch(`events/set${type}OutputTab`, "logs");
     this.ss.sendRawTransaction(s, (err: any, hash: string) => {
