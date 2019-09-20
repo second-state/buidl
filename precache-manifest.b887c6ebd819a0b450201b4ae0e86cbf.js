@@ -296,7 +296,7 @@ self.__precacheManifest = [
     "url": "/eth/index.html"
   },
   {
-    "revision": "a797b342c7857c337b7f6ad2dbebbf6e",
+    "revision": "b234499773c8ebf9fc2c4d7fb2711909",
     "url": "/etc/index.html"
   },
   {
