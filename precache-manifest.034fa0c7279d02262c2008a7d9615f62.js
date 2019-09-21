@@ -8,6 +8,10 @@ self.__precacheManifest = [
     "url": "/soljson.js"
   },
   {
+    "revision": "0056fa3f7c9df62f54fec41104e17b9e",
+    "url": "/xiaoxiao/index.html"
+  },
+  {
     "revision": "ba5e6d551832fa609e53b66bbe784cb5",
     "url": "/sw-supplement.js"
   },
@@ -16,16 +20,12 @@ self.__precacheManifest = [
     "url": "/typescript.worker.js"
   },
   {
-    "revision": "b7a7c624faebc294f3cc",
-    "url": "/js/chunk-2d2214b3.6220ebfc.js"
+    "revision": "51698f15a2d89d670c77",
+    "url": "/js/chunk-2d221814.721e94e1.js"
   },
   {
-    "revision": "e98f34c967987b153a9e",
-    "url": "/js/chunk-2d0abc00.e0c858d7.js"
-  },
-  {
-    "revision": "be9eae6bd1af87498a8f",
-    "url": "/js/chunk-2d0aeb45.671acb52.js"
+    "revision": "c48209e05945c8c2eeb6",
+    "url": "/js/chunk-2d0ae937.389f3c11.js"
   },
   {
     "revision": "9aecaa83598ae2a01e65",
@@ -168,12 +168,12 @@ self.__precacheManifest = [
     "url": "/js/chunk-2d21f327.e1f0bb23.js"
   },
   {
-    "revision": "c48209e05945c8c2eeb6",
-    "url": "/js/chunk-2d0ae937.389f3c11.js"
+    "revision": "b7a7c624faebc294f3cc",
+    "url": "/js/chunk-2d2214b3.6220ebfc.js"
   },
   {
-    "revision": "51698f15a2d89d670c77",
-    "url": "/js/chunk-2d221814.721e94e1.js"
+    "revision": "be9eae6bd1af87498a8f",
+    "url": "/js/chunk-2d0aeb45.671acb52.js"
   },
   {
     "revision": "369bb587b4e86766ea7d",
@@ -260,24 +260,24 @@ self.__precacheManifest = [
     "url": "/js/chunk-2d0aa90c.e613e3b1.js"
   },
   {
-    "revision": "90d4a8415c0cededb6ae",
-    "url": "/js/chunk-2d0a43df.3f172ac8.js"
-  },
-  {
     "revision": "e13dbff107e64d57b016",
     "url": "/js/chunk-2d0aab07.edd2015f.js"
   },
   {
-    "revision": "c941fb6b3b46e1a8b5d0ff7dd622c659",
-    "url": "/dapp-frame.html"
+    "revision": "e98f34c967987b153a9e",
+    "url": "/js/chunk-2d0abc00.e0c858d7.js"
   },
   {
-    "revision": "d15158def4b931b2ecf3507f3785e83c",
-    "url": "/fonts/icomoon.d15158de.ttf"
+    "revision": "90d4a8415c0cededb6ae",
+    "url": "/js/chunk-2d0a43df.3f172ac8.js"
   },
   {
-    "revision": "296772efbb1bc1846f39410186fcd024",
-    "url": "/img/icomoon.296772ef.svg"
+    "revision": "b234499773c8ebf9fc2c4d7fb2711909",
+    "url": "/etc/index.html"
+  },
+  {
+    "revision": "c396e144e196ffafdb90294f349ef912",
+    "url": "/fonts/icomoon.c396e144.woff"
   },
   {
     "revision": "b62c23197d5aa16451cb70a455c04c78",
@@ -288,20 +288,24 @@ self.__precacheManifest = [
     "url": "/html.worker.js"
   },
   {
-    "revision": "c396e144e196ffafdb90294f349ef912",
-    "url": "/fonts/icomoon.c396e144.woff"
+    "revision": "d15158def4b931b2ecf3507f3785e83c",
+    "url": "/fonts/icomoon.d15158de.ttf"
+  },
+  {
+    "revision": "296772efbb1bc1846f39410186fcd024",
+    "url": "/img/icomoon.296772ef.svg"
   },
   {
     "revision": "a01dbd3007a960822aaa078740bcbf7a",
     "url": "/eth/index.html"
   },
   {
-    "revision": "b234499773c8ebf9fc2c4d7fb2711909",
-    "url": "/etc/index.html"
-  },
-  {
     "revision": "366ce58e2b9867ad69bdd033a3da16c6",
     "url": "/editor.worker.js"
+  },
+  {
+    "revision": "c941fb6b3b46e1a8b5d0ff7dd622c659",
+    "url": "/dapp-frame.html"
   },
   {
     "revision": "9af8a8aeb7d7bf2b6407",
