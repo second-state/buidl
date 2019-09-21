@@ -75,7 +75,7 @@ const LityWeb3 = function(this: any, provider: any, type: string) {
       transactionObject.to,
       transactionObject.data,
       transactionObject.gasPrice,
-      transactionObject.gasLimit
+      transactionObject.gas
     );
     store.dispatch(`events/set${type}OutputTab`, "logs");
     this.ss.sendRawTransaction(s, (err: any, hash: string) => {

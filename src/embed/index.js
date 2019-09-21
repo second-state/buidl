@@ -21,8 +21,8 @@ const LityWeb3 = function(provider) {
         gasPrice: transactionObject.gasPrice != undefined
           ? transactionObject.gasPrice
           : window.BuidlProviders.web3.gasPrice,
-        gasLimit: transactionObject.gasLimit != undefined
-          ? transactionObject.gasLimit
+        gasLimit: transactionObject.gas != undefined
+          ? transactionObject.gas
           : window.BuidlProviders.web3.gasLimit
       }
     }, "*");
