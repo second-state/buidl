@@ -244,8 +244,8 @@ self.__precacheManifest = [
     "url": "/json.worker.js"
   },
   {
-    "revision": "462494b3604f655f0a12",
-    "url": "/js/index.20cf8f6a.js"
+    "revision": "9af8a8aeb7d7bf2b6407",
+    "url": "/js/index.ff2a9e3d.js"
   },
   {
     "revision": "173b71356f9162f5120fe56bd3c05d62",
@@ -280,7 +280,7 @@ self.__precacheManifest = [
     "url": "/img/icomoon.296772ef.svg"
   },
   {
-    "revision": "4f7f6b82898657b150b7865c905277a3",
+    "revision": "b62c23197d5aa16451cb70a455c04c78",
     "url": "/index.html"
   },
   {
@@ -304,7 +304,7 @@ self.__precacheManifest = [
     "url": "/editor.worker.js"
   },
   {
-    "revision": "462494b3604f655f0a12",
+    "revision": "9af8a8aeb7d7bf2b6407",
     "url": "/css/index.c80973de.css"
   },
   {
