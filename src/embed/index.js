@@ -18,8 +18,12 @@ const LityWeb3 = function(provider) {
         nonce: nonce,
         to: transactionObject.to,
         data: transactionObject.data,
-        gasPrice: window.BuidlProviders.web3.gasPrice,
-        gasLimit: window.BuidlProviders.web3.gasLimit
+        gasPrice: transactionObject.gasPrice != undefined
+          ? transactionObject.gasPrice
+          : window.BuidlProviders.web3.gasPrice,
+        gasLimit: transactionObject.gasLimit != undefined
+          ? transactionObject.gasLimit
+          : window.BuidlProviders.web3.gasLimit
       }
     }, "*");
   };
