@@ -145,7 +145,7 @@ export default class Dapp extends Vue {
       provider.using !== ""
         ? provider.options[provider.using].url
         : provider.custom.url;
-    return new LityWeb3(new Web3.providers.HttpProvider(pUrl), "Dapp");
+    return LityWeb3(new Web3.providers.HttpProvider(pUrl), "Dapp");
   }
 
   newEs() {
@@ -330,7 +330,7 @@ var instance = contract.at('${c.address}');
     web3.ss.getAccounts = (cb: Function) => {
       cb(null, [this.$store.state.wallet.default.address]);
     };
-    (window as any).web3 = web3;
+    (window as any).web32 = web3;
     (window as any).esss = this.newEs();
 
     (window as any).htmlSrc = this.editorData.html.model.getValue();

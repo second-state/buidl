@@ -1,8 +1,7 @@
-const web3 = (window as any).web3;
-const ethereum = (window as any).ethereum;
-
 export default {
-  installed(): boolean | undefined {
+  installed(): object | undefined {
+    const web3 = (window as any).web3;
+    const ethereum = (window as any).ethereum;
     return (
       web3 &&
       web3.currentProvider &&
@@ -10,8 +9,5 @@ export default {
       (web3.eth || web3.cmt) &&
       ethereum
     );
-  },
-  ss() {
-    return web3.cmt || web3.eth;
   }
 };

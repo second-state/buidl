@@ -57,7 +57,7 @@ LityWeb3.prototype.checkTx = function(hash) {
   });
 };
 
-const web3 = new LityWeb3(new Web3.providers.HttpProvider(window.BuidlProviders.web3.url));
+const web3 = LityWeb3(new Web3.providers.HttpProvider(window.BuidlProviders.web3.url));
 
 const embedFrame = document.createElement("iframe");
 embedFrame.src = "https://buidl.secondstate.io/embed/frame.html";

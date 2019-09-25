@@ -93,7 +93,7 @@ export default class Deployed extends Vue {
       provider.using !== ""
         ? provider.options[provider.using].url
         : provider.custom.url;
-    return new LityWeb3(new Web3.providers.HttpProvider(pUrl), "Lity");
+    return LityWeb3(new Web3.providers.HttpProvider(pUrl), "Lity");
   }
 
   call(cIndex: number, aIndex: number) {

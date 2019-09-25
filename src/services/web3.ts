@@ -61,42 +61,42 @@ function signTx(
 
 const LityWeb3 = function(this: any, provider: any, type: string) {
   Web3.call(this, provider);
-  this.type = type;
+  this.cb = new Web3Cb(type, this);
 
-  if (metamask.installed()) {
-    this.ss = metamask.ss();
-    this.ss.sendTransaction2 = this.ss.sendTransaction;
-  }
   this.ss.sendTransaction = (transactionObject: any, callback?: Function) => {
-    if (metamask.installed()) {
-      this.ss.sendTransaction2(
-        transactionObject,
-        this.cbSendTx(callback).bind(this)
-      );
-    } else {
-      const from = store.state.wallet.default;
-      if (!from) {
-        alert("Please set the default wallet first.");
-        return;
-      }
-      const nonce = this.ss.getTransactionCount(from.address);
-      const s = signTx(
-        from.privateKey,
-        nonce,
-        transactionObject.to,
-        transactionObject.data,
-        transactionObject.gasPrice,
-        transactionObject.gas
-      );
-      this.ss.sendRawTransaction(s, this.cbSendTx(callback).bind(this));
+    const from = store.state.wallet.default;
+    if (!from) {
+      alert("Please set the default wallet first.");
+      return;
     }
+    const nonce = this.ss.getTransactionCount(from.address);
+    const s = signTx(
+      from.privateKey,
+      nonce,
+      transactionObject.to,
+      transactionObject.data,
+      transactionObject.gasPrice,
+      transactionObject.gas
+    );
+    this.ss.sendRawTransaction(s, this.cb.sendTx(callback));
   };
 } as any;
 
-// LityWeb3.prototype = Object.create(Web3.prototype);
+LityWeb3.prototype = Object.create(Web3.prototype);
 LityWeb3.prototype.constructor = LityWeb3;
 
-LityWeb3.prototype.cbSendTx = function(callback: Function): Function {
+LityWeb3.prototype.checkTx = function(hash: string) {
+  this.ss.getTransactionReceipt(hash, this.cb.checkTx(hash));
+};
+
+const Web3Cb = function(this: any, type: string, web3: object) {
+  this.type = type;
+  this.web3 = web3;
+} as any;
+
+Web3Cb.prototype.constructor = Web3Cb;
+
+Web3Cb.prototype.sendTx = function(callback: Function): Function {
   store.dispatch(`events/set${this.type}OutputTab`, "logs");
   return (err: any, hash: string) => {
     if (err) {
@@ -112,11 +112,11 @@ LityWeb3.prototype.cbSendTx = function(callback: Function): Function {
       `Tx has been sent, waiting for comfirmation...`
     );
     callback && callback(null, hash);
-    this.checkTx(hash);
+    this.web3.checkTx(hash);
   };
 };
 
-LityWeb3.prototype.cbCheckTx = function(hash: string): Function {
+Web3Cb.prototype.checkTx = function(hash: string): Function {
   return (err: any, receipt: any) => {
     if (err) {
       store.dispatch(
@@ -130,7 +130,7 @@ LityWeb3.prototype.cbCheckTx = function(hash: string): Function {
           ? provider.confirmInterval
           : provider.extendConfirmInterval;
       setTimeout(() => {
-        this.checkTx(hash);
+        this.web3.checkTx(hash);
       }, interval);
     } else {
       if (receipt.status === "0x1") {
@@ -155,8 +155,31 @@ LityWeb3.prototype.cbCheckTx = function(hash: string): Function {
   };
 };
 
-LityWeb3.prototype.checkTx = function(hash: string) {
-  this.ss.getTransactionReceipt(hash, this.cbCheckTx(hash).bind(this));
-};
-
-export default LityWeb3;
+export default function(provider: any, type: string): any {
+  if (metamask.installed()) {
+    const web3 = Object.assign(
+      {
+        cb: null as any,
+        ss: null as any,
+        checkTx: function(hash: string) {
+          this.ss.getTransactionReceipt(hash, this.cb.checkTx(hash));
+        }
+      },
+      (window as any).web3);
+    web3.cb = new Web3Cb(type, web3);
+    web3.ss = web3.eth || web3.cmt;
+    if (!web3.ss.originSendTx) {
+      web3.ss.originSendTx = web3.ss.sendTransaction;
+    }
+    web3.ss.sendTx = web3.ss.originSendTx;
+    web3.ss.sendTransaction = (transactionObject: any, callback?: Function) => {
+      web3.ss.sendTx(
+        transactionObject,
+        web3.cb.sendTx(callback)
+      );
+    };
+    return web3;
+  } else {
+    return new LityWeb3(provider, type);
+  }
+}
