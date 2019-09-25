@@ -2,6 +2,7 @@ import Web3 from "web3-ss";
 import Tx from "ethereumjs-tx";
 import store from "@/store";
 import Buffer from "safe-buffer";
+import metamask from "@/services/metamask";
 
 export let web3 = {
   checkProvider: function(url: string, cc: number, cb: Function) {
@@ -62,46 +63,61 @@ const LityWeb3 = function(this: any, provider: any, type: string) {
   Web3.call(this, provider);
   this.type = type;
 
+  if (metamask.installed()) {
+    this.ss = metamask.ss();
+    this.ss.sendTransaction2 = this.ss.sendTransaction;
+  }
   this.ss.sendTransaction = (transactionObject: any, callback?: Function) => {
-    const from = store.state.wallet.default;
-    if (!from) {
-      alert("Please set the default wallet first.");
-      return;
-    }
-    const nonce = this.ss.getTransactionCount(from.address);
-    const s = signTx(
-      from.privateKey,
-      nonce,
-      transactionObject.to,
-      transactionObject.data,
-      transactionObject.gasPrice,
-      transactionObject.gas
-    );
-    store.dispatch(`events/set${type}OutputTab`, "logs");
-    this.ss.sendRawTransaction(s, (err: any, hash: string) => {
-      if (err) {
-        store.dispatch(
-          `outputs/push${type}Logs`,
-          `<span class="error">${err}</span>`
-        );
-        callback && callback(err);
+    if (metamask.installed()) {
+      this.ss.sendTransaction2(
+        transactionObject,
+        this.cbSendTx(callback).bind(this)
+      );
+    } else {
+      const from = store.state.wallet.default;
+      if (!from) {
+        alert("Please set the default wallet first.");
         return;
       }
-      store.dispatch(
-        `outputs/push${type}Logs`,
-        `Tx has been sent, waiting for comfirmation...`
+      const nonce = this.ss.getTransactionCount(from.address);
+      const s = signTx(
+        from.privateKey,
+        nonce,
+        transactionObject.to,
+        transactionObject.data,
+        transactionObject.gasPrice,
+        transactionObject.gas
       );
-      callback && callback(null, hash);
-      this.checkTx(hash);
-    });
+      this.ss.sendRawTransaction(s, this.cbSendTx(callback).bind(this));
+    }
   };
 } as any;
 
-LityWeb3.prototype = Object.create(Web3.prototype);
+// LityWeb3.prototype = Object.create(Web3.prototype);
 LityWeb3.prototype.constructor = LityWeb3;
 
-LityWeb3.prototype.checkTx = function(hash: string) {
-  this.ss.getTransactionReceipt(hash, (err: any, receipt: any) => {
+LityWeb3.prototype.cbSendTx = function(callback: Function): Function {
+  store.dispatch(`events/set${this.type}OutputTab`, "logs");
+  return (err: any, hash: string) => {
+    if (err) {
+      store.dispatch(
+        `outputs/push${this.type}Logs`,
+        `<span class="error">${err}</span>`
+      );
+      callback && callback(err);
+      return;
+    }
+    store.dispatch(
+      `outputs/push${this.type}Logs`,
+      `Tx has been sent, waiting for comfirmation...`
+    );
+    callback && callback(null, hash);
+    this.checkTx(hash);
+  };
+};
+
+LityWeb3.prototype.cbCheckTx = function(hash: string): Function {
+  return (err: any, receipt: any) => {
     if (err) {
       store.dispatch(
         `outputs/push${this.type}Logs`,
@@ -136,7 +152,11 @@ LityWeb3.prototype.checkTx = function(hash: string) {
         );
       }
     }
-  });
+  };
+};
+
+LityWeb3.prototype.checkTx = function(hash: string) {
+  this.ss.getTransactionReceipt(hash, this.cbCheckTx(hash).bind(this));
 };
 
 export default LityWeb3;
