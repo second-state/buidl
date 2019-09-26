@@ -48,6 +48,7 @@
     </button>
     <div class="bottom">
       <button
+        v-if="!usingMetaMask"
         class="side-btn"
         :class="
           (site === 'lity' && lityPanel === 'Wallet') ||
@@ -105,6 +106,10 @@ export default class SideBar extends Vue {
 
   get updateAvail(): boolean {
     return this.$store.state.prefs.updateAvail !== null;
+  }
+
+  get usingMetaMask(): boolean {
+    return this.$store.state.prefs.web3Provider.usingMetaMask;
   }
 
   get dt(): string {

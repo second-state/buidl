@@ -26,6 +26,7 @@ export default {
         }
       ],
       using: "0",
+      usingMetaMask: false,
       custom: {
         url: "",
         chainId: "",
@@ -60,7 +61,18 @@ export default {
     switchSite(state: any, site: string) {
       state.site = site;
     },
+    addMetaMask(state: any) {
+      state.web3Provider.options.push({
+        url: "MetaMask",
+        chainId: "0"
+      });
+    },
     setWeb3ProviderUsing(state: any, using: string) {
+      if (Number(using) === state.web3Provider.options.length - 1) {
+        state.web3Provider.usingMetaMask = true;
+      } else {
+        state.web3Provider.usingMetaMask = false;
+      }
       state.web3Provider.using = using;
     },
     setWeb3ProviderCustom(state: any, custom: Web3Provider) {
@@ -100,6 +112,9 @@ export default {
     },
     setWeb3ProviderStatus(context: ActionContext<any, any>, payload: string) {
       context.commit("setWeb3ProviderStatus", payload);
+    },
+    addMetaMask(context: ActionContext<any, any>) {
+      context.commit("addMetaMask");
     },
     setESProviderUsing(context: ActionContext<any, any>, payload: string) {
       context.commit("setESProviderUsing", payload);

@@ -99,6 +99,13 @@ export default class NodePop extends Vue {
     this.esUsing = this.$store.state.prefs.esProvider.using;
     this.esCustomUrl = this.$store.state.prefs.esProvider.custom.url;
     this.using = this.$store.state.prefs.web3Provider.using;
+    // reset metamask using
+    if (
+      Number(this.using) === this.$store.state.prefs.web3Provider.options.length
+    ) {
+      this.using = "" + (Number(this.using) - 1);
+      this.$store.dispatch("prefs/setWeb3ProviderUsing", this.using);
+    }
     this.customUrl = this.$store.state.prefs.web3Provider.custom.url;
     this.customChainId = this.$store.state.prefs.web3Provider.custom.chainId;
     this.customGas =
@@ -163,7 +170,8 @@ export default class NodePop extends Vue {
   doCheck(url: string, cc: number) {
     const provider = this.$store.state.prefs.web3Provider;
     const interval =
-      provider.using !== "" || !provider.custom.customGas
+      (provider.using !== "" && !provider.usingMetaMask) ||
+      !provider.custom.customGas
         ? provider.confirmInterval
         : provider.extendConfirmInterval;
     web3.checkProvider(

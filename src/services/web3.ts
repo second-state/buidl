@@ -6,16 +6,37 @@ import metamask from "@/services/metamask";
 
 export let web3 = {
   checkProvider: function(url: string, cc: number, cb: Function) {
-    if (!url || !/^http/i.test(url)) {
-      return cb("invalid");
-    }
-    const web3 = new Web3(new Web3.providers.HttpProvider(url));
-    web3.ss.getBlockNumber((error: any, result: any) => {
-      if (error) {
-        return cb("unreachable", cc);
+    if (url === "MetaMask") {
+      metamask.connect((result: string) => {
+        switch (result) {
+          case "notInstalled":
+            return cb("invalid", cc);
+          case "notAuthorized":
+            return cb("toAuthorize", cc);
+          default: {
+            const web3 = (window as any).web3;
+            const ss = web3.eth || web3.cmt;
+            ss.getBlockNumber((error: any, result: any) => {
+              if (error) {
+                return cb("unreachable", cc);
+              }
+              return cb("accessible", cc, result);
+            });
+          }
+        }
+      });
+    } else {
+      if (!url || !/^http/i.test(url)) {
+        return cb("invalid", cc);
       }
-      return cb("accessible", cc, result);
-    });
+      const web3 = new Web3(new Web3.providers.HttpProvider(url));
+      web3.ss.getBlockNumber((error: any, result: any) => {
+        if (error) {
+          return cb("unreachable", cc);
+        }
+        return cb("accessible", cc, result);
+      });
+    }
   }
 };
 
@@ -165,7 +186,8 @@ export default function(provider: any, type: string): any {
           this.ss.getTransactionReceipt(hash, this.cb.checkTx(hash));
         }
       },
-      (window as any).web3);
+      (window as any).web3
+    );
     web3.cb = new Web3Cb(type, web3);
     web3.ss = web3.eth || web3.cmt;
     if (!web3.ss.originSendTx) {
@@ -173,10 +195,7 @@ export default function(provider: any, type: string): any {
     }
     web3.ss.sendTx = web3.ss.originSendTx;
     web3.ss.sendTransaction = (transactionObject: any, callback?: Function) => {
-      web3.ss.sendTx(
-        transactionObject,
-        web3.cb.sendTx(callback)
-      );
+      web3.ss.sendTx(transactionObject, web3.cb.sendTx(callback));
     };
     return web3;
   } else {
