@@ -102,7 +102,6 @@ import Tabs from "@/components/Tabs.vue";
 import TabPane from "@/components/TabPane.vue";
 import * as monaco from "monaco-editor";
 import ResizeBar from "@/components/ResizeBar.vue";
-import Web3 from "web3-ss";
 import LityWeb3 from "@/services/web3";
 const ES = require("@/modules/es-ss.js");
 import HtmlTemplate from "@/embed/template.ts";
@@ -145,7 +144,7 @@ export default class Dapp extends Vue {
       provider.using !== ""
         ? provider.options[provider.using].url
         : provider.custom.url;
-    return LityWeb3(new Web3.providers.HttpProvider(pUrl), "Dapp");
+    return LityWeb3(pUrl, "Dapp");
   }
 
   newEs() {

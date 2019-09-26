@@ -53,7 +53,6 @@
 </template>
 
 <script lang="ts">
-import Web3 from "web3-ss";
 import { Component, Vue } from "vue-property-decorator";
 import LityWeb3 from "@/services/web3";
 @Component({
@@ -93,7 +92,7 @@ export default class Deployed extends Vue {
       provider.using !== ""
         ? provider.options[provider.using].url
         : provider.custom.url;
-    return LityWeb3(new Web3.providers.HttpProvider(pUrl), "Lity");
+    return LityWeb3(pUrl, "Lity");
   }
 
   call(cIndex: number, aIndex: number) {

@@ -5,7 +5,7 @@ import './index.styl'
 window.esss = new ES(window.BuidlProviders.es.url);
 
 const LityWeb3 = function(provider) {
-  Web3.call(this, provider);
+  Web3.call(this, new Web3.providers.HttpProvider(provider));
 
   this.ss.sendTransaction = (transactionObject, callback) => {
     const from = window.BuidlG.selectedAccount;
@@ -57,7 +57,7 @@ LityWeb3.prototype.checkTx = function(hash) {
   });
 };
 
-const web3 = LityWeb3(new Web3.providers.HttpProvider(window.BuidlProviders.web3.url));
+const web3 = LityWeb3(window.BuidlProviders.web3.url);
 
 const embedFrame = document.createElement("iframe");
 embedFrame.src = "https://buidl.secondstate.io/embed/frame.html";

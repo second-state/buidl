@@ -80,8 +80,8 @@ function signTx(
   return "0x" + tx.serialize().toString("hex");
 }
 
-const LityWeb3 = function(this: any, provider: any, type: string) {
-  Web3.call(this, provider);
+const LityWeb3 = function(this: any, provider: string, type: string) {
+  Web3.call(this, new Web3.providers.HttpProvider(provider));
   this.cb = new Web3Cb(type, this);
 
   this.ss.sendTransaction = (transactionObject: any, callback?: Function) => {
@@ -176,8 +176,12 @@ Web3Cb.prototype.checkTx = function(hash: string): Function {
   };
 };
 
-export default function(provider: any, type: string): any {
-  if (metamask.installed()) {
+export default function(provider: string, type: string): any {
+  if (provider === "MetaMask") {
+    if (!metamask.installed()) {
+      alert("MetaMask is not installed.");
+      return;
+    }
     const web3 = Object.assign(
       {
         cb: null as any,

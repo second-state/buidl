@@ -56,7 +56,6 @@
 </template>
 
 <script lang="ts">
-import Web3 from "web3-ss";
 import { Component, Vue, Watch } from "vue-property-decorator";
 import LityWeb3 from "@/services/web3";
 const ES = require("@/modules/es-ss.js");
@@ -113,7 +112,7 @@ export default class Contracts extends Vue {
       provider.using !== ""
         ? provider.options[provider.using].url
         : provider.custom.url;
-    return LityWeb3(new Web3.providers.HttpProvider(pUrl), "Lity");
+    return LityWeb3(pUrl, "Lity");
   }
 
   newEs() {

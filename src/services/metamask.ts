@@ -24,13 +24,18 @@ function connect(cb: Function) {
       cb("notAuthorized");
     } else {
       if (accounts === null || accounts.length === 0) {
-        ethereum.enable((err: any, accounts: Array<string>) => {
-          if (err !== null || accounts === null || accounts.length === 0) {
+        ethereum
+          .enable()
+          .then((accounts: Array<string>) => {
+            if (accounts === null || accounts.length === 0) {
+              cb("notAuthorized");
+            } else {
+              cb("authorized");
+            }
+          })
+          .catch(() => {
             cb("notAuthorized");
-          } else {
-            cb("authorized");
-          }
-        });
+          });
       } else {
         cb("authorized");
       }

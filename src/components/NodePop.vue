@@ -64,10 +64,12 @@
       </div>
       <div class="status">
         <strong>Status: </strong>
-        <span class="status-text" :class="status">
+        <span class="status-text" :class="status" @click="authorize">
           {{ status }}
         </span>
-        <span v-show="status === 'accessible'">@Height <span ref="providerHeight"></span></span>
+        <span v-show="status === 'accessible'"
+          >@Height <span ref="providerHeight"></span
+        ></span>
       </div>
     </div>
   </div>
@@ -123,13 +125,10 @@ export default class NodePop extends Vue {
       },
       using => {
         if (using !== this.using) {
-          this.using = using;
-          this.$nextTick().then(() => {
-            (this.$refs.web3Using as HTMLSelectElement).selectedIndex = 1;
-          });
+          this.changeUsing(using);
         }
       }
-    )
+    );
   }
 
   get status() {
@@ -163,6 +162,8 @@ export default class NodePop extends Vue {
 
   @Watch("using")
   changeUsing(val: string) {
+    // TODO why `this` is not the same with which in constructor
+    this.using = val;
     if (val === "") {
       this.$nextTick().then(() => {
         (this.$refs.customUrl as HTMLElement).focus();
@@ -198,9 +199,10 @@ export default class NodePop extends Vue {
           this.checkCount++;
           icc = this.checkCount;
           this.$store.dispatch("prefs/setWeb3ProviderStatus", status);
-          if (status !== "invalid") {
+          if (status !== "invalid" && status !== "toAuthorize") {
             this.$nextTick().then(() => {
-              (this.$refs.providerHeight as Element).textContent = result.toString();
+              (this.$refs
+                .providerHeight as Element).textContent = result.toString();
             });
             setTimeout(() => {
               this.doCheck(url, icc);
@@ -215,6 +217,12 @@ export default class NodePop extends Vue {
     if (this.oldCustomUrl !== this.customUrl) {
       this.reCheck();
       this.oldCustomUrl = this.customUrl;
+    }
+  }
+
+  authorize() {
+    if (this.status === "toAuthorize") {
+      this.reCheck();
     }
   }
 }
@@ -271,6 +279,9 @@ export default class NodePop extends Vue {
         color #008000
       &.unreachable
         color #f00
+      &.toAuthorize
+        cursor pointer
+        color #00f
 </style>
 
 <style lang="stylus">
