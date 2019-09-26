@@ -45,7 +45,13 @@ export default {
 
 const interval = setInterval(() => {
   if (installed()) {
-    store.dispatch("prefs/addMetaMask");
     clearInterval(interval);
+    store.dispatch("prefs/addMetaMask");
+    if (store.state.prefs.web3Provider.usingMetaMask) {
+      store.dispatch(
+        "prefs/setWeb3ProviderUsing",
+        "" + (store.state.prefs.web3Provider.options.length - 1)
+      );
+    }
   }
 }, 5000);

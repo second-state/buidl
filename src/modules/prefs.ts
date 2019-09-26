@@ -67,8 +67,14 @@ export default {
         chainId: "0"
       });
     },
+    setWeb3ProviderUsingWithoutMetaMask(state: any, using: string) {
+      state.web3Provider.using = using;
+    },
     setWeb3ProviderUsing(state: any, using: string) {
-      if (Number(using) === state.web3Provider.options.length - 1) {
+      if (
+        Number(using) > 0 &&
+        Number(using) === state.web3Provider.options.length - 1
+      ) {
         state.web3Provider.usingMetaMask = true;
       } else {
         state.web3Provider.usingMetaMask = false;
@@ -103,6 +109,12 @@ export default {
     },
     setWeb3ProviderUsing(context: ActionContext<any, any>, payload: string) {
       context.commit("setWeb3ProviderUsing", payload);
+    },
+    setWeb3ProviderUsingWithoutMetaMask(
+      context: ActionContext<any, any>,
+      payload: string
+    ) {
+      context.commit("setWeb3ProviderUsingWithoutMetaMask", payload);
     },
     setWeb3ProviderCustom(
       context: ActionContext<any, any>,

@@ -19,7 +19,7 @@
 
     <div class="wrapper web3-wrapper">
       <h3>Set Web3 Provider Endpoint</h3>
-      <select v-model="using">
+      <select ref="web3Using" v-model="using">
         <option v-for="(opt, index) in options" :key="opt" :value="index">{{
           opt
         }}</option>
@@ -67,7 +67,7 @@
         <span class="status-text" :class="status">
           {{ status }}
         </span>
-        <span v-if="status === 'accessible'">@Height {{ providerHeight }}</span>
+        <span v-show="status === 'accessible'">@Height <span ref="providerHeight"></span></span>
       </div>
     </div>
   </div>
@@ -91,7 +91,6 @@ export default class NodePop extends Vue {
   private customGas: boolean;
   private customGasPrice: string;
   private customGasLimit: string;
-  private providerHeight: any;
   private checkCount: number = 0;
 
   constructor() {
@@ -104,7 +103,10 @@ export default class NodePop extends Vue {
       Number(this.using) === this.$store.state.prefs.web3Provider.options.length
     ) {
       this.using = "" + (Number(this.using) - 1);
-      this.$store.dispatch("prefs/setWeb3ProviderUsing", this.using);
+      this.$store.dispatch(
+        "prefs/setWeb3ProviderUsingWithoutMetaMask",
+        this.using
+      );
     }
     this.customUrl = this.$store.state.prefs.web3Provider.custom.url;
     this.customChainId = this.$store.state.prefs.web3Provider.custom.chainId;
@@ -114,6 +116,20 @@ export default class NodePop extends Vue {
       this.$store.state.prefs.web3Provider.custom.gasPrice || "";
     this.customGasLimit =
       this.$store.state.prefs.web3Provider.custom.gasLimit || "";
+
+    this.$store.watch(
+      () => {
+        return this.$store.state.prefs.web3Provider.using;
+      },
+      using => {
+        if (using !== this.using) {
+          this.using = using;
+          this.$nextTick().then(() => {
+            (this.$refs.web3Using as HTMLSelectElement).selectedIndex = 1;
+          });
+        }
+      }
+    )
   }
 
   get status() {
@@ -183,8 +199,9 @@ export default class NodePop extends Vue {
           icc = this.checkCount;
           this.$store.dispatch("prefs/setWeb3ProviderStatus", status);
           if (status !== "invalid") {
-            this.providerHeight = result;
-            this.$forceUpdate();
+            this.$nextTick().then(() => {
+              (this.$refs.providerHeight as Element).textContent = result.toString();
+            });
             setTimeout(() => {
               this.doCheck(url, icc);
             }, interval);

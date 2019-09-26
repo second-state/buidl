@@ -20,6 +20,7 @@ export default new Vuex.Store({
         "prefs.darkTheme",
         "prefs.site",
         "prefs.web3Provider.using",
+        "prefs.web3Provider.usingMetaMask",
         "prefs.web3Provider.custom",
         "prefs.esProvider.using",
         "prefs.esProvider.custom",

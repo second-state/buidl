@@ -102,7 +102,7 @@ import NodePop from "@/components/NodePop.vue";
   }
 })
 export default class SideBar extends Vue {
-  showNodePop = false;
+  showNodePop = true;
 
   get updateAvail(): boolean {
     return this.$store.state.prefs.updateAvail !== null;
