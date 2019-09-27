@@ -2,11 +2,27 @@ import Web3 from "web3-ss";
 import Tx from "ethereumjs-tx";
 import store from "@/store";
 import Buffer from "safe-buffer";
-import metamask from "@/services/metamask";
+const metamask = require("./metamask.js");
+
+(function() {
+  const interval = setInterval(() => {
+    if (metamask.installed()) {
+      clearInterval(interval);
+      const web3 = (window as any).web3;
+      store.dispatch("prefs/addMetaMask", web3.eth ? "MetaMask" : "Venus");
+      if (store.state.prefs.web3Provider.usingMetaMask) {
+        store.dispatch(
+          "prefs/setWeb3ProviderUsing",
+          "" + (store.state.prefs.web3Provider.options.length - 1)
+        );
+      }
+    }
+  }, 5000);
+})();
 
 export let web3 = {
   checkProvider: function(url: string, cc: number, cb: Function) {
-    if (url === "MetaMask") {
+    if (url === "MetaMask" || url === "Venus") {
       metamask.connect((result: string) => {
         switch (result) {
           case "notInstalled":
@@ -177,9 +193,9 @@ Web3Cb.prototype.checkTx = function(hash: string): Function {
 };
 
 export default function(provider: string, type: string): any {
-  if (provider === "MetaMask") {
+  if (provider === "MetaMask" || provider === "Venus") {
     if (!metamask.installed()) {
-      alert("MetaMask is not installed.");
+      alert(`${provider} is not installed.`);
       return;
     }
     const web3 = Object.assign(

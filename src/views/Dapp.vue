@@ -176,8 +176,12 @@ export default class Dapp extends Vue {
       `/* Don't modify */
 var abi = [];
 var bytecode = '';
-var contract = web3.ss.contract(abi);
-var instance = contract.at('');
+var contract = window.web3 && web3.ss.contract(abi);;
+var instance = contract && contract.at('');
+window.addEventListener('web3Ready', function() {
+  contract = web3.ss.contract(abi);
+  instance = contract.at('');
+});
 /* Don't modify */
 
 // esss.shaAbi(JSON.stringify(abi)).then((shaResult) => {
@@ -269,8 +273,12 @@ document.querySelector("#g").addEventListener("click", function() {
           `/* Don't modify */
 var abi = ${JSON.stringify(c.abi)};
 var bytecode = '${c.bytecode}';
-var contract = web3.ss.contract(abi);
-var instance = contract.at('${c.address}');
+var contract = window.web3 && web3.ss.contract(abi);
+var instance = contract && contract.at('${c.address}');
+window.addEventListener('web3Ready', function() {
+  contract = web3.ss.contract(abi);
+  instance = contract.at('${c.address}');
+});
 /* Don't modify */`
         );
         this.editorData.js.model.setValue(value);
@@ -286,7 +294,7 @@ var instance = contract.at('${c.address}');
         return this.$store.state.events.firstDeployedContract;
       },
       c => {
-        const initCodeRegex = /\/\* Don't modify \*\/[\s\S]*var abi = \[.*\];[\s\S]*var bytecode = '.*';[\s\S]*var contract = web3\.ss\.contract\(abi\);[\s\S]*var instance = contract.at\(''\);[\s\S]*\/\* Don't modify \*\//g;
+        const initCodeRegex = /\/\* Don't modify \*\/[\s\S]*var abi = \[.*\];[\s\S]*var bytecode = '.*';[\s\S]*var contract = window.web3 && web3\.ss\.contract\(abi\);[\s\S]*var instance = contract && contract\.at\(''\);[\s\S]*window.addEventListener\('web3Ready', function\(\) \{[\s\S]*contract = web3\.ss\.contract\(abi\);[\s\S]*instance = contract\.at\(''\);[\s\S]*\}\);[\s\S]*\/\* Don't modify \*\//g;
         const value = this.editorData.js.model.getValue();
         if (initCodeRegex.test(value)) {
           this.$store.dispatch("events/setUsingDeployedContract", c);
@@ -300,7 +308,7 @@ var instance = contract.at('${c.address}');
         return this.$store.state.events.compiledContract;
       },
       c => {
-        const initCodeRegex = /\/\* Don't modify \*\/[\s\S]*var abi = \[.*\];[\s\S]*var bytecode = '.*';[\s\S]*var contract = web3\.ss\.contract\(abi\);[\s\S]*var instance = contract.at\(''\);[\s\S]*\/\* Don't modify \*\//g;
+        const initCodeRegex = /\/\* Don't modify \*\/[\s\S]*var abi = \[.*\];[\s\S]*var bytecode = '.*';[\s\S]*var contract = window.web3 && web3\.ss\.contract\(abi\);[\s\S]*var instance = contract && contract\.at\(''\);[\s\S]*window.addEventListener\('web3Ready', function\(\) \{[\s\S]*contract = web3\.ss\.contract\(abi\);[\s\S]*instance = contract\.at\(''\);[\s\S]*\}\);[\s\S]*\/\* Don't modify \*\//g;
         let value = this.editorData.js.model.getValue();
         if (initCodeRegex.test(value)) {
           value = value.replace(
@@ -308,8 +316,12 @@ var instance = contract.at('${c.address}');
             `/* Don't modify */
 var abi = ${JSON.stringify(c.abi)};
 var bytecode = '${c.bytecode}';
-var contract = web3.ss.contract(abi);
-var instance = contract.at('${c.address}');
+var contract = window.web3 && web3.ss.contract(abi);
+var instance = contract && contract.at('${c.address}');
+window.addEventListener('web3Ready', function() {
+  contract = web3.ss.contract(abi);
+  instance = contract.at('${c.address}');
+});
 /* Don't modify */`
           );
           this.editorData.js.model.setValue(value);
@@ -423,7 +435,18 @@ var instance = contract.at('${c.address}');
   }
 
   publish() {
-    var title: string | null = "";
+    if (this.$store.state.prefs.web3Provider.usingMetaMask) {
+      const web3 = (window as any).web3;
+      const m = web3.eth ? "MetaMask" : "Venus";
+      if (
+        !window.confirm(
+          `You have selected ${m} as provider, this will lead the published page can only be used with ${m}`
+        )
+      ) {
+        return;
+      }
+    }
+    let title: string | null = "";
     while (title === "") {
       title = window.prompt("Enter the page title:");
     }

@@ -61,9 +61,9 @@ export default {
     switchSite(state: any, site: string) {
       state.site = site;
     },
-    addMetaMask(state: any) {
+    addMetaMask(state: any, name: string) {
       state.web3Provider.options.push({
-        url: "MetaMask",
+        url: name,
         chainId: "0"
       });
     },
@@ -125,8 +125,8 @@ export default {
     setWeb3ProviderStatus(context: ActionContext<any, any>, payload: string) {
       context.commit("setWeb3ProviderStatus", payload);
     },
-    addMetaMask(context: ActionContext<any, any>) {
-      context.commit("addMetaMask");
+    addMetaMask(context: ActionContext<any, any>, payload: string) {
+      context.commit("addMetaMask", payload);
     },
     setESProviderUsing(context: ActionContext<any, any>, payload: string) {
       context.commit("setESProviderUsing", payload);

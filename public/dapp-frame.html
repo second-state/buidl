@@ -11,6 +11,7 @@
 
       window.onload = function() {
         window.web3 = window.parent.web32;
+        window.dispatchEvent(new Event("web3Ready"));
         window.esss = window.parent.esss;
 
         const originalError = console.error;
