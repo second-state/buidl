@@ -142,6 +142,9 @@ if (window.BuidlProviders.web3.url === "MetaMask" || window.BuidlProviders.web3.
     }
   });
 } else {
+  window.BuidlG = {};
+  let localStore = {};
+
   const lweb3 = new LityWeb3(window.BuidlProviders.web3.url);
 
   const embedFrame = document.createElement("iframe");
@@ -169,12 +172,11 @@ if (window.BuidlProviders.web3.url === "MetaMask" || window.BuidlProviders.web3.
       accountSelector.selectedIndex = window.BuidlG.accounts.length;
       window.BuidlG.accounts.push(acc);
       window.BuidlG.selectedAccount = acc;
-      window.localStorage.setItem("buidl-embed", JSON.stringify({selectedAccount: window.BuidlG.selectedAccount}));
+      localStore.selectedAccount = window.BuidlG.selectedAccount
+      window.localStorage.setItem("buidl-embed", JSON.stringify(localStore));
       alert(`${acc}\nhas been imported and selected as default.`);
     }
   }
-
-  window.BuidlG = {};
 
   lweb3.ss.getAccounts = (cb) => {
     if (!window.BuidlG.selectedAccount) {
@@ -201,7 +203,8 @@ if (window.BuidlProviders.web3.url === "MetaMask" || window.BuidlProviders.web3.
     let storeAccount = null;
     if (store) {
       try {
-        storeAccount = JSON.parse(store).selectedAccount;
+        localStore = JSON.parse(store);
+        storeAccount = localStore.selectedAccount;
       } catch(e) {}
     }
 
@@ -249,6 +252,16 @@ if (window.BuidlProviders.web3.url === "MetaMask" || window.BuidlProviders.web3.
           opt.appendChild(t);
           accountSelector.appendChild(opt);
           window.BuidlG.accounts.push(m);
+
+          // metamask prompt
+          if (!localStore.metamaskPrompt) {
+            const div = document.createElement("div");
+            div.className = "metamask-prompt";
+            const tx = document.createTextNode(`Opt for using your ${m}`);
+            div.appendChild(tx);
+            accountSelector.parentElement.insertBefore(div, accountSelector);
+            document.querySelector(".web3-float-trigger .wt-handle").dispatchEvent(new Event("click"));
+          }
         }
         window.web3 = lweb3;
         window.dispatchEvent(new Event("web3Ready"));
@@ -281,12 +294,21 @@ if (window.BuidlProviders.web3.url === "MetaMask" || window.BuidlProviders.web3.
       triggerMask.remove();
     });
 
+    function closeMetaMaskPrompt() {
+      if (!localStore.metamaskPrompt) {
+        localStore.metamaskPrompt = true;
+        document.querySelector(".metamask-prompt").remove();
+        window.localStorage.setItem("buidl-embed", JSON.stringify(localStore));
+      }
+    }
+
     document.querySelector(".web3-float-trigger .wt-handle").addEventListener("click", function() {
       if (expanded) {
         this.children[0].className = "wt-left-arrow";
         triggerMask.style.display = "none";
         accountSelector.parentElement.style.display = "none";
         expanded = false;
+        closeMetaMaskPrompt();
       } else {
         this.children[0].className = "wt-left-arrow wt-rotate";
         triggerMask.style.display = "block";
@@ -300,11 +322,13 @@ if (window.BuidlProviders.web3.url === "MetaMask" || window.BuidlProviders.web3.
       triggerMask.style.display = "none";
       accountSelector.parentElement.style.display = "none";
       expanded = false;
+      closeMetaMaskPrompt();
     })
 
     accountSelector.addEventListener("change", function() {
       const selected = window.BuidlG.accounts[this.selectedIndex];
-      window.localStorage.setItem("buidl-embed", JSON.stringify({selectedAccount: selected}));
+      localStore.selectedAccount = selected;
+      window.localStorage.setItem("buidl-embed", JSON.stringify(localStore));
       if (selected === "MetaMask" || selected === "Venus") {
         window.location.reload();
       }

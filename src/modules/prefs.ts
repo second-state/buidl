@@ -36,7 +36,8 @@ export default {
       },
       status: "pending",
       confirmInterval: 1 * 1000,
-      extendConfirmInterval: 20 * 1000
+      extendConfirmInterval: 20 * 1000,
+      metamaskPrompt: false
     },
     esProvider: {
       options: [
@@ -66,6 +67,9 @@ export default {
         url: name,
         chainId: "0"
       });
+    },
+    promptMetaMask(state: any, prompt: boolean) {
+      state.web3Provider.metamaskPrompt = prompt;
     },
     setWeb3ProviderUsingWithoutMetaMask(state: any, using: string) {
       state.web3Provider.using = using;
@@ -127,6 +131,9 @@ export default {
     },
     addMetaMask(context: ActionContext<any, any>, payload: string) {
       context.commit("addMetaMask", payload);
+    },
+    promptMetaMask(context: ActionContext<any, any>, payload: boolean) {
+      context.commit("promptMetaMask", payload);
     },
     setESProviderUsing(context: ActionContext<any, any>, payload: string) {
       context.commit("setESProviderUsing", payload);

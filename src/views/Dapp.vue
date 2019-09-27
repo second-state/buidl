@@ -176,11 +176,12 @@ export default class Dapp extends Vue {
       `/* Don't modify */
 var abi = [];
 var bytecode = '';
-var contract = window.web3 && web3.ss.contract(abi);;
-var instance = contract && contract.at('');
+var cAddr = '';
+var contract = window.web3 && web3.ss && web3.ss.contract(abi);;
+var instance = contract && contract.at(cAddr);
 window.addEventListener('web3Ready', function() {
   contract = web3.ss.contract(abi);
-  instance = contract.at('');
+  instance = contract.at(cAddr);
 });
 /* Don't modify */
 
@@ -196,8 +197,10 @@ document.querySelector("#s").addEventListener("click", function() {
   n && instance.set(n);
 });
 document.querySelector("#g").addEventListener("click", function() {
-  console.log(instance.get().toString());
-  alert(instance.get().toString());
+  instance.get(function(e,d) {
+    console.log(d.toString());
+    alert(d.toString());
+  });
 });`;
 
     const cssText =
@@ -273,11 +276,12 @@ document.querySelector("#g").addEventListener("click", function() {
           `/* Don't modify */
 var abi = ${JSON.stringify(c.abi)};
 var bytecode = '${c.bytecode}';
-var contract = window.web3 && web3.ss.contract(abi);
-var instance = contract && contract.at('${c.address}');
+var cAddr = '${c.address}';
+var contract = window.web3 && web3.ss && web3.ss.contract(abi);
+var instance = contract && contract.at(cAddr);
 window.addEventListener('web3Ready', function() {
   contract = web3.ss.contract(abi);
-  instance = contract.at('${c.address}');
+  instance = contract.at(cAddr);
 });
 /* Don't modify */`
         );
@@ -294,7 +298,7 @@ window.addEventListener('web3Ready', function() {
         return this.$store.state.events.firstDeployedContract;
       },
       c => {
-        const initCodeRegex = /\/\* Don't modify \*\/[\s\S]*var abi = \[.*\];[\s\S]*var bytecode = '.*';[\s\S]*var contract = window.web3 && web3\.ss\.contract\(abi\);[\s\S]*var instance = contract && contract\.at\(''\);[\s\S]*window.addEventListener\('web3Ready', function\(\) \{[\s\S]*contract = web3\.ss\.contract\(abi\);[\s\S]*instance = contract\.at\(''\);[\s\S]*\}\);[\s\S]*\/\* Don't modify \*\//g;
+        const initCodeRegex = /\/\* Don't modify \*\/[\s\S]*var abi = \[.*\];[\s\S]*var bytecode = '.*';[\s\S]*var cAddr = '';[\s\S]*var contract = window.web3 && web3.ss && web3\.ss\.contract\(abi\);[\s\S]*var instance = contract && contract\.at\(cAddr\);[\s\S]*window.addEventListener\('web3Ready', function\(\) \{[\s\S]*contract = web3\.ss\.contract\(abi\);[\s\S]*instance = contract\.at\(cAddr\);[\s\S]*\}\);[\s\S]*\/\* Don't modify \*\//g;
         const value = this.editorData.js.model.getValue();
         if (initCodeRegex.test(value)) {
           this.$store.dispatch("events/setUsingDeployedContract", c);
@@ -308,7 +312,7 @@ window.addEventListener('web3Ready', function() {
         return this.$store.state.events.compiledContract;
       },
       c => {
-        const initCodeRegex = /\/\* Don't modify \*\/[\s\S]*var abi = \[.*\];[\s\S]*var bytecode = '.*';[\s\S]*var contract = window.web3 && web3\.ss\.contract\(abi\);[\s\S]*var instance = contract && contract\.at\(''\);[\s\S]*window.addEventListener\('web3Ready', function\(\) \{[\s\S]*contract = web3\.ss\.contract\(abi\);[\s\S]*instance = contract\.at\(''\);[\s\S]*\}\);[\s\S]*\/\* Don't modify \*\//g;
+        const initCodeRegex = /\/\* Don't modify \*\/[\s\S]*var abi = \[.*\];[\s\S]*var bytecode = '.*';[\s\S]*var cAddr = '';[\s\S]*var contract = window.web3 && web3.ss && web3\.ss\.contract\(abi\);[\s\S]*var instance = contract && contract\.at\(cAddr\);[\s\S]*window.addEventListener\('web3Ready', function\(\) \{[\s\S]*contract = web3\.ss\.contract\(abi\);[\s\S]*instance = contract\.at\(cAddr\);[\s\S]*\}\);[\s\S]*\/\* Don't modify \*\//g;
         let value = this.editorData.js.model.getValue();
         if (initCodeRegex.test(value)) {
           value = value.replace(
@@ -316,11 +320,12 @@ window.addEventListener('web3Ready', function() {
             `/* Don't modify */
 var abi = ${JSON.stringify(c.abi)};
 var bytecode = '${c.bytecode}';
-var contract = window.web3 && web3.ss.contract(abi);
-var instance = contract && contract.at('${c.address}');
+var cAddr = '${c.address}';
+var contract = window.web3 && web3.ss && web3.ss.contract(abi);
+var instance = contract && contract.at(cAddr);
 window.addEventListener('web3Ready', function() {
   contract = web3.ss.contract(abi);
-  instance = contract.at('${c.address}');
+  instance = contract.at(cAddr);
 });
 /* Don't modify */`
           );
@@ -440,7 +445,7 @@ window.addEventListener('web3Ready', function() {
       const m = web3.eth ? "MetaMask" : "Venus";
       if (
         !window.confirm(
-          `You have selected ${m} as provider, this will lead the published page can only be used with ${m}`
+          `You have selected ${m} as provider, which will lead the published page can be only used with ${m}.`
         )
       ) {
         return;

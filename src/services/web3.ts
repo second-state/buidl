@@ -15,6 +15,10 @@ const metamask = require("./metamask.js");
           "prefs/setWeb3ProviderUsing",
           "" + (store.state.prefs.web3Provider.options.length - 1)
         );
+      } else {
+        if (!store.state.prefs.web3Provider.metamaskPrompt) {
+          store.dispatch("prefs/promptMetaMask", true);
+        }
       }
     }
   }, 5000);

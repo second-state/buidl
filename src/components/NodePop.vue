@@ -25,6 +25,9 @@
         }}</option>
         <option value="">Customize</option>
       </select>
+      <div class="metamask-prompt" v-if="metamaskPrompt">
+        Opt for using your {{ MetaMask }}
+      </div>
       <input
         type="text"
         ref="customUrl"
@@ -119,16 +122,26 @@ export default class NodePop extends Vue {
     this.customGasLimit =
       this.$store.state.prefs.web3Provider.custom.gasLimit || "";
 
-    this.$store.watch(
+    const unwatch = this.$store.watch(
       () => {
         return this.$store.state.prefs.web3Provider.using;
       },
       using => {
         if (using !== this.using) {
           this.changeUsing(using);
+          unwatch();
         }
       }
     );
+  }
+
+  get metamaskPrompt() {
+    return this.$store.state.prefs.web3Provider.metamaskPrompt;
+  }
+
+  get MetaMask() {
+    const web3 = (window as any).web3;
+    return web3 && web3.eth ? "MetaMask" : "Venus";
   }
 
   get status() {
@@ -248,6 +261,7 @@ export default class NodePop extends Vue {
   flex-direction column
   justify-content space-between
   .wrapper
+    position relative
     padding 1rem
     &.web3-wrapper
       background-color $minorBackgroundColor
@@ -256,6 +270,23 @@ export default class NodePop extends Vue {
     font-size 0.9em
   select
     margin-bottom 1em
+  .metamask-prompt
+    position absolute
+    top 47px
+    left 100%
+    white-space nowrap
+    background-color $color
+    color $backgroundColor
+    padding 0.3rem 0.5rem
+    border-radius 5px
+    &:after
+      content ''
+      position absolute
+      left -7px
+      top 7px
+      border-width 6px 8px 6px 0
+      border-color transparent $color transparent transparent
+      border-style solid
   .custom-gas
     .custom-gas-toggle
       padding 0.2em 0
@@ -294,4 +325,9 @@ body.dark-theme
     .wrapper
       &.web3-wrapper
         background-color $minorBackgroundColor
+      .metamask-prompt
+        background-color $color
+        color $backgroundColor
+        &:after
+          border-color transparent $color transparent transparent
 </style>

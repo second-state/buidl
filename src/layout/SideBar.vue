@@ -104,6 +104,18 @@ import NodePop from "@/components/NodePop.vue";
 export default class SideBar extends Vue {
   showNodePop = false;
 
+  created() {
+    let unwatch = this.$store.watch(
+      () => {
+        return this.$store.state.prefs.web3Provider.metamaskPrompt;
+      },
+      () => {
+        this.showNodePop = true;
+        unwatch();
+      }
+    );
+  }
+
   get updateAvail(): boolean {
     return this.$store.state.prefs.updateAvail !== null;
   }
@@ -248,6 +260,10 @@ export default class SideBar extends Vue {
       this.$store.dispatch("prefs/setESProviderCustom", {
         url: esCustomUrl
       });
+    }
+
+    if (this.$store.state.prefs.web3Provider.metamaskPrompt) {
+      this.$store.dispatch("prefs/promptMetaMask", false);
     }
   }
 
