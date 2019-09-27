@@ -255,6 +255,7 @@ if (window.BuidlProviders.web3.url === "MetaMask" || window.BuidlProviders.web3.
 
           // metamask prompt
           if (!localStore.metamaskPrompt) {
+            localStore.metamaskPrompt = false;
             const div = document.createElement("div");
             div.className = "metamask-prompt";
             const tx = document.createTextNode(`Opt for using your ${m}`);
@@ -295,7 +296,7 @@ if (window.BuidlProviders.web3.url === "MetaMask" || window.BuidlProviders.web3.
     });
 
     function closeMetaMaskPrompt() {
-      if (!localStore.metamaskPrompt) {
+      if (localStore.metamaskPrompt === false) {
         localStore.metamaskPrompt = true;
         document.querySelector(".metamask-prompt").remove();
         window.localStorage.setItem("buidl-embed", JSON.stringify(localStore));
