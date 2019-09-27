@@ -244,8 +244,8 @@ self.__precacheManifest = [
     "url": "/json.worker.js"
   },
   {
-    "revision": "9af8a8aeb7d7bf2b6407",
-    "url": "/js/index.ff2a9e3d.js"
+    "revision": "78ed6928b4b0c0a9d5e9",
+    "url": "/js/index.6c3898c2.js"
   },
   {
     "revision": "173b71356f9162f5120fe56bd3c05d62",
@@ -280,7 +280,7 @@ self.__precacheManifest = [
     "url": "/fonts/icomoon.c396e144.woff"
   },
   {
-    "revision": "b62c23197d5aa16451cb70a455c04c78",
+    "revision": "da0a600e3a196436b4898023c60b635b",
     "url": "/index.html"
   },
   {
@@ -304,12 +304,12 @@ self.__precacheManifest = [
     "url": "/editor.worker.js"
   },
   {
-    "revision": "c941fb6b3b46e1a8b5d0ff7dd622c659",
+    "revision": "83c1d6a0d2d94a860c817fdc01067fc9",
     "url": "/dapp-frame.html"
   },
   {
-    "revision": "9af8a8aeb7d7bf2b6407",
-    "url": "/css/index.c80973de.css"
+    "revision": "78ed6928b4b0c0a9d5e9",
+    "url": "/css/index.bf1cecd5.css"
   },
   {
     "revision": "692b90506bb50071a773",
