@@ -16,7 +16,7 @@
         <label>Copy</label>
       </button>
       <button
-        @click="publish"
+        @click="prePublish"
         :disabled="pubStatus !== 'normal'"
         onClick="gtag('event', 'dapp', {'event_category': 'toolbar', 'event_label': 'publish'});"
       >
@@ -87,6 +87,13 @@
         <ResizeBar resize-direction="horizontal-left"></ResizeBar>
       </section>
     </div>
+    <PubDialog
+      ref="pubDialog"
+      v-show="showDialog"
+      v-on:hide="showDialog = false"
+      v-on:publish="publish"
+      :provider="dialogProvider"
+    />
   </Operating>
 </template>
 
@@ -106,6 +113,7 @@ import LityWeb3 from "@/services/web3";
 const ES = require("@/modules/es-ss.js");
 import HtmlTemplate from "@/embed/template.ts";
 import Publisher from "@/services/publisher";
+import PubDialog from "@/components/PubDialog.vue";
 
 @Component({
   components: {
@@ -117,7 +125,8 @@ import Publisher from "@/services/publisher";
     Cnsl,
     Tabs,
     TabPane,
-    ResizeBar
+    ResizeBar,
+    PubDialog
   }
 })
 export default class Dapp extends Vue {
@@ -132,6 +141,9 @@ export default class Dapp extends Vue {
   pubProgress = 0;
   pubResult = null;
   pubError = null;
+
+  showDialog = false;
+  dialogProvider = "";
 
   private monacoEditor: monaco.editor.IStandaloneCodeEditor | undefined;
   private windowResizeListener = () => {
@@ -385,7 +397,7 @@ window.addEventListener('web3Ready', function() {
     }
   }
 
-  generateFile(title: string): string {
+  generateFile(title: string, provider: any): string {
     let html = HtmlTemplate;
     html = html.replace("{{title}}", title);
     html = html.replace("{{html}}", this.editorData.html.model.getValue());
@@ -408,23 +420,31 @@ window.addEventListener('web3Ready', function() {
 
     const web3Provider = this.$store.state.prefs.web3Provider;
     const web3Url =
-      web3Provider.using !== ""
+      provider !== null
+        ? provider.url
+        : web3Provider.using !== ""
         ? web3Provider.options[web3Provider.using].url
         : web3Provider.custom.url;
     html = html.replace("{{web3ProviderUrl}}", web3Url);
     const web3ChainId =
-      web3Provider.using !== ""
+      provider !== null
+        ? provider.chainId
+        : web3Provider.using !== ""
         ? web3Provider.options[web3Provider.using].chainId
         : web3Provider.custom.chainId;
     html = html.replace("{{web3ProviderChainId}}", web3ChainId);
 
     const gasPrice =
-      web3Provider.using !== "" || !web3Provider.custom.customGas
+      provider !== null
+        ? provider.gasPrice
+        : web3Provider.using !== "" || !web3Provider.custom.customGas
         ? web3Provider.default.gasPrice
         : web3Provider.custom.gasPrice;
     html = html.replace("{{web3ProviderGasPrice}}", gasPrice);
     const gasLimit =
-      web3Provider.using !== "" || !web3Provider.custom.customGas
+      provider !== null
+        ? provider.gasLimit
+        : web3Provider.using !== "" || !web3Provider.custom.customGas
         ? web3Provider.default.gasLimit
         : web3Provider.custom.gasLimit;
     html = html.replace("{{web3ProviderGasLimit}}", gasLimit);
@@ -439,26 +459,38 @@ window.addEventListener('web3Ready', function() {
     return html;
   }
 
-  publish() {
+  prePublish() {
     if (this.$store.state.prefs.web3Provider.usingMetaMask) {
       const web3 = (window as any).web3;
-      const m = web3.eth ? "MetaMask" : "Venus";
-      if (
-        !window.confirm(
-          `You have selected ${m} as provider, which will lead the published page can be only used with ${m}.`
-        )
-      ) {
-        return;
-      }
+      this.dialogProvider = web3.eth ? "MetaMask" : "Venus";
+      web3.version.getNetwork((err: any, network: any) => {
+        (this.$refs.pubDialog as any).chainId = network;
+        this.showDialog = true;
+      });
+    } else {
+      this.dialogProvider = "";
+      this.showDialog = true;
     }
-    let title: string | null = "";
-    while (title === "") {
-      title = window.prompt("Enter the page title:");
+  }
+
+  publish() {
+    this.showDialog = false;
+    const dialog = this.$refs.pubDialog as any;
+    const title = dialog.title;
+    let provider = null;
+
+    if (
+      this.$store.state.prefs.web3Provider.usingMetaMask &&
+      dialog.url.trim() !== ""
+    ) {
+      provider = {
+        url: dialog.url,
+        chainId: dialog.chainId,
+        gasPrice: dialog.gasPrice,
+        gasLimit: dialog.gasLimit
+      };
     }
-    if (title === null) {
-      return;
-    }
-    const pageContent = this.generateFile(title.replace("<", "&lt;"));
+    const pageContent = this.generateFile(title.replace("<", "&lt;"), provider);
     this.pubProgress = 10;
     this.pubStatus = "publishing";
 

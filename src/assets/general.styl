@@ -25,6 +25,10 @@ button
   cursor pointer
   color $color
   border-radius 5px
+  &[disabled]
+    color lighten($color, 50)
+    border-color alpha($color, 0.2)
+    cursor not-allowed
 
 input[type="text"]
   border 0
@@ -57,6 +61,10 @@ body.dark-theme
     border-color alpha($color, 0.7)
     box-shadow 0 2px 1px 0 alpha($color, 0.7)
     color $color
+    &[disabled]
+      color darken($color, 50)
+      border-color alpha($color, 0.2)
+      cursor not-allowed
   input[type="text"]
     border-color $color
     color $color
