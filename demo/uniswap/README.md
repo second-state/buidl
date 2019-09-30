@@ -25,6 +25,6 @@ Press the "Deploy Uniswap" button and wait until the contract address of the new
 At this point we will have a Factory contract and an Exchange template contract deployed. The next step which the code will execute automatically, will be initializing the Factory contract (using the exchange contract's address). This will result in these two deployed contracts being linked.
 
 ## Step 2
-It is now time to create a new ERC20 Token on the network. Press the "Deploy Token" button. Please note, we have already written and compiled the ERC20 contract's source code for you. The ABI and bytecode are stored inside the Javascript. This has been done for your convenience and to ensure a quick and simple demonstration.
+It is now time to create a new ERC20 Token on the network. Press the "Deploy Token" button. Please note, we have already written and compiled [the ERC20 contract's source code](https://github.com/second-state/buidl/blob/master/demo/uniswap/source_code_file.md#erc20-source-code) for you. The ABI and bytecode are stored inside the Javascript. This has been done for your convenience and to ensure a quick and simple demonstration.
 
 
