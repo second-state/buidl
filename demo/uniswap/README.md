@@ -16,11 +16,19 @@ Please cut and paste the [demo.html](https://github.com/second-state/buidl/blob/
 
 # Running the demonstration
 
-## Uniswap contract source code, ABI and bytecode
+**Uniswap contract source code, ABI and bytecode**
 Please note, we have already downloaded and included the the Uniswap Factory contract's [ABI](https://raw.githubusercontent.com/Uniswap/contracts-vyper/master/abi/uniswap_factory.json) and [Bytecode](https://raw.githubusercontent.com/Uniswap/contracts-vyper/master/bytecode/factory.txt) as well as the Uniswap Exchange contract's [ABI](https://raw.githubusercontent.com/Uniswap/contracts-vyper/master/abi/uniswap_exchange.json) and [Bytecode](https://raw.githubusercontent.com/Uniswap/contracts-vyper/master/bytecode/factory.txt) in the demonstration source code files. All you have to do is execute the deployment of the contracts, by clicking this demonstration's buttons.
 
-## Token contract source code, ABI and bytecode
+## Step 1
+Press the "Deploy Factory" button and wait until the contract address of the newly deployed contract is displayed.
 
+## Step 2
+Press the "Deploy Exchange Template" button and wait until the contract address of the newly deployed contract is displayed.
+
+## Step 3
+At this point we have a Factory contract and an Exchange template contract deployed. Next we are going to initialize the Factory contract (using the exchange contract's address) which will result in these two deployed contracts being linked; related.
+
+Press the "Link Factory & Exchange Template" button.
 
 
 
