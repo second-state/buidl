@@ -8,58 +8,67 @@ uniswapExchangeBytecode = "0x61309c56600035601c527401000000000000000000000000000
 document.querySelector("#c1d").addEventListener("click", function() {
     $("#factory_result").empty();
     var contract1 = web3.ss.contract(uniswapFactoryAbi);
-        
+
     // GAS //
     var currentGasPrice = web3.ss.gasPrice;
     console.log("Gas price raw: " + currentGasPrice)
     console.log("Gas price in gwei: " + web3.fromWei(currentGasPrice, 'gwei'))
-    var gasEstimateToDeployFactoryContract = web3.ss.estimateGas({data: uniswapFactoryBytecode});
+    var gasEstimateToDeployFactoryContract = web3.ss.estimateGas({
+        data: uniswapFactoryBytecode
+    });
     console.log("Gas estimate: " + gasEstimateToDeployFactoryContract)
-    
+
     contract1.new({
         data: uniswapFactoryBytecode,
         gas: gasEstimateToDeployFactoryContract,
         gasPrice: currentGasPrice,
-    }, function(error, result) {
-        if (!error && result.address != null) {
+    }, function(factoryError, factoryResult) {
+        if (!factoryError && factoryResult.address != null) {
             console.log("Created item");
-            console.log("Transaction Hash:" + result.transactionHash);
-            console.log("Address:" + result.address);
-            factoryContractAddress = result.address;
+            console.log("Transaction Hash:" + factoryResult.transactionHash);
+            console.log("Address:" + factoryResult.address);
+            factoryContractAddress = factoryResult.address;
             $("#factory_result").text("Uniswap Factory Contract - Deployed at " + factoryContractAddress);
-        }
-        else{
-        console.log(error);
-        }
-    });
-});
+            var contract2 = web3.ss.contract(uniswapExchangeAbi);
 
-// Deploy Exchange template
-document.querySelector("#c2d").addEventListener("click", function() {
-    $("#exchange_template_result").empty();
-    var contract2 = web3.ss.contract(uniswapExchangeAbi);
-        
-    // GAS //
-    var currentGasPrice = web3.ss.gasPrice;
-    console.log("Gas price raw: " + currentGasPrice)
-    console.log("Gas price in gwei: " + web3.fromWei(currentGasPrice, 'gwei'))
-    var gasEstimateToDeployExchangeContract = web3.ss.estimateGas({data: uniswapExchangeBytecode});
-    console.log("Gas estimate: " + gasEstimateToDeployExchangeContract)
-    
-    contract2.new({
-        data: uniswapExchangeBytecode,
-        gas: gasEstimateToDeployExchangeContract,
-        gasPrice: currentGasPrice,
-    }, function(error, result) {
-        if (!error && result.address != null) {
-            console.log("Created item");
-            console.log("Transaction Hash:" + result.transactionHash);
-            console.log("Address:" + result.address);
-            exchangeTemplateContractAddress = result.address;
-            $("#exchange_template_result").text("Uniswap Exchange Template - Deployed at " + exchangeTemplateContractAddress);
-        }
-        else{
-        console.log(error);
+            // GAS //
+            var currentGasPrice = web3.ss.gasPrice;
+            console.log("Gas price raw: " + currentGasPrice)
+            console.log("Gas price in gwei: " + web3.fromWei(currentGasPrice, 'gwei'))
+            var gasEstimateToDeployExchangeContract = web3.ss.estimateGas({
+                data: uniswapExchangeBytecode
+            });
+            console.log("Gas estimate: " + gasEstimateToDeployExchangeContract)
+
+            contract2.new({
+                data: uniswapExchangeBytecode,
+                gas: gasEstimateToDeployExchangeContract,
+                gasPrice: currentGasPrice,
+            }, function(exchangeError, exchangeResult) {
+                if (!exchangeError && exchangeResult.address != null) {
+                    console.log("Created item");
+                    console.log("Transaction Hash:" + exchangeResult.transactionHash);
+                    console.log("Address:" + exchangeResult.address);
+                    exchangeTemplateContractAddress = exchangeResult.address;
+                    $("#exchange_template_result").text("Uniswap Exchange Template - Deployed at " + exchangeTemplateContractAddress);
+
+                    var initGas = factoryResult.initializeFactory.estimateGas(exchangeResult.address);
+                    factoryResult.initializeFactory(exchangeResult.address, {
+                        gasPrice: currentGasPrice,
+                        gas: initGas
+                    }, function(linkError, linkResult) {
+                        if (!linkError) {
+                            $("#linking_result").text("Factory and Exchange contracts linked at Transaction Hash: " + linkResult);
+                        } else {
+                            console.log(linkError);
+                        }
+                    });
+                } else {
+                    console.log(exchangeError);
+                }
+            });
+        } else {
+            console.log(factoryError);
         }
     });
 });
