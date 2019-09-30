@@ -12,7 +12,7 @@ CSS
 https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css
 
 # Preparing your BUIDL IDE environment
-Please cut and paste the [demo.html]() and [demo.js]() files into your BUIDL IDE's DApp section and then push the "Run" button (situated in the top left corner of the BUIDL IDE's DApp section). Please note, we will not be using the BUIDL IDE's "Contract" section because these Uniswap Vyper contracts have already been compiled (and are readily available at the Uniswap repository).
+Please cut and paste the [demo.html](https://github.com/second-state/buidl/blob/master/demo/uniswap/demo.html) and [demo.js](https://github.com/second-state/buidl/blob/master/demo/uniswap/demo.js) files into your BUIDL IDE's DApp section and then push the "Run" button (situated in the top left corner of the BUIDL IDE's DApp section). Please note, we will not be using the BUIDL IDE's "Contract" section because these Uniswap Vyper contracts have already been compiled (and are readily available at the Uniswap repository).
 
 # Running the demonstration
 
