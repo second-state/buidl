@@ -57,7 +57,20 @@ import TabPane from "@/components/TabPane.vue";
 import * as monaco from "monaco-editor";
 import Compiler from "@/services/compiler";
 
-const compiler = new Compiler("./soljson.js");
+let compiler: any = null;
+const s = window.location.search;
+if (s && s.indexOf("?") == 0) {
+  const qs = s.substring(1).split("&");
+  for (let i = 0; i < qs.length; i++) {
+    const qss = qs[i].split("=");
+    if (qss[0] === "s042") {
+      compiler = new Compiler("./soljson-v0.4.2+commit.af6afb04.js");
+    }
+  }
+}
+if (compiler === null) {
+  compiler = new Compiler("./soljson.js");
+}
 
 @Component({
   components: {
