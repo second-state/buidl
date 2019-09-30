@@ -1,6 +1,7 @@
 The following is the source code for the ERC20 contract, which we use in this demonstration. This is not needed to perform the demonstration because we have already compiled and included the ABI and bytecode in the demo's Javascript file.
 This is just for preservation sake.
-#ERC20 source code
+
+# ERC20 source code
 ```
 pragma solidity ^0.5.00;
 /*
