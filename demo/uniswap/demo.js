@@ -15,14 +15,14 @@ document.querySelector("#factory_button").addEventListener("click", function() {
                     var factoryEstimate = web3.ss.estimateGas({
                         data: factoryContractData
                     })
-                    var theGasPrice = web3.ss.gasPrice;
                     var deployedUniswapFactoryContract = uniswapFactoryContract.new({
                         data: uniswapFactoryBytecode,
-                        gasPrice: theGasPrice,
                         gas: factoryEstimate
                     }, function(error, result) {
                         if (!error) {
-                            console.log(result)
+                            console.log("Factory contract address:");
+                            console.log(result.address);
+                            $("##factory_deployment").text(result.address);
                         } else {
                             console.log(error)
                         }
