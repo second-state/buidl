@@ -300,7 +300,7 @@ self.__precacheManifest = [
     "url": "/fonts/icomoon.c396e144.woff"
   },
   {
-    "revision": "b234499773c8ebf9fc2c4d7fb2711909",
+    "revision": "77fb3a296f4c5ae4e1bb17bf1ff905a2",
     "url": "/etc/index.html"
   },
   {
