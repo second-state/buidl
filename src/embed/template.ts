@@ -26,7 +26,7 @@ export default `<!DOCTYPE html>
       }
     }
     </script>
-    <script type="text/javascript" src="https://buidl.secondstate.io/embed/index.js"></script>
+    <script type="text/javascript" src="https://buidl.secondstate.io/embed/main.js"></script>
     {{jsLibs}}
     <script type="text/javascript">
     {{js}}
