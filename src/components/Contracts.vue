@@ -166,16 +166,16 @@ export default class Contracts extends Vue {
       txHash: contract.transactionHash
     };
     if (!contract.address) {
-      if (this.$store.state.deployed.contracts.length == 0) {
-        this.$store.dispatch("events/setFirstDeployedContract", c);
-      }
+      // if (this.$store.state.deployed.contracts.length == 0) {
+      this.$store.dispatch("events/setFirstDeployedContract", c);
+      // }
       this.$store.dispatch("deployed/pushContract", c);
       this.$store.dispatch("events/setLityPanel", "Deployed");
     } else {
       this.$store.dispatch("deployed/updateContractAddress", c);
-      if (this.$store.state.deployed.contracts.length == 1) {
-        this.$store.dispatch("events/setFirstDeployedContract", c);
-      }
+      // if (this.$store.state.deployed.contracts.length == 1) {
+      this.$store.dispatch("events/setFirstDeployedContract", c);
+      // }
       const es = this.newEs();
       if (es != null) {
         const abis = {};
@@ -213,9 +213,9 @@ export default class Contracts extends Vue {
         bytecode: this.contract.evm.bytecode.object,
         address: this.atAddr
       };
-      if (this.$store.state.deployed.contracts.length == 0) {
-        this.$store.dispatch("events/setFirstDeployedContract", c);
-      }
+      // if (this.$store.state.deployed.contracts.length == 0) {
+      this.$store.dispatch("events/setFirstDeployedContract", c);
+      // }
       this.$store.dispatch("deployed/pushContract", c);
       this.$store.dispatch("events/setLityPanel", "Deployed");
     } else {

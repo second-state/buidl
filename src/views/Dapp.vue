@@ -189,13 +189,14 @@ export default class Dapp extends Vue {
 var abi = [];
 var bytecode = '';
 var cAddr = '';
+/* Don't modify */
+
 var contract = window.web3 && web3.ss && web3.ss.contract(abi);;
 var instance = contract && contract.at(cAddr);
 window.addEventListener('web3Ready', function() {
   contract = web3.ss.contract(abi);
   instance = contract.at(cAddr);
 });
-/* Don't modify */
 
 // esss.shaAbi(JSON.stringify(abi)).then((shaResult) => {
 //   var sha = JSON.parse(shaResult).abiSha3;
@@ -289,12 +290,6 @@ document.querySelector("#g").addEventListener("click", function() {
 var abi = ${JSON.stringify(c.abi)};
 var bytecode = '${c.bytecode}';
 var cAddr = '${c.address}';
-var contract = window.web3 && web3.ss && web3.ss.contract(abi);
-var instance = contract && contract.at(cAddr);
-window.addEventListener('web3Ready', function() {
-  contract = web3.ss.contract(abi);
-  instance = contract.at(cAddr);
-});
 /* Don't modify */`
         );
         this.editorData.js.model.setValue(value);
@@ -310,7 +305,7 @@ window.addEventListener('web3Ready', function() {
         return this.$store.state.events.firstDeployedContract;
       },
       c => {
-        const initCodeRegex = /\/\* Don't modify \*\/[\s\S]*var abi = \[.*\];[\s\S]*var bytecode = '.*';[\s\S]*var cAddr = '';[\s\S]*var contract = window.web3 && web3.ss && web3\.ss\.contract\(abi\);[\s\S]*var instance = contract && contract\.at\(cAddr\);[\s\S]*window.addEventListener\('web3Ready', function\(\) \{[\s\S]*contract = web3\.ss\.contract\(abi\);[\s\S]*instance = contract\.at\(cAddr\);[\s\S]*\}\);[\s\S]*\/\* Don't modify \*\//g;
+        const initCodeRegex = /\/\* Don't modify \*\/[\s\S]*var abi = \[.*\];[\s\S]*var bytecode = '.*';[\s\S]*var cAddr = '.*';[\s\S]*\/\* Don't modify \*\//g;
         const value = this.editorData.js.model.getValue();
         if (initCodeRegex.test(value)) {
           this.$store.dispatch("events/setUsingDeployedContract", c);
@@ -324,7 +319,7 @@ window.addEventListener('web3Ready', function() {
         return this.$store.state.events.compiledContract;
       },
       c => {
-        const initCodeRegex = /\/\* Don't modify \*\/[\s\S]*var abi = \[.*\];[\s\S]*var bytecode = '.*';[\s\S]*var cAddr = '';[\s\S]*var contract = window.web3 && web3.ss && web3\.ss\.contract\(abi\);[\s\S]*var instance = contract && contract\.at\(cAddr\);[\s\S]*window.addEventListener\('web3Ready', function\(\) \{[\s\S]*contract = web3\.ss\.contract\(abi\);[\s\S]*instance = contract\.at\(cAddr\);[\s\S]*\}\);[\s\S]*\/\* Don't modify \*\//g;
+        const initCodeRegex = /\/\* Don't modify \*\/[\s\S]*var abi = \[.*\];[\s\S]*var bytecode = '.*';[\s\S]*var cAddr = '.*';[\s\S]*\/\* Don't modify \*\//g;
         let value = this.editorData.js.model.getValue();
         if (initCodeRegex.test(value)) {
           value = value.replace(
@@ -333,12 +328,6 @@ window.addEventListener('web3Ready', function() {
 var abi = ${JSON.stringify(c.abi)};
 var bytecode = '${c.bytecode}';
 var cAddr = '${c.address}';
-var contract = window.web3 && web3.ss && web3.ss.contract(abi);
-var instance = contract && contract.at(cAddr);
-window.addEventListener('web3Ready', function() {
-  contract = web3.ss.contract(abi);
-  instance = contract.at(cAddr);
-});
 /* Don't modify */`
           );
           this.editorData.js.model.setValue(value);
