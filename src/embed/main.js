@@ -109,13 +109,22 @@ function MetaWeb3() {
 }
 
 function waitForMetaMask(cb) {
-  window.addEventListener('load', () => {
+  let navData = window.performance.getEntriesByType("navigation");
+  if (navData.length > 0 && navData[0].loadEventEnd > 0) {
     if (metamask.installed()) {
       cb(true);
     } else {
       cb(false);
     }
-  });
+  } else {
+    window.addEventListener('load', () => {
+      if (metamask.installed()) {
+        cb(true);
+      } else {
+        cb(false);
+      }
+    });
+  }
 }
 
 if (window.BuidlProviders.web3.url === "MetaMask" || window.BuidlProviders.web3.url === "Venus") {

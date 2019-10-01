@@ -167,7 +167,7 @@ export default class Contracts extends Vue {
     };
     if (!contract.address) {
       // if (this.$store.state.deployed.contracts.length == 0) {
-      this.$store.dispatch("events/setFirstDeployedContract", c);
+      // this.$store.dispatch("events/setFirstDeployedContract", c);
       // }
       this.$store.dispatch("deployed/pushContract", c);
       this.$store.dispatch("events/setLityPanel", "Deployed");
