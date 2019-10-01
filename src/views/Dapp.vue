@@ -191,10 +191,9 @@ var bytecode = '';
 var cAddr = '';
 /* Don't modify */
 
-var contract = null;
 var instance = null;
 window.addEventListener('web3Ready', function() {
-  contract = web3.ss.contract(abi);
+  var contract = web3.ss.contract(abi);
   instance = contract.at(cAddr);
 });
 
