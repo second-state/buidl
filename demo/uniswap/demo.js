@@ -12,16 +12,30 @@ class UniswapEnv {
 
     constructor() {
         var factoryContractAddress;
-        // i.e 0xc6253af6ab1c8dd4b9d6f70bcbbd808998b3f01a
-        var factoryInstance;
+        // i.e 0x57b1a8f669400c4f3f500537084e2e54c217421d
+        var factoryContractInstance;
         var exchangeContractTemplateAddress;
-        // i.e. 0xba3d7ee9e2af682c8289f765d3df3115f4d35b46
+        // i.e. 0xd630cd26dbaf6bcdef0187a89d543b221375c033
         var exchangeContractTemplateInstance;
         var tokenAddress;
-        // i.e. 0xbb586d4117db7f129d4a0661ca511ccf90526232
+        // i.e. 0x3e5aec0820910b5558634b200df65370ca025641
         var tokenInstance;
         var tokenExchangeInstance;
+        var tokenExchangeInstanceAddress;
         var currentGasPrice;
+    }
+    bootstrapPreviousInstances(){
+        this.factoryContractAddress = "0x57b1a8f669400c4f3f500537084e2e54c217421d";
+        this.exchangeContractTemplateAddress = "0xd630cd26dbaf6bcdef0187a89d543b221375c033";
+        this.tokenAddress = "0x3e5aec0820910b5558634b200df65370ca025641";
+        this.tokenExchangeInstanceAddress = "";
+        var contract1 = web3.ss.contract(uniswapFactoryAbi);
+        this.factoryContractInstance = contract1.at(this.factoryContractAddress);
+        var contract2 = web3.ss.contract(uniswapExchangeAbi);
+        this.exchangeContractTemplateInstance = contract2.at(this.exchangeContractTemplateAddress);
+        var contract3 = web3.ss.contract(erc20Abi)
+        this.tokenInstance = contract3.at(this.tokenAddress);
+        this.tokenExchangeInstance = contract2.at(this.tokenExchangeInstanceAddress);
     }
     setFactoryContractAddress(_factoryContractAddress) {
         this.factoryContractAddress = _factoryContractAddress;
@@ -43,6 +57,9 @@ class UniswapEnv {
     }
     setTokenExchangeInstance(_tokenExchangeInstance){
         this.tokenExchangeInstance = _tokenExchangeInstance
+    }
+    setTokenExchangeInstanceAddress(_tokenExchangeInstanceAddress){
+        this.tokenExchangeInstanceAddress = _tokenExchangeInstanceAddress;
     }
     setCurrentGasPrice(_currentGasPrice) {
         this.currentGasPrice = _currentGasPrice
@@ -68,6 +85,9 @@ class UniswapEnv {
     }
     getTokenExchangeInstance(){
         return this.tokenExchangeInstance;
+    }
+    getTokenExchangeInstanceAddress(){
+        return this.tokenExchangeInstanceAddress;
     }
     getCurrentGasPrice() {
         return this.currentGasPrice;
@@ -202,9 +222,11 @@ document.querySelector("#c5").addEventListener("click", function() {
         gasPrice: env.getCurrentGasPrice(),
         gas: newExchangeGas
     }, function(exInstanceError, exInstanceResult) {
-        if (!exInstanceError) {
-            $("#exchange_instance_result").text("Exchange Instance created at Transaction Hash: " + exInstanceResult.transactionHash);
-env.setTokenExchangeInstance(env.getExchangeContractTemplateInstance().at(env.getFactoryContractInstance().getExchange(env.getTokenAddress())));
+        if (!exInstanceError && exInstanceResult.address != null) {
+            $("#exchange_instance_result").text("Exchange Instance created at Transaction Hash: " + exInstanceResult.transactionHash + "Exchange Instance Address: " + exInstanceResult.address);
+            env.setTokenExchangeInstanceAddress(exInstanceResult.address)
+            env.setTokenExchangeInstance(contract2.at(exInstanceResult.address));
+            console.log(env.getTokenExchangeInstance());
         } else {
             console.log(exInstanceError);
         }
@@ -218,3 +240,14 @@ env.setTokenExchangeInstance(env.getExchangeContractTemplateInstance().at(env.ge
 // env.getTokenInstance().factoryAddress()
 
 // env.getTokenInstance().tokenAddress()
+
+document.querySelector("#bootstrap").addEventListener("click", function() {
+env.bootstrapPreviousInstances();
+        console.log("Factory Address:" + env.getFactoryContractAddress());
+        // i.e 0x57b1a8f669400c4f3f500537084e2e54c217421d
+        console.log("Exchange Address:" + env.getExchangeContractTemplateAddress());
+        // i.e. 0xd630cd26dbaf6bcdef0187a89d543b221375c033
+        console.log("Token Address:" + env.getTokenAddress());
+        // i.e. 0xe904e95e95a000a3681833304722b457964fc6b8
+
+});
