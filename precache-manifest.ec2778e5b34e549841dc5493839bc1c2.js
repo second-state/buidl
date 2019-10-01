@@ -276,8 +276,8 @@ self.__precacheManifest = [
     "url": "/js/chunk-2d0aab07.edd2015f.js"
   },
   {
-    "revision": "a01dbd3007a960822aaa078740bcbf7a",
-    "url": "/eth/index.html"
+    "revision": "ad82e8fbc8ef2e3d8e1c",
+    "url": "/css/index.2a510c23.css"
   },
   {
     "revision": "296772efbb1bc1846f39410186fcd024",
@@ -300,6 +300,10 @@ self.__precacheManifest = [
     "url": "/fonts/icomoon.c396e144.woff"
   },
   {
+    "revision": "a01dbd3007a960822aaa078740bcbf7a",
+    "url": "/eth/index.html"
+  },
+  {
     "revision": "77fb3a296f4c5ae4e1bb17bf1ff905a2",
     "url": "/etc/index.html"
   },
@@ -314,10 +318,6 @@ self.__precacheManifest = [
   {
     "revision": "acbfd0d8bdedbce6bf37144f043e8e30",
     "url": "/dapp-frame.html"
-  },
-  {
-    "revision": "ad82e8fbc8ef2e3d8e1c",
-    "url": "/css/index.2a510c23.css"
   },
   {
     "revision": "692b90506bb50071a773",
