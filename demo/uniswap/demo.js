@@ -12,10 +12,12 @@ class UniswapEnv {
 
     constructor() {
         var factoryContractAddress;
+        var factoryInstance;
         var exchangeContractTemplateAddress;
+        var exchangeContractTemplateInstance;
         var tokenAddress;
+        var tokenInstance;
         var currentGasPrice;
-
     }
     setFactoryContractAddress(_factoryContractAddress) {
         this.factoryContractAddress = _factoryContractAddress;
@@ -25,6 +27,15 @@ class UniswapEnv {
     }
     setTokenAddress(_tokenAddress) {
         this.tokenAddress = _tokenAddress
+    }
+    setFactoryContractInstance(_factoryContractInstance) {
+        this.factoryContractInstance = _factoryContractInstance;
+    }
+    setExchangeContractTemplateInstance(_exchangeContractTemplateInstance) {
+        this.exchangeContractTemplateInstance = _exchangeContractTemplateInstance;
+    }
+    setTokenInstance(_tokenInstance) {
+        this.tokenInstance = _tokenInstance;
     }
     setCurrentGasPrice(_currentGasPrice) {
         this.currentGasPrice = _currentGasPrice
@@ -38,6 +49,15 @@ class UniswapEnv {
     }
     getTokenAddress() {
         return this.tokenAddress;
+    }
+    getFactoryContractInstance() {
+        return this.factoryContractInstance;
+    }
+    getExchangeContractTemplateInstance() {
+        return this.exchangeContractTemplateInstance;
+    }
+    getTokenInstance() {
+        return this.tokenInstance;
     }
     getCurrentGasPrice() {
         return this.currentGasPrice;
@@ -75,6 +95,8 @@ document.querySelector("#c1").addEventListener("click", function() {
             console.log("Address:" + env.getFactoryContractAddress());
             //factoryContractAddress = factoryResult.address;
             $("#factory_result").text("Uniswap Factory Contract - Deployed at " + env.getFactoryContractAddress());
+            env.setFactoryContractInstance(contract1.at(env.getFactoryContractAddress()));
+            console.log(env.getFactoryContractInstance());
         } else {
             console.log(factoryError);
         }
@@ -100,8 +122,8 @@ document.querySelector("#c2").addEventListener("click", function() {
             console.log("Transaction Hash:" + exchangeResult.transactionHash);
             console.log("Address:" + env.getExchangeContractTemplateAddress());
             $("#exchange_template_result").text("Uniswap Exchange Template - Deployed at " + env.getExchangeContractTemplateAddress());
-
-
+            env.setExchangeContractTemplateInstance(contract2.at(env.getExchangeContractTemplateAddress()))
+            console.log(env.getExchangeContractTemplateInstance());
         } else {
             console.log(exchangeError);
         }
@@ -110,8 +132,8 @@ document.querySelector("#c2").addEventListener("click", function() {
 
 document.querySelector("#c3").addEventListener("click", function() {
 
-    var initGas = factoryResult.initializeFactory.estimateGas(env.getExchangeContractTemplateAddress());
-    factoryResult.initializeFactory(env.getExchangeContractTemplateAddress(), {
+    var initGas = env.getFactoryContractInstance.initializeFactory.estimateGas(env.getExchangeContractTemplateAddress());
+    env.getFactoryContractInstance.initializeFactory(env.getExchangeContractTemplateAddress(), {
         gasPrice: env.getCurrentGasPrice(),
         gas: initGas
     }, function(linkError, linkResult) {
@@ -149,7 +171,8 @@ document.querySelector("#c4").addEventListener("click", function() {
             console.log("Transaction Hash:" + tokenResult.transactionHash);
             console.log("Address:" + env.getTokenAddress());
             $("#token_result").text("ERC20 Token Contract - Deployed at " + env.getTokenAddress());
-
+            env.setTokenInstance(contract3.at(env.getTokenAddress()))
+            console.log(env.getTokenInstance());
         } else {
             console.log(tokenError);
             $("#token_result").text(tokenError);
