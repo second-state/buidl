@@ -244,8 +244,8 @@ self.__precacheManifest = [
     "url": "/robots.txt"
   },
   {
-    "revision": "b6f89f1b0be327400829",
-    "url": "/js/index.319b4851.js"
+    "revision": "efe931816db979725492",
+    "url": "/js/index.77d533d8.js"
   },
   {
     "revision": "1d4b44e36f3d8b59792946b5ab5719de",
@@ -284,7 +284,7 @@ self.__precacheManifest = [
     "url": "/img/icomoon.296772ef.svg"
   },
   {
-    "revision": "419eab4a3cbc683f4c97044c72793d05",
+    "revision": "f3f75d0311707800944eaf6af134a58e",
     "url": "/index.html"
   },
   {
@@ -312,12 +312,12 @@ self.__precacheManifest = [
     "url": "/editor.worker.js"
   },
   {
-    "revision": "83c1d6a0d2d94a860c817fdc01067fc9",
+    "revision": "acbfd0d8bdedbce6bf37144f043e8e30",
     "url": "/dapp-frame.html"
   },
   {
-    "revision": "b6f89f1b0be327400829",
-    "url": "/css/index.4209bc28.css"
+    "revision": "efe931816db979725492",
+    "url": "/css/index.31b9a2fa.css"
   },
   {
     "revision": "692b90506bb50071a773",

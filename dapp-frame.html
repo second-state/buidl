@@ -75,6 +75,7 @@
               script.type = "text/javascript";
               script.innerHTML = window.parent.jsSrc;
               document.body.appendChild(script);
+              window.dispatchEvent(new Event("web3Ready"));
             } else {
               launchJs();
             }
