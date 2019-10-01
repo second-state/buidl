@@ -12,11 +12,15 @@ class UniswapEnv {
 
     constructor() {
         var factoryContractAddress;
+        // i.e 0xc6253af6ab1c8dd4b9d6f70bcbbd808998b3f01a
         var factoryInstance;
         var exchangeContractTemplateAddress;
+        // i.e. 0xba3d7ee9e2af682c8289f765d3df3115f4d35b46
         var exchangeContractTemplateInstance;
         var tokenAddress;
+        // i.e. 0xbb586d4117db7f129d4a0661ca511ccf90526232
         var tokenInstance;
+        var tokenExchangeInstance;
         var currentGasPrice;
     }
     setFactoryContractAddress(_factoryContractAddress) {
@@ -36,6 +40,9 @@ class UniswapEnv {
     }
     setTokenInstance(_tokenInstance) {
         this.tokenInstance = _tokenInstance;
+    }
+    setTokenExchangeInstance(_tokenExchangeInstance){
+        this.tokenExchangeInstance = _tokenExchangeInstance
     }
     setCurrentGasPrice(_currentGasPrice) {
         this.currentGasPrice = _currentGasPrice
@@ -58,6 +65,9 @@ class UniswapEnv {
     }
     getTokenInstance() {
         return this.tokenInstance;
+    }
+    getTokenExchangeInstance(){
+        return this.tokenExchangeInstance;
     }
     getCurrentGasPrice() {
         return this.currentGasPrice;
@@ -122,8 +132,6 @@ document.querySelector("#c2").addEventListener("click", function() {
             console.log("Transaction Hash:" + exchangeResult.transactionHash);
             console.log("Address:" + env.getExchangeContractTemplateAddress());
             $("#exchange_template_result").text("Uniswap Exchange Template - Deployed at " + env.getExchangeContractTemplateAddress());
-            env.setExchangeContractTemplateInstance(contract2.at(env.getExchangeContractTemplateAddress()))
-            console.log(env.getExchangeContractTemplateInstance());
         } else {
             console.log(exchangeError);
         }
@@ -132,8 +140,8 @@ document.querySelector("#c2").addEventListener("click", function() {
 
 document.querySelector("#c3").addEventListener("click", function() {
 
-    var initGas = env.getFactoryContractInstance.initializeFactory.estimateGas(env.getExchangeContractTemplateAddress());
-    env.getFactoryContractInstance.initializeFactory(env.getExchangeContractTemplateAddress(), {
+    var initGas = env.getFactoryContractInstance().initializeFactory.estimateGas(env.getExchangeContractTemplateAddress());
+    env.getFactoryContractInstance().initializeFactory(env.getExchangeContractTemplateAddress(), {
         gasPrice: env.getCurrentGasPrice(),
         gas: initGas
     }, function(linkError, linkResult) {
@@ -179,3 +187,34 @@ document.querySelector("#c4").addEventListener("click", function() {
         }
     })
 })
+
+document.querySelector("#c5").addEventListener("click", function() {
+    $("#exchange_instance_result").empty();
+    // Create new exchange instance
+    // GAS //
+    env.setCurrentGasPrice(web3.ss.gasPrice);
+    console.log("Gas price raw: " + env.getCurrentGasPrice());
+    console.log("Gas price in gwei: " + web3.fromWei(env.getCurrentGasPrice(), 'gwei'));
+    console.log("Estimating gas ...");
+    var newExchangeGas = env.getFactoryContractInstance().createExchange.estimateGas(env.getTokenAddress());
+    console.log("Gas estimate: " + newExchangeGas);
+    env.getFactoryContractInstance().createExchange(env.getTokenAddress(), {
+        gasPrice: env.getCurrentGasPrice(),
+        gas: newExchangeGas
+    }, function(exInstanceError, exInstanceResult) {
+        if (!exInstanceError) {
+            $("#exchange_instance_result").text("Exchange Instance created at Transaction Hash: " + exInstanceResult.transactionHash);
+env.setTokenExchangeInstance(env.getExchangeContractTemplateInstance().at(env.getFactoryContractInstance().getExchange(env.getTokenAddress())));
+        } else {
+            console.log(exInstanceError);
+        }
+    });
+})
+
+// env.getFactoryContractInstance().getToken(deployedUniswapFactoryContract.getExchange(env.getTokenAddress());
+
+// env.getFactoryContractInstance().getExchange(env.getTokenAddress());
+
+// env.getTokenInstance().factoryAddress()
+
+// env.getTokenInstance().tokenAddress()
