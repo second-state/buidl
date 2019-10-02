@@ -69,5 +69,23 @@ var ta = $("#token_address").val();
     env.setTokenAddress(ta);
 });
 
+// Create the exchange
+var factory_createExchangeEstimate = deployedUniswapFactoryContract.createExchange.estimateGas("0xc4c97929301eb30ff5c9c3150bbbe553768ffbbe", {from:factoryOwner})
+
+document.querySelector("#create_exchange").addEventListener("click", function() {
+        // GAS //
+    env.setCurrentGasPrice(web3.ss.gasPrice)
+    var createExchangeGas = env.getFactoryContractInstance().createExchange.estimateGas(env.getTokenAddress());
+    env.getFactoryContractInstance().createExchange(env.getTokenAddress(), {
+        gasPrice: env.getCurrentGasPrice(),
+        gas: createExchangeGas
+    }, function(linkError, linkResult) {
+        if (!linkError) {
+            $("#linking_result").text("Factory and Exchange contracts linked at Transaction Hash: " + linkResult);
+        } else {
+            console.log(linkError);
+        }
+    });
+});
 
 }
