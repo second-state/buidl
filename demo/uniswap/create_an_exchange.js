@@ -59,7 +59,7 @@ var env = new UniswapEnv();
 
 document.querySelector("#factory_address_button").addEventListener("click", function() {
     $("#factory_address_result").empty();
-var fa = $("#factory_address").val();
+    var fa = $("#factory_address").val();
     env.setFactoryContractAddress(fa);
     var contract1 = web3.ss.contract(uniswapFactoryAbi);
     env.setFactoryContractInstance(contract1.at(env.getFactoryContractAddress()));
@@ -68,7 +68,7 @@ var fa = $("#factory_address").val();
 
 document.querySelector("#token_address_button").addEventListener("click", function() {
     $("#token_address_result").empty();
-var ta = $("#token_address").val();
+    var ta = $("#token_address").val();
     env.setTokenAddress(ta);
     $("#token_address_result").text("Confirmed token address as: " + ta);
 });
@@ -85,19 +85,24 @@ document.querySelector("#create_exchange").addEventListener("click", function() 
     }, function(createExchangeError, createExchangeResult) {
         if (!createExchangeError) {
             // GAS //
-            var queryExchangeGas = env.getFactoryContractInstance().getExchange.estimateGas(env.getTokenAddress());
-            env.getFactoryContractInstance().getExchange(env.getTokenAddress(), {
-                gasPrice: env.getCurrentGasPrice(),
-                gas: queryExchangeGas
-            }, function(getExchangeError, getExchangeResult) {
-                if (!getExchangeError) {
-                    $("#exchange_instance_result").text("Exchange is at address: " + getExchangeResult);
-                } else {
-                    console.log(getExchangeError);
-                }
-            });
+            $("#exchange_instance_result").text("Success");
         } else {
             console.log(createExchangeError);
+        }
+    });
+});
+
+document.querySelector("#query_exchange_button").addEventListener("click", function() {
+    $("#exchange_instance_result").empty();
+    var queryExchangeGas = env.getFactoryContractInstance().getExchange.estimateGas(env.getTokenAddress());
+    env.getFactoryContractInstance().getExchange(env.getTokenAddress(), {
+        gasPrice: env.getCurrentGasPrice(),
+        gas: queryExchangeGas
+    }, function(getExchangeError, getExchangeResult) {
+        if (!getExchangeError) {
+            $("#exchange_instance_result").text("Exchange is at address: " + getExchangeResult);
+        } else {
+            console.log(getExchangeError);
         }
     });
 });
