@@ -83,7 +83,7 @@ document.querySelector("#c1").addEventListener("click", function() {
             console.log("Please store the following hash and address, you will need these!");
             console.log("Factory Transaction Hash:" + factoryResult.transactionHash);
             console.log("Factory Address:" + env.getFactoryContractAddress());
-            $("#factory_result").text("Please store the following address, you will need this!" + env.getFactoryContractAddress());
+            $("#factory_result").text("Please store the following address, you will need this! " + env.getFactoryContractAddress());
             env.setFactoryContractInstance(contract1.at(env.getFactoryContractAddress()));
         } else {
             console.log(factoryError);
@@ -109,7 +109,7 @@ document.querySelector("#c2").addEventListener("click", function() {
             console.log("Please store the following hash and address, you will need these!");
             console.log("Exchange Template Transaction Hash:" + exchangeResult.transactionHash);
             console.log("Exchange Template Address:" + env.getExchangeContractTemplateAddress());
-            $("#exchange_template_result").text("Please store the following address, you will need this!" + env.getExchangeContractTemplateAddress());
+            $("#exchange_template_result").text("Please store the following address, you will need this !" + env.getExchangeContractTemplateAddress());
         } else {
             console.log(exchangeError);
         }
