@@ -24,6 +24,16 @@ class UniswapEnv {
         this.tokenInstance = _tokenInstance;
     }
     
+    // Gas details
+    getCurrentGasPrice() {
+        return this.currentGasPrice;
+    }
+    setCurrentGasPrice(_currentGasPrice) {
+        this.currentGasPrice = _currentGasPrice
+    }
+    
+}
+    
 // Instantiate Uniswap environment variable
 var env = new UniswapEnv();
     
