@@ -24,6 +24,9 @@ class UniswapEnv {
         this.tokenInstance = _tokenInstance;
     }
     
+// Instantiate Uniswap environment variable
+var env = new UniswapEnv();
+    
 document.querySelector("#c4").addEventListener("click", function() {
     $("#token_result").empty();
     // Create new ERC20 token
