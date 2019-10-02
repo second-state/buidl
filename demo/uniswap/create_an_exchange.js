@@ -79,11 +79,11 @@ document.querySelector("#create_exchange").addEventListener("click", function() 
     env.getFactoryContractInstance().createExchange(env.getTokenAddress(), {
         gasPrice: env.getCurrentGasPrice(),
         gas: createExchangeGas
-    }, function(linkError, linkResult) {
-        if (!linkError) {
-            $("#linking_result").text("Factory and Exchange contracts linked at Transaction Hash: " + linkResult);
+    }, function(createExchangeError, createExchangeResult) {
+        if (!createExchangeError) {
+            $("#create_exchange_result").text("Transaction Hash: " + createExchangeResult.transactionHash + "Address: " + createExchangeResult.address);
         } else {
-            console.log(linkError);
+            console.log(createExchangeError);
         }
     });
 });
