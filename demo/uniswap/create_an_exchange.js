@@ -57,7 +57,6 @@ class UniswapEnv {
 // Instantiate Uniswap environment variable
 var env = new UniswapEnv();
 
-
 document.querySelector("#factory_address_button").addEventListener("click", function() {
     $("#factory_address_result").empty();
 var fa = $("#factory_address").val();
@@ -69,17 +68,15 @@ var fa = $("#factory_address").val();
 
 document.querySelector("#token_address_button").addEventListener("click", function() {
     $("#token_address_result").empty();
-var ta = $("#token_address_result").val();
+var ta = $("#token_address").val();
     env.setTokenAddress(ta);
     $("#token_address_result").text("Confirmed token address as: " + ta);
 });
 
 // Create the exchange
-var factory_createExchangeEstimate = deployedUniswapFactoryContract.createExchange.estimateGas("0xc4c97929301eb30ff5c9c3150bbbe553768ffbbe", {from:factoryOwner})
-
 document.querySelector("#create_exchange").addEventListener("click", function() {
     $("#exchange_instance_result").empty();
-        // GAS //
+    // GAS //
     env.setCurrentGasPrice(web3.ss.gasPrice)
     var createExchangeGas = env.getFactoryContractInstance().createExchange.estimateGas(env.getTokenAddress());
     env.getFactoryContractInstance().createExchange(env.getTokenAddress(), {
@@ -87,7 +84,18 @@ document.querySelector("#create_exchange").addEventListener("click", function() 
         gas: createExchangeGas
     }, function(createExchangeError, createExchangeResult) {
         if (!createExchangeError) {
-            $("#exchange_instance_result").text("Transaction Hash: " + createExchangeResult.transactionHash + "Address: " + createExchangeResult.address);
+            // GAS //
+            var queryExchangeGas = env.getFactoryContractInstance().getExchange.estimateGas(env.getTokenAddress());
+            env.getFactoryContractInstance().getExchange(env.getTokenAddress(), {
+                gasPrice: env.getCurrentGasPrice(),
+                gas: queryExchangeGas
+            }, function(getExchangeError, getExchangeResult) {
+                if (!getExchangeError) {
+                    $("#exchange_instance_result").text("Exchange is at address: " + getExchangeResult);
+                } else {
+                    console.log(getExchangeError);
+                }
+            });
         } else {
             console.log(createExchangeError);
         }
