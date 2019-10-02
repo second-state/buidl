@@ -11,26 +11,20 @@ https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js
 CSS
 https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css
 
-# Preparing your BUIDL IDE environment
-Please cut and paste the [demo.html](https://github.com/second-state/buidl/blob/master/demo/uniswap/demo.html) and [demo.js](https://github.com/second-state/buidl/blob/master/demo/uniswap/demo.js) files into your BUIDL IDE's DApp section and then push the "Run" button (situated in the top left corner of the BUIDL IDE's DApp section). Please note, we will not be using the BUIDL IDE's "Contract" section because these Uniswap Vyper contracts have already been compiled (and are readily available at the Uniswap repository).
-
-# Running the demonstration
-
 **Uniswap contract source code, ABI and bytecode**
 Please note, we have already downloaded and included the the Uniswap Factory contract's [ABI](https://raw.githubusercontent.com/Uniswap/contracts-vyper/master/abi/uniswap_factory.json) and [Bytecode](https://raw.githubusercontent.com/Uniswap/contracts-vyper/master/bytecode/factory.txt) as well as the Uniswap Exchange contract's [ABI](https://raw.githubusercontent.com/Uniswap/contracts-vyper/master/abi/uniswap_exchange.json) and [Bytecode](https://raw.githubusercontent.com/Uniswap/contracts-vyper/master/bytecode/factory.txt) in the demonstration source code files. All you have to do is execute the deployment of the contracts, by clicking this demonstration's buttons.
 
 ## Step 1
-Press the "Deploy Uniswap Factory" button and wait until the contract address of the newly deployed Factory contract is displayed. 
+
+Please cut and paste the [create_factory_contract_&_exchange_template.html](https://raw.githubusercontent.com/second-state/buidl/master/demo/uniswap/create_factory_contract_%26_exchange_template.html) and [create_factory_contract_&_exchange_template.js](https://raw.githubusercontent.com/second-state/buidl/master/demo/uniswap/create_factory_contract_%26_exchange_template.js) files into your BUIDL IDE's DApp section and then push the "Run" button (situated in the top left corner of the BUIDL IDE's DApp section). Please note, we will not be using the BUIDL IDE's "Contract" section because these Uniswap Vyper contracts have already been compiled (and are readily available at the Uniswap repository).
+
+Press the "Deploy Uniswap Factory" button and wait until the contract address of the newly deployed Factory contract is displayed. Please ensure that you save/store this contract address. You will need this later!
 
 ## Step 2
-Press the "Deploy Uniswap Ex. Template" button and wait for a minute while the Exchange contract template is also deployed. Once complete, the newly deployed Exchange contract template address will be displayed.
+Press the "Deploy Uniswap Ex. Template" button and wait for a minute while the Exchange contract template is also deployed. Once complete, the newly deployed Exchange contract template address will be displayed. Please ensure that you save/store this contract address. You will need it later.
 
 ## Step 3
 At this point we have a Factory contract and an Exchange template contract deployed. We now need these two contracts to be linked. To link these contracts we simply press the "Perform Linking" button.
 
-## Step 4
-It is now time to create a new ERC20 Token on the network. To create a new token simply press the "Deploy Token" button. 
-
-Please note, we have already written and compiled [the ERC20 contract's source code](https://github.com/second-state/buidl/blob/master/demo/uniswap/source_code_file.md#erc20-source-code) for you. The ABI and bytecode are stored inside the Javascript. This has been done for your convenience and to ensure a quick and simple demonstration.
 
 
