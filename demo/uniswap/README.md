@@ -26,5 +26,6 @@ Press the "Deploy Uniswap Ex. Template" button and wait for a minute while the E
 ## Step 3
 At this point we have a Factory contract and an Exchange template contract deployed. We now need these two contracts to be linked. To link these contracts we simply press the "Perform Linking" button.
 
-
+## Step 4
+You can use an existing ERC20 token contract if you have one. If you would like to create a new ERC20 token for demonstration purposes you can cut and past the [demonstrate_erc20_creation.html](https://raw.githubusercontent.com/second-state/buidl/master/demo/uniswap/demonstrate_erc20_creation.html) and [demonstrate_erc20_creation.js](https://raw.githubusercontent.com/second-state/buidl/master/demo/uniswap/demonstrate_erc20_creation.js) files into the BUIDL IDE and deploy by pressing the `Create new ERC20 token` button.
 
