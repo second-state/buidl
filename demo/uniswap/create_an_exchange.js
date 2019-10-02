@@ -93,5 +93,3 @@ document.querySelector("#create_exchange").addEventListener("click", function() 
         }
     });
 });
-
-}
