@@ -54,7 +54,7 @@ class UniswapEnv {
     setCurrentGasPrice(_currentGasPrice) {
         this.currentGasPrice = _currentGasPrice
     }
-
+}
 // Instantiate Uniswap environment variable
 var env = new UniswapEnv();
 
