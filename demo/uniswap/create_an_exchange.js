@@ -53,6 +53,16 @@ class UniswapEnv {
         this.currentGasPrice = _currentGasPrice
     }
     
-env.setFactoryContractInstance(contract1.at(env.getFactoryContractAddress()));
+// Instantiate Uniswap environment variable
+var env = new UniswapEnv();
+
+
+document.querySelector("#factory_address_button").addEventListener("click", function() {
+var fa = $("#factory_address").val();
+    env.setFactoryContractAddress(fa);
+    var contract1 = web3.ss.contract(uniswapFactoryAbi);
+    env.setFactoryContractInstance(contract1.at(env.getFactoryContractAddress()));
+});
+
 
 }
