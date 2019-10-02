@@ -109,8 +109,7 @@ function MetaWeb3() {
 }
 
 function waitForMetaMask(cb) {
-  let navData = window.performance.getEntriesByType("navigation");
-  if (navData.length > 0 && navData[0].loadEventEnd > 0) {
+  if (window.performance.timing.loadEventEnd > 0) {
     if (metamask.installed()) {
       cb(true);
     } else {
