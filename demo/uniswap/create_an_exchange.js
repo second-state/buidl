@@ -59,21 +59,26 @@ var env = new UniswapEnv();
 
 
 document.querySelector("#factory_address_button").addEventListener("click", function() {
+    $("#factory_address_result").empty();
 var fa = $("#factory_address").val();
     env.setFactoryContractAddress(fa);
     var contract1 = web3.ss.contract(uniswapFactoryAbi);
     env.setFactoryContractInstance(contract1.at(env.getFactoryContractAddress()));
+    $("#factory_address_result").text("Successfully created factory instance using address: " + fa);
 });
 
 document.querySelector("#token_address_button").addEventListener("click", function() {
-var ta = $("#token_address").val();
+    $("#token_address_result").empty();
+var ta = $("#token_address_result").val();
     env.setTokenAddress(ta);
+    $("#token_address_result").text("Confirmed token address as: " + ta);
 });
 
 // Create the exchange
 var factory_createExchangeEstimate = deployedUniswapFactoryContract.createExchange.estimateGas("0xc4c97929301eb30ff5c9c3150bbbe553768ffbbe", {from:factoryOwner})
 
 document.querySelector("#create_exchange").addEventListener("click", function() {
+    $("#exchange_instance_result").empty();
         // GAS //
     env.setCurrentGasPrice(web3.ss.gasPrice)
     var createExchangeGas = env.getFactoryContractInstance().createExchange.estimateGas(env.getTokenAddress());
@@ -82,7 +87,7 @@ document.querySelector("#create_exchange").addEventListener("click", function() 
         gas: createExchangeGas
     }, function(createExchangeError, createExchangeResult) {
         if (!createExchangeError) {
-            $("#create_exchange_result").text("Transaction Hash: " + createExchangeResult.transactionHash + "Address: " + createExchangeResult.address);
+            $("#exchange_instance_result").text("Transaction Hash: " + createExchangeResult.transactionHash + "Address: " + createExchangeResult.address);
         } else {
             console.log(createExchangeError);
         }
