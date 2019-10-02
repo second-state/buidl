@@ -100,6 +100,7 @@ export default class Wallet extends Vue {
     let sig = importSig();
     if (sig) {
       this.$store.dispatch("wallet/addSig", sig);
+      this.setDefault(sig);
     }
   }
 

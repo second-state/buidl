@@ -119,8 +119,17 @@ export default class Deployed extends Vue {
         ${deployedContract.address} returned:`
     );
     try {
-      const result = func.apply(func, params);
-      this.$store.dispatch("outputs/pushLityLogs", result);
+      params.push((err: any, data: any) => {
+        if (err !== null) {
+          this.$store.dispatch(
+            "outputs/pushLityLogs",
+            `<span class="error">${err}</span>`
+          );
+        } else {
+          this.$store.dispatch("outputs/pushLityLogs", data);
+        }
+      });
+      func.apply(func, params);
     } catch (e) {
       this.$store.dispatch(
         "outputs/pushLityLogs",
