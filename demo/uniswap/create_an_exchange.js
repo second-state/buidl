@@ -64,5 +64,10 @@ var fa = $("#factory_address").val();
     env.setFactoryContractInstance(contract1.at(env.getFactoryContractAddress()));
 });
 
+document.querySelector("#token_address_button").addEventListener("click", function() {
+var ta = $("#token_address").val();
+    env.setTokenAddress(ta);
+});
+
 
 }
