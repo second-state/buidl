@@ -34,3 +34,12 @@ You can use an existing ERC20 token contract if you have one. If you would like 
 
 * Please note, [the token used here](https://github.com/second-state/buidl/blob/master/demo/uniswap/example_erc20_source_code_file.md) is not intended for production but for demonstration purposes only.
 
+## Step 5 - Create an Exchange (for a specific ERC20 token)
+We are going to call the Factory contract's createExchange function which will produce a new instance of an Exchange and return the newly minted address for the Exchange instance. Note that we are passing in the address to an existing ERC20 token. This is the token contract which will be traded against the network token once the exchange is created. Obviously you will need to have the address of an ERC20 token to perform this function.
+
+This step (5) requires the factory contract instance from step 1 and the ERC20 contract address from step 4.
+
+Please paste in the [create_an_exchange.html](https://raw.githubusercontent.com/second-state/buidl/master/demo/uniswap/create_an_exchange.html) and [create_an_exchange.js](https://raw.githubusercontent.com/second-state/buidl/master/demo/uniswap/create_an_exchange.js) files into the BUIDL IDE and follow the instructions.
+
+
+
