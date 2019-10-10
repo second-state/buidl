@@ -26,7 +26,10 @@
           <a v-else @click="setDefault(sig)">Set Default</a>
           <a @click="copy(sig.address, $event)">Copy</a>
         </div>
-        <div class="sig-item-balance" :title="`Balance ${sigBalances[sig.address]} Wei`">
+        <div
+          class="sig-item-balance"
+          :title="`Balance ${sigBalances[sig.address]} Wei`"
+        >
           {{ sigBalances[sig.address] }}
         </div>
       </li>
