@@ -26,6 +26,9 @@
           <a v-else @click="setDefault(sig)">Set Default</a>
           <a @click="copy(sig.address, $event)">Copy</a>
         </div>
+        <div class="sig-item-balance" :title="`Balance ${sigBalances[sig.address]} Wei`">
+          {{ sigBalances[sig.address] }}
+        </div>
       </li>
     </ul>
   </div>
@@ -35,6 +38,7 @@
 import { Component, Vue } from "vue-property-decorator";
 import store from "../store";
 import { Signature } from "../modules/wallet";
+import LityWeb3 from "@/services/web3";
 const EthUtil = require("ethereumjs-util");
 const Secp256k1 = require("secp256k1");
 const Crypto = require("crypto");
@@ -83,6 +87,54 @@ if ((store.state as any).wallet.all.length === 0) {
   components: {}
 })
 export default class Wallet extends Vue {
+  sigBalances: { [key: string]: string } = {};
+
+  created() {
+    this.updateBalance();
+    this.$store.watch(
+      () => {
+        return this.$store.state.prefs.web3Provider.using;
+      },
+      () => {
+        this.updateBalance();
+      }
+    );
+    this.$store.watch(
+      () => {
+        return this.$store.state.prefs.web3Provider.custom.url;
+      },
+      () => {
+        this.updateBalance();
+      }
+    );
+  }
+
+  updateBalance() {
+    const web3 = this.newLityWeb3();
+    this.sigBalances = {};
+    const sb: { [key: string]: string } = {};
+    let gc = 0;
+    this.allSigs.forEach((sig: Signature) => {
+      web3.ss.getBalance(sig.address, (err: any, blc: any) => {
+        if (!err) {
+          sb[sig.address] = blc.toString();
+          if (++gc === this.allSigs.length) {
+            this.sigBalances = sb;
+          }
+        }
+      });
+    });
+  }
+
+  newLityWeb3() {
+    const provider = this.$store.state.prefs.web3Provider;
+    const pUrl =
+      provider.using !== ""
+        ? provider.options[provider.using].url
+        : provider.custom.url;
+    return LityWeb3(pUrl, "Lity");
+  }
+
   get allSigs() {
     return this.$store.state.wallet.all;
   }
@@ -179,6 +231,15 @@ export default class Wallet extends Vue {
         cursor pointer
       * + a
         margin-left 1em
+    .sig-item-balance
+      position absolute
+      margin-top 3px
+      font-size 0.8em
+      right 0
+      color rgba($color, 0.5)
+      max-width 150px
+      overflow hidden
+      text-overflow ellipsis
     &:hover
       .sig-item-op
         a
@@ -196,4 +257,6 @@ body.dark-theme
       .sig-item-op
         a
           color rgba($color, 0.5)
+      .sig-item-balance
+        color rgba($color, 0.5)
 </style>

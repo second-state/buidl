@@ -4,8 +4,9 @@
 
     <Panel
       v-show="
-        (site === 'lity' && lityPanel === 'Wallet') ||
-          (site === 'dapp' && dappPanel === 'Wallet')
+        !usingMetaMask &&
+          ((site === 'lity' && lityPanel === 'Wallet') ||
+            (site === 'dapp' && dappPanel === 'Wallet'))
       "
     >
       <Wallet></Wallet>
@@ -64,6 +65,9 @@ export default {
     },
     dappPanel() {
       return this.$store.state.events.dappPanel;
+    },
+    usingMetaMask() {
+      return this.$store.state.prefs.web3Provider.usingMetaMask;
     }
   },
   methods: {
