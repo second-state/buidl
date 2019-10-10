@@ -244,8 +244,8 @@ self.__precacheManifest = [
     "url": "/robots.txt"
   },
   {
-    "revision": "092172371feedc5cc62c",
-    "url": "/js/index.afb08a72.js"
+    "revision": "db592a589b61739a56e3",
+    "url": "/js/index.829eeb88.js"
   },
   {
     "revision": "1d4b44e36f3d8b59792946b5ab5719de",
@@ -280,11 +280,11 @@ self.__precacheManifest = [
     "url": "/eth/index.html"
   },
   {
-    "revision": "296772efbb1bc1846f39410186fcd024",
-    "url": "/img/icomoon.296772ef.svg"
+    "revision": "01f47178beedcb81fe91afdcaed518c4",
+    "url": "/img/icomoon.01f47178.svg"
   },
   {
-    "revision": "537dc1768427479332e6d78751489578",
+    "revision": "3572f660159c56c59274791e2377f5d7",
     "url": "/index.html"
   },
   {
@@ -292,12 +292,12 @@ self.__precacheManifest = [
     "url": "/html.worker.js"
   },
   {
-    "revision": "d15158def4b931b2ecf3507f3785e83c",
-    "url": "/fonts/icomoon.d15158de.ttf"
+    "revision": "ea78654f61180fdeef1c7b9533627c7c",
+    "url": "/fonts/icomoon.ea78654f.woff"
   },
   {
-    "revision": "c396e144e196ffafdb90294f349ef912",
-    "url": "/fonts/icomoon.c396e144.woff"
+    "revision": "b50ac4910b0366dcae4eff5a338f8e78",
+    "url": "/fonts/icomoon.b50ac491.ttf"
   },
   {
     "revision": "81016f4e878b58f2e7fa26ac24d67d2d",
@@ -316,8 +316,8 @@ self.__precacheManifest = [
     "url": "/dapp-frame.html"
   },
   {
-    "revision": "092172371feedc5cc62c",
-    "url": "/css/index.0104b370.css"
+    "revision": "db592a589b61739a56e3",
+    "url": "/css/index.84c511d3.css"
   },
   {
     "revision": "692b90506bb50071a773",
