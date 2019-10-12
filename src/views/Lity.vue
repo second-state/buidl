@@ -64,7 +64,7 @@ if (s && s.indexOf("?") == 0) {
   for (let i = 0; i < qs.length; i++) {
     const qss = qs[i].split("=");
     if (qss[0] === "s042") {
-      compiler = new Compiler("./soljson-v0.4.2+commit.af6afb04.js");
+      compiler = new Compiler("./soljson-v0.4.20+commit.3155dd80.js");
     }
   }
 }
