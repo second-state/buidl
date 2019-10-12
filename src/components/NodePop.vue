@@ -212,7 +212,7 @@ export default class NodePop extends Vue {
           this.checkCount++;
           icc = this.checkCount;
           this.$store.dispatch("prefs/setWeb3ProviderStatus", status);
-          if (status !== "invalid" && status !== "toAuthorize") {
+          if (status === "accessible") {
             this.$nextTick().then(() => {
               (this.$refs
                 .providerHeight as Element).textContent = result.toString();

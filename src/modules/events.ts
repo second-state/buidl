@@ -11,8 +11,8 @@ export default {
     lityOutputTab: "problems",
     dappOutputTab: "console",
     compiledContract: undefined,
-    firstDeployedContract: undefined, // to enable auto injection of contract info within js
     usingDeployedContract: undefined,
+    usingDeployedContractAddress: undefined,
     reuseDeployedContract: 0 // used to trigger changing using as using not changed may be rerendered in JS panel
   },
   mutations: {
@@ -37,11 +37,11 @@ export default {
     setCompiledContract(state: any, content: DeployedContract) {
       state.compiledContract = content;
     },
-    setFirstDeployedContract(state: any, content: DeployedContract) {
-      state.firstDeployedContract = content;
-    },
     setUsingDeployedContract(state: any, content: DeployedContract) {
       state.usingDeployedContract = content;
+    },
+    setUsingDeployedContractAddress(state: any, address: string) {
+      state.usingDeployedContractAddress = address;
     },
     triggerReuseDeployedContract(state: any) {
       state.reuseDeployedContract++;
@@ -72,11 +72,11 @@ export default {
     ) {
       context.commit("setUsingDeployedContract", payload);
     },
-    setFirstDeployedContract(
+    setUsingDeployedContractAddress(
       context: ActionContext<any, any>,
-      payload: DeployedContract
+      payload: string
     ) {
-      context.commit("setFirstDeployedContract", payload);
+      context.commit("setUsingDeployedContractAddress", payload);
     },
     setCompiledContract(
       context: ActionContext<any, any>,

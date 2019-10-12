@@ -185,6 +185,10 @@ Web3Cb.prototype.checkTx = function(hash: string): Function {
             txHash: receipt.transactionHash
           };
           store.dispatch("deployed/updateContractAddress", c);
+          store.dispatch(
+            "events/setUsingDeployedContractAddress",
+            receipt.contractAddress
+          );
         }
       } else {
         store.dispatch(

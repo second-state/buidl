@@ -295,20 +295,23 @@ var cAddr = '${c.address}';
       }
     );
 
-    /*
-      auto inject the very first deployed contract info into js
-      only when the code has not been modified
-    */
     this.$store.watch(
       () => {
-        return this.$store.state.events.firstDeployedContract;
+        return this.$store.state.events.usingDeployedContractAddress;
       },
       c => {
-        const initCodeRegex = /\/\* Don't modify \*\/[\s\S]*var abi = \[.*\];[\s\S]*var bytecode = '.*';[\s\S]*var cAddr = '.*';[\s\S]*\/\* Don't modify \*\//g;
-        const value = this.editorData.js.model.getValue();
+        const initCodeRegex = /\/\* Don't modify \*\/[\s\S]*var abi = (\[.*\]);[\s\S]*var bytecode = ('.*');[\s\S]*var cAddr = '.*';[\s\S]*\/\* Don't modify \*\//g;
+        let value = this.editorData.js.model.getValue();
         if (initCodeRegex.test(value)) {
-          this.$store.dispatch("events/setUsingDeployedContract", c);
-          this.$store.dispatch("events/triggerReuseDeployedContract");
+          value = value.replace(
+            initCodeRegex,
+            `/* Don't modify */
+var abi = $1;
+var bytecode = $2;
+var cAddr = '${c}';
+/* Don't modify */`
+          );
+          this.editorData.js.model.setValue(value);
         }
       }
     );
