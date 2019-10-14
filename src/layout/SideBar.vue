@@ -233,10 +233,6 @@ export default class SideBar extends Vue {
       return;
     }
     this.showNodePop = false;
-    const using = (this.$refs.nodePop as any).using;
-    if (using !== this.$store.state.prefs.web3Provider.using) {
-      this.$store.dispatch("prefs/setWeb3ProviderUsing", using);
-    }
     const customUrl = (this.$refs.nodePop as any).customUrl;
     const customChainId = (this.$refs.nodePop as any).customChainId;
     const customGas = (this.$refs.nodePop as any).customGas;

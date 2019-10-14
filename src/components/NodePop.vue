@@ -184,6 +184,7 @@ export default class NodePop extends Vue {
     } else {
       this.reCheck();
     }
+    this.$store.dispatch("prefs/setWeb3ProviderUsing", this.using);
     this.oldCustomUrl = undefined;
   }
 
