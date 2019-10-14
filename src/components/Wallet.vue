@@ -93,40 +93,33 @@ export default class Wallet extends Vue {
   sigBalances: { [key: string]: string } = {};
 
   created() {
-    this.updateBalance();
-    this.$store.watch(
-      () => {
-        return this.$store.state.prefs.web3Provider.using;
-      },
-      () => {
-        this.updateBalance();
+    let updating = false;
+    function updateBalance(this: Wallet) {
+      if (updating) {
+        return;
       }
-    );
-    this.$store.watch(
-      () => {
-        return this.$store.state.prefs.web3Provider.custom.url;
-      },
-      () => {
-        this.updateBalance();
-      }
-    );
-  }
-
-  updateBalance() {
-    const web3 = this.newLityWeb3();
-    this.sigBalances = {};
-    const sb: { [key: string]: string } = {};
-    let gc = 0;
-    this.allSigs.forEach((sig: Signature) => {
-      web3.ss.getBalance(sig.address, (err: any, blc: any) => {
-        if (!err) {
-          sb[sig.address] = blc.toString();
-          if (++gc === this.allSigs.length) {
-            this.sigBalances = sb;
+      updating = true;
+      const web3 = this.newLityWeb3();
+      const sb: { [key: string]: string } = {};
+      let gc = 0;
+      this.allSigs.forEach((sig: Signature) => {
+        web3.ss.getBalance(sig.address, (err: any, blc: any) => {
+          if (!err) {
+            sb[sig.address] = blc.toString();
+            if (++gc === this.allSigs.length) {
+              this.sigBalances = sb;
+              updating = false;
+            }
+          } else {
+            if (++gc === this.allSigs.length) {
+              updating = false;
+            }
           }
-        }
+        });
       });
-    });
+    }
+
+    setInterval(updateBalance.bind(this), 10 * 1000);
   }
 
   newLityWeb3() {
