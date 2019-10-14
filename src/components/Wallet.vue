@@ -106,14 +106,12 @@ export default class Wallet extends Vue {
         web3.ss.getBalance(sig.address, (err: any, blc: any) => {
           if (!err) {
             sb[sig.address] = blc.toString();
-            if (++gc === this.allSigs.length) {
-              this.sigBalances = sb;
-              updating = false;
-            }
           } else {
-            if (++gc === this.allSigs.length) {
-              updating = false;
-            }
+            sb[sig.address] = "";
+          }
+          if (++gc === this.allSigs.length) {
+            this.sigBalances = sb;
+            updating = false;
           }
         });
       });
