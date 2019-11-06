@@ -312,8 +312,7 @@ Vue.directive("click-outside", {
   flex-direction column
   min-width $sideBarWidth
   padding-top $sideBarWidth * 2
-  // background-color #454545
-  background-color #e27c13
+  background-color #454545
   .side-btn
     position relative
     background-color transparent
@@ -322,8 +321,7 @@ Vue.directive("click-outside", {
     font-size 1.5em
     height $sideBarWidth
     cursor pointer
-    // color #aaaaaa
-    color #3c3636
+    color #aaaaaa
     &:hover, &-active
       color $color
     &.web3-provider
