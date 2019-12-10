@@ -10,6 +10,7 @@ export default {
     compilerReady: false,
     lityOutputTab: "problems",
     dappOutputTab: "console",
+    resetEditors: false,
     compiledContract: undefined,
     usingDeployedContract: undefined,
     usingDeployedContractAddress: undefined,
@@ -33,6 +34,9 @@ export default {
     },
     setDappOutputTab(state: any, content: string) {
       state.dappOutputTab = content;
+    },
+    triggerEditorsReset(state: any) {
+      state.resetEditors = !state.resetEditors;
     },
     setCompiledContract(state: any, content: DeployedContract) {
       state.compiledContract = content;
@@ -65,6 +69,9 @@ export default {
     },
     setDappOutputTab(context: ActionContext<any, any>, payload: string) {
       context.commit("setDappOutputTab", payload);
+    },
+    triggerEditorsReset(context: ActionContext<any, any>) {
+      context.commit("triggerEditorsReset");
     },
     setUsingDeployedContract(
       context: ActionContext<any, any>,

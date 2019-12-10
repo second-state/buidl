@@ -215,8 +215,10 @@ export default class NodePop extends Vue {
           this.$store.dispatch("prefs/setWeb3ProviderStatus", status);
           if (status === "accessible") {
             this.$nextTick().then(() => {
-              (this.$refs
-                .providerHeight as Element).textContent = result.toString();
+              if (this.$refs.providerHeight) {
+                (this.$refs
+                  .providerHeight as Element).textContent = result.toString();
+              }
             });
             setTimeout(() => {
               this.doCheck(url, icc);

@@ -26,6 +26,12 @@
 
     <Lity v-show="site === 'lity'"></Lity>
     <Dapp v-show="site === 'dapp'"></Dapp>
+    <Tutorial
+      v-show="showTutorial"
+      v-on:hide="showTutorial = false"
+      v-on:apply="applyTutorial"
+      :tutorials="tutorials"
+    />
   </div>
 </template>
 
@@ -43,6 +49,7 @@ import Contracts from "@/components/Contracts.vue";
 import ContractApi from "@/components/ContractApi.vue";
 import Resources from "@/components/Resources.vue";
 import Wallet from "@/components/Wallet.vue";
+import Tutorial from "@/components/Tutorial.vue";
 
 export default {
   components: {
@@ -54,7 +61,74 @@ export default {
     Contracts,
     ContractApi,
     Resources,
-    Wallet
+    Wallet,
+    Tutorial
+  },
+  data() {
+    return {
+      showTutorial: true,
+      tutorials: [
+        {
+          name: "Simple Storage",
+          intro: "A simple contract to demostrate how data is set and get.",
+          editors: {
+            lity: `pragma solidity >=0.4.0 <0.6.0;
+
+contract SimpleStorage {
+    uint storedData;
+
+    function set(uint x) public {
+        storedData = x;
+    }
+
+    function get() public view returns (uint) {
+        return storedData;
+    }
+}
+`,
+            html: `<button id="s">Set Data</button>
+<button id="g">Get Data</button>`,
+
+            css: `button {
+  background-color: #000;
+  color: #fff;
+  border: 0;
+  font-size: 1em;
+}`,
+
+            js: `/* Don't modify */
+var abi = [];
+var bytecode = '';
+var cAddr = '';
+/* Don't modify */
+
+var instance = null;
+window.addEventListener('web3Ready', function() {
+  var contract = web3.ss.contract(abi);
+  instance = contract.at(cAddr);
+});
+
+// esss.shaAbi(JSON.stringify(abi)).then((shaResult) => {
+//   var sha = JSON.parse(shaResult).abiSha3;
+//   esss.searchUsingAbi(sha).then((searchResult) => {
+//     console.log(searchResult);
+//   });
+// });
+
+document.querySelector("#s").addEventListener("click", function() {
+  var n = window.prompt("Enter the number:");
+  n && instance.set(n);
+});
+document.querySelector("#g").addEventListener("click", function() {
+  instance.get(function(e,d) {
+    console.log(d.toString());
+    alert(d.toString());
+  });
+});`
+          }
+        }
+      ]
+    };
   },
   computed: {
     site() {
@@ -71,7 +145,16 @@ export default {
     }
   },
   methods: {
-    ...mapActions("prefs", ["toggleTheme"])
+    ...mapActions("prefs", ["toggleTheme"]),
+    applyTutorial(selectedTutorial) {
+      this.showTutorial = false;
+      const tutorial = this.tutorials[selectedTutorial];
+      this.$store.dispatch("editor/setLity", tutorial.editors.lity);
+      this.$store.dispatch("editor/setHtml", tutorial.editors.html);
+      this.$store.dispatch("editor/setCss", tutorial.editors.css);
+      this.$store.dispatch("editor/setJs", tutorial.editors.js);
+      this.$store.dispatch("events/triggerEditorsReset");
+    }
   },
   created() {
     /*

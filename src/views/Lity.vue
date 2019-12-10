@@ -91,22 +91,7 @@ export default class Lity extends Vue {
   };
 
   mounted() {
-    const text =
-      this.$store.state.editor.text.lity ||
-      `pragma solidity >=0.4.0 <0.6.0;
-
-contract SimpleStorage {
-    uint storedData;
-
-    function set(uint x) public {
-        storedData = x;
-    }
-
-    function get() public view returns (uint) {
-        return storedData;
-    }
-}
-`;
+    const text = this.$store.state.editor.text.lity || "";
     this.monacoEditor = monaco.editor.create(
       document.getElementById("lity-editor") as HTMLElement,
       {
@@ -130,6 +115,18 @@ contract SimpleStorage {
       () => {
         if (this.monacoEditor) {
           this.monacoEditor.layout();
+        }
+      }
+    );
+
+    this.$store.watch(
+      () => {
+        return this.$store.state.events.resetEditors;
+      },
+      () => {
+        if (this.monacoEditor != undefined) {
+          const model = this.monacoEditor.getModel();
+          model && model.setValue(this.$store.state.editor.text.lity);
         }
       }
     );
