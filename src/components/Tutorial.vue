@@ -8,18 +8,20 @@
         <div class="tutorials-list">
           <ul>
             <li
-              v-for="(t, i) in tutorials"
-              :key="i"
-              :value="i"
-              :class="{ selected: i === selectedTutorial }"
-              @click="selectedTutorial = i"
+              v-for="(v, k) in tutorials"
+              :key="k"
+              :value="k"
+              :class="{ selected: k === selectedTutorial }"
+              @click="selectedTutorial = k"
             >
-              {{ tutorials[i].name }}
+              {{ tutorials[k].title }}
             </li>
           </ul>
         </div>
         <div class="tutorial-intro">
-          {{ tutorials[selectedTutorial].intro }}
+          <div v-if="selectedTutorial">
+            {{ tutorials[selectedTutorial].intro }}
+          </div>
         </div>
       </div>
 
@@ -38,16 +40,19 @@ import { Component, Vue } from "vue-property-decorator";
 @Component({
   components: {},
   props: {
-    tutorials: Array
+    tutorials: Object
   }
 })
 export default class Tutorial extends Vue {
-  private tutorials: Array<object> | undefined;
-  private selectedTutorial: Number;
+  private tutorials: Object | undefined;
+  private selectedTutorial: String | undefined;
 
   constructor() {
     super();
-    this.selectedTutorial = 0;
+    for (let k in this.tutorials) {
+      this.selectedTutorial = k;
+      break;
+    }
   }
 
   cancel() {

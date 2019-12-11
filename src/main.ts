@@ -4,6 +4,7 @@ import Loading from "./components/Loading.vue";
 import store from "./store";
 import _ from "./lodash";
 import "./registerServiceWorker";
+import TutServ from "./services/tutorials";
 
 Vue.config.productionTip = false;
 
@@ -11,7 +12,8 @@ const vm = new Vue({
   el: "#app",
   store,
   data: {
-    loaded: false
+    loaded: false,
+    tutorials: null
   },
   render: function(h) {
     if (window.localStorage) {
@@ -28,7 +30,11 @@ const vm = new Vue({
       }
     }
     if (this.loaded) {
-      return h(App);
+      return h(App, {
+        props: {
+          tutorials: this.tutorials
+        }
+      });
     } else {
       return h(Loading, {
         props: {
@@ -39,6 +45,15 @@ const vm = new Vue({
   }
 });
 
+function loadTutorials() {
+  TutServ.getAll((c: any) => {
+    if (c !== false) {
+      vm.tutorials = c;
+    }
+    vm.loaded = true;
+  });
+}
+
 const df = (document as any).fonts;
 if (df) {
   try {
@@ -47,11 +62,11 @@ if (df) {
         return df.load("0 'Baloo Bhai'");
       },
       1500,
-      () => (vm.loaded = true)
+      loadTutorials
     );
   } catch (e) {
-    vm.loaded = true;
+    loadTutorials();
   }
 } else {
-  vm.loaded = true;
+  loadTutorials();
 }
