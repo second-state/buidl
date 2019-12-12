@@ -106,6 +106,16 @@ export default {
     applyTutorial(selectedTutorial) {
       const tutorial = this.tutorials[selectedTutorial];
 
+      const resources = tutorial.resources;
+      if (resources) {
+        if (Array.isArray(resources.js)) {
+          this.$store.dispatch("resources/setJs", resources.js);
+        }
+        if (Array.isArray(resources.css)) {
+          this.$store.dispatch("resources/setCss", resources.css);
+        }
+      }
+
       ["Lity", "Html", "Css", "Js"].forEach(t => {
         this.getTutorialFile(
           t,
