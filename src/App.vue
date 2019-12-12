@@ -73,7 +73,7 @@ export default {
   },
   data() {
     return {
-      showTutorial: true
+      showTutorial: false
     };
   },
   computed: {
@@ -146,6 +146,9 @@ export default {
           url: q["es_provider"]
         });
         this.$store.dispatch("prefs/setESProviderUsing", "");
+      }
+      if (q["tutorial"]) {
+        this.showTutorial = true;
       }
     }
   }

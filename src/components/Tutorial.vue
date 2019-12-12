@@ -31,14 +31,22 @@
           Apply
         </button>
       </div>
+
+      <div v-if="loading" class="dialog-mask">
+        <Loading :baseSize="16" />
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import Loading from "./Loading.vue";
+
 @Component({
-  components: {},
+  components: {
+    Loading
+  },
   props: {
     tutorials: Object
   }
@@ -46,9 +54,11 @@ import { Component, Vue } from "vue-property-decorator";
 export default class Tutorial extends Vue {
   private tutorials: Object | undefined;
   private selectedTutorial: String | undefined;
+  private loading: boolean;
 
   constructor() {
     super();
+    this.loading = false;
     for (let k in this.tutorials) {
       this.selectedTutorial = k;
       break;
@@ -60,6 +70,7 @@ export default class Tutorial extends Vue {
   }
 
   apply() {
+    this.loading = true;
     this.$emit("apply", this.selectedTutorial);
   }
 }
@@ -129,6 +140,14 @@ export default class Tutorial extends Vue {
       padding 14px 20px
       line-height 1.3
       overflow-y scroll
+  .dialog-mask
+    position absolute
+    top 0
+    bottom 0
+    left 0
+    right 0
+    background-color rgba($backgroundColor, 0.6)
+    z-index 1
 </style>
 
 <style lang="stylus">
@@ -154,4 +173,6 @@ body.dark-theme
             background-color $minorBackgroundColor
           &:hover
             background-color $minorBackgroundColor
+    .dialog-mask
+      background-color rgba($backgroundColor, 0.6)
 </style>
