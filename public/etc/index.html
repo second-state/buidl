@@ -1,5 +1,11 @@
 <html>
   <head>
-    <meta http-equiv="Refresh" content="0; url=https://buidl.secondstate.io/?s042&es_provider=https%3A%2F%2Fetc.search.secondstate.io&web3_provider=https%3A%2F%2Fwww.ethercluster.com%2Fetc&web3_chainId=61&gas_price=3000000000&gas_limit=5000000" />
+    <script>
+if (window.location.search == "") {
+  window.location.replace("https://buidl.secondstate.io/?s042&es_provider=https%3A%2F%2Fetc.search.secondstate.io&web3_provider=https%3A%2F%2Fwww.ethercluster.com%2Fetc&web3_chainId=61&gas_price=3000000000&gas_limit=5000000");
+} else {
+  window.location.replace("https://buidl.secondstate.io/" + window.location.search + "&s042&es_provider=https%3A%2F%2Fetc.search.secondstate.io&web3_provider=https%3A%2F%2Fwww.ethercluster.com%2Fetc&web3_chainId=61&gas_price=3000000000&gas_limit=5000000");
+}
+    </script>
   </head>
 </html>
