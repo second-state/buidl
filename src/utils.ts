@@ -34,3 +34,15 @@ export const Render = {
     return ctx.props.render(h);
   }
 };
+
+export const PQ: any = {};
+const s = window.location.search;
+if (s && s.indexOf("?") == 0) {
+  const qs = s.substring(1).split("&");
+  for (let i = 0; i < qs.length; i++) {
+    const qss = qs[i].split("=");
+    if (qss.length === 2) {
+      PQ[qss[0]] = qss[1] && decodeURIComponent(qss[1]);
+    }
+  }
+}

@@ -52,6 +52,7 @@ import Resources from "@/components/Resources.vue";
 import Wallet from "@/components/Wallet.vue";
 import Tutorial from "@/components/Tutorial.vue";
 import TutServ from "./services/tutorials";
+import { PQ } from "./utils";
 
 let loadedTutFiles = 0;
 
@@ -125,41 +126,27 @@ export default {
     }
   },
   created() {
-    /*
-      config provider via url search
-    */
-    const s = window.location.search;
-    if (s && s.indexOf("?") == 0) {
-      let q = new Object();
-      const qs = s.substring(1).split("&");
-      for (let i = 0; i < qs.length; i++) {
-        const qss = qs[i].split("=");
-        if (qss.length === 2) {
-          q[qss[0]] = qss[1] && decodeURIComponent(qss[1]);
-        }
+    if (PQ["web3_provider"]) {
+      let c = {
+        url: PQ["web3_provider"],
+        chainId: PQ["web3_chainId"] || ""
+      };
+      if (PQ["gas_price"] || PQ["gas_limit"]) {
+        c.customGas = true;
+        c.gasPrice = PQ["gas_price"] || "";
+        c.gasLimit = PQ["gas_limit"] || "";
       }
-      if (q["web3_provider"]) {
-        let c = {
-          url: q["web3_provider"],
-          chainId: q["web3_chainId"] || ""
-        };
-        if (q["gas_price"] || q["gas_limit"]) {
-          c.customGas = true;
-          c.gasPrice = q["gas_price"] || "";
-          c.gasLimit = q["gas_limit"] || "";
-        }
-        this.$store.dispatch("prefs/setWeb3ProviderCustom", c);
-        this.$store.dispatch("prefs/setWeb3ProviderUsing", "");
-      }
-      if (q["es_provider"]) {
-        this.$store.dispatch("prefs/setESProviderCustom", {
-          url: q["es_provider"]
-        });
-        this.$store.dispatch("prefs/setESProviderUsing", "");
-      }
-      if (q["tutorial"]) {
-        this.showTutorial = true;
-      }
+      this.$store.dispatch("prefs/setWeb3ProviderCustom", c);
+      this.$store.dispatch("prefs/setWeb3ProviderUsing", "");
+    }
+    if (PQ["es_provider"]) {
+      this.$store.dispatch("prefs/setESProviderCustom", {
+        url: PQ["es_provider"]
+      });
+      this.$store.dispatch("prefs/setESProviderUsing", "");
+    }
+    if (PQ["tutorial"]) {
+      this.showTutorial = true;
     }
   }
 };

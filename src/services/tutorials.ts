@@ -1,7 +1,19 @@
 import axios from "axios";
+import { PQ } from "../utils";
 
-const GHA_BASE =
+const repo = PQ["tutorial"];
+
+let GHA_BASE =
   "https://api.github.com/repos/second-state/opendapps/contents/tutorials/";
+
+if (repo) {
+  const repoMatch = repo.match(/([^/]+\/[^/]+)\/([^/]+)/);
+  if (repoMatch && repoMatch.length === 3) {
+    GHA_BASE = `https://api.github.com/repos/${repoMatch[1]}/contents/${
+      repoMatch[2]
+    }/`;
+  }
+}
 
 export default {
   getAll(cb: Function) {
