@@ -118,10 +118,8 @@ export default {
       }
 
       ["Lity", "Html", "Css", "Js"].forEach(t => {
-        this.getTutorialFile(
-          t,
-          `${selectedTutorial}/${tutorial.files[t.toLowerCase()]}`
-        );
+        const f = tutorial.files[t.toLowerCase()];
+        this.getTutorialFile(t, f && `${selectedTutorial}/${f}`);
       });
     }
   },

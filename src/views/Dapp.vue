@@ -195,11 +195,39 @@ var instance = null;
 window.addEventListener('web3Ready', function() {
   var contract = web3.ss.contract(abi);
   instance = contract.at(cAddr);
+});
+
+// esss.shaAbi(JSON.stringify(abi)).then((shaResult) => {
+//   var sha = JSON.parse(shaResult).abiSha3;
+//   esss.searchUsingAbi(sha).then((searchResult) => {
+//     console.log(searchResult);
+//   });
+// });
+
+document.querySelector("#s").addEventListener("click", function() {
+  var n = window.prompt("Enter the number:");
+  n && instance.set(n);
+});
+document.querySelector("#g").addEventListener("click", function() {
+  instance.get(function(e,d) {
+    console.log(d.toString());
+    alert(d.toString());
+  });
 });`;
 
-    const cssText = this.$store.state.editor.text.css || "";
+  const cssText =
+    this.$store.state.editor.text.css ||
+    `button {
+  background-color: #000;
+  color: #fff;
+  border: 0;
+  font-size: 1em;
+}`;
 
-    const htmlText = this.$store.state.editor.text.html || "";
+  const htmlText =
+    this.$store.state.editor.text.html ||
+    `<button id="s">Set Data</button>
+<button id="g">Get Data</button>`;
 
     this.editorData = {
       js: {

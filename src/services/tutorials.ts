@@ -33,6 +33,10 @@ export default {
   },
 
   getFile(file: String, cb: Function) {
+    if (!file) {
+      cb("");
+      return;
+    }
     axios
       .get(GHA_BASE + file)
       .then(response => {
