@@ -15,7 +15,7 @@ If you are a **developer**, click https://www.secondstate.io/buidl/ to see tutor
 
 ## Make contributions
 
-If you want to make contributions to BUIDL, follow the following steps to run your own BUIDL.
+If you want to make contributions to BUIDL, follow the following steps to run BUIDL locally.
 
 ### Project setup
 ```
