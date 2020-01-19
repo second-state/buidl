@@ -57,13 +57,13 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ## Demo
 
-* A voting dapp (https://docs.secondstate.io/buidl-developer-tool/demo-a-voting-dapp)
+* [A voting dapp](https://docs.secondstate.io/buidl-developer-tool/demo-a-voting-dapp)
 
 The example dapp is a web application where people can vote thumb up or thumb down on a statement. All the votes are recorded on the blockchain.
 
 ## Contact
-* Twitter (https://twitter.com/secondstateinc)
-* Facebook (https://www.facebook.com/Secondstateinc-422015655273364/)
-* Github (https://github.com/second-state/)
+* [Twitter](https://twitter.com/secondstateinc)
+* [Facebook](https://www.facebook.com/Secondstateinc-422015655273364/)
+* [Github](https://github.com/second-state/)
 
 
