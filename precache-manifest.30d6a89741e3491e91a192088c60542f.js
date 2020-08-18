@@ -248,7 +248,7 @@ self.__precacheManifest = [
     "url": "/js/index.b6c6e156.js"
   },
   {
-    "revision": "68238a71d58afd82bf97773d15af136f",
+    "revision": "08c494ea46b4f93916dd659fc366a6d3",
     "url": "/oasis-testnet/index.html"
   },
   {
