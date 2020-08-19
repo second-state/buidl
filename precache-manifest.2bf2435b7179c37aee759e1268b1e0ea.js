@@ -20,8 +20,8 @@ self.__precacheManifest = [
     "url": "/typescript.worker.js"
   },
   {
-    "revision": "369bb587b4e86766ea7d",
-    "url": "/js/chunk-2d221a34.059e8396.js"
+    "revision": "060ac15914e2f2559f9d",
+    "url": "/js/chunk-2d22502a.be7d0abd.js"
   },
   {
     "revision": "c48209e05945c8c2eeb6",
@@ -176,12 +176,12 @@ self.__precacheManifest = [
     "url": "/js/chunk-2d221814.721e94e1.js"
   },
   {
-    "revision": "be9eae6bd1af87498a8f",
-    "url": "/js/chunk-2d0aeb45.671acb52.js"
+    "revision": "369bb587b4e86766ea7d",
+    "url": "/js/chunk-2d221a34.059e8396.js"
   },
   {
-    "revision": "060ac15914e2f2559f9d",
-    "url": "/js/chunk-2d22502a.be7d0abd.js"
+    "revision": "be9eae6bd1af87498a8f",
+    "url": "/js/chunk-2d0aeb45.671acb52.js"
   },
   {
     "revision": "cf8909e0789b63284e58",
@@ -256,12 +256,24 @@ self.__precacheManifest = [
     "url": "/json.worker.js"
   },
   {
+    "revision": "6eeedd71c6833b13478eacc29d607fc2",
+    "url": "/oasis-testnet/transfer_erc20.js"
+  },
+  {
     "revision": "2808b27177e4ff9cc5f81b15a0519663",
     "url": "/oasis-testnet/index.html"
   },
   {
-    "revision": "c77c0034f6e65532dd850f0acc6d9e37",
-    "url": "/etc/index.html"
+    "revision": "8c7beb8fffce9f8033d15c30903269a9",
+    "url": "/eth/index.html"
+  },
+  {
+    "revision": "e98f34c967987b153a9e",
+    "url": "/js/chunk-2d0abc00.e0c858d7.js"
+  },
+  {
+    "revision": "c75043f994c2823f2aef0dacc97e70e8",
+    "url": "/css.worker.js"
   },
   {
     "revision": "c39cbd4c3cd0ec463bac",
@@ -280,56 +292,48 @@ self.__precacheManifest = [
     "url": "/js/chunk-2d0aab07.edd2015f.js"
   },
   {
-    "revision": "e98f34c967987b153a9e",
-    "url": "/js/chunk-2d0abc00.e0c858d7.js"
-  },
-  {
-    "revision": "366ce58e2b9867ad69bdd033a3da16c6",
-    "url": "/editor.worker.js"
-  },
-  {
-    "revision": "173b71356f9162f5120fe56bd3c05d62",
-    "url": "/embed/frame.html"
-  },
-  {
-    "revision": "b50ac4910b0366dcae4eff5a338f8e78",
-    "url": "/fonts/icomoon.b50ac491.ttf"
-  },
-  {
-    "revision": "781e15ae05e64b634de9c335dbe62e91",
-    "url": "/index.html"
-  },
-  {
-    "revision": "8c7beb8fffce9f8033d15c30903269a9",
-    "url": "/eth/index.html"
-  },
-  {
-    "revision": "09b8618d8a4d3d508f67001084452a43",
-    "url": "/html.worker.js"
+    "revision": "c689574ce7cfd574f842",
+    "url": "/css/index.843c1df8.css"
   },
   {
     "revision": "ea78654f61180fdeef1c7b9533627c7c",
     "url": "/fonts/icomoon.ea78654f.woff"
   },
   {
+    "revision": "781e15ae05e64b634de9c335dbe62e91",
+    "url": "/index.html"
+  },
+  {
     "revision": "01f47178beedcb81fe91afdcaed518c4",
     "url": "/img/icomoon.01f47178.svg"
+  },
+  {
+    "revision": "09b8618d8a4d3d508f67001084452a43",
+    "url": "/html.worker.js"
+  },
+  {
+    "revision": "b50ac4910b0366dcae4eff5a338f8e78",
+    "url": "/fonts/icomoon.b50ac491.ttf"
+  },
+  {
+    "revision": "c77c0034f6e65532dd850f0acc6d9e37",
+    "url": "/etc/index.html"
+  },
+  {
+    "revision": "173b71356f9162f5120fe56bd3c05d62",
+    "url": "/embed/frame.html"
+  },
+  {
+    "revision": "366ce58e2b9867ad69bdd033a3da16c6",
+    "url": "/editor.worker.js"
   },
   {
     "revision": "acbfd0d8bdedbce6bf37144f043e8e30",
     "url": "/dapp-frame.html"
   },
   {
-    "revision": "c689574ce7cfd574f842",
-    "url": "/css/index.843c1df8.css"
-  },
-  {
     "revision": "692b90506bb50071a773",
     "url": "/css/chunk-vendors.c358b085.css"
-  },
-  {
-    "revision": "c75043f994c2823f2aef0dacc97e70e8",
-    "url": "/css.worker.js"
   },
   {
     "revision": "c02dff6a690ecd5edd6421303febf5e6",
