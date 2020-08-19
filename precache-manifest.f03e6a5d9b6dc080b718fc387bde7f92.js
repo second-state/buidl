@@ -1,7 +1,7 @@
 self.__precacheManifest = [
   {
-    "revision": "7c179bd5ec1703ba3816",
-    "url": "/js/chunk-2d21f327.e1f0bb23.js"
+    "revision": "b7a7c624faebc294f3cc",
+    "url": "/js/chunk-2d2214b3.6220ebfc.js"
   },
   {
     "revision": "c738a4ff4b4659eece67ef18b6a98678",
@@ -164,12 +164,12 @@ self.__precacheManifest = [
     "url": "/js/chunk-2d21dcd2.f28ce99f.js"
   },
   {
-    "revision": "7102024b1a6c36023d90456dcc8a267c",
-    "url": "/soljson-v0.4.20+commit.3155dd80.js"
+    "revision": "7c179bd5ec1703ba3816",
+    "url": "/js/chunk-2d21f327.e1f0bb23.js"
   },
   {
-    "revision": "b7a7c624faebc294f3cc",
-    "url": "/js/chunk-2d2214b3.6220ebfc.js"
+    "revision": "7102024b1a6c36023d90456dcc8a267c",
+    "url": "/soljson-v0.4.20+commit.3155dd80.js"
   },
   {
     "revision": "51698f15a2d89d670c77",
@@ -228,8 +228,8 @@ self.__precacheManifest = [
     "url": "/js/chunk-76fee5a0.d8fa1d2d.js"
   },
   {
-    "revision": "f976c64c4f36d61ac34df3922b4688bc",
-    "url": "/second-state.png"
+    "revision": "9428b4e7456da367beb963b69ee5cf5e",
+    "url": "/oasis-testnet/deploy_contract.js"
   },
   {
     "revision": "692b90506bb50071a773",
@@ -240,32 +240,32 @@ self.__precacheManifest = [
     "url": "/js/frame.ebfd6c34.js"
   },
   {
-    "revision": "b6216d61c03e6ce0c9aea6ca7808f7ca",
-    "url": "/robots.txt"
+    "revision": "f976c64c4f36d61ac34df3922b4688bc",
+    "url": "/second-state.png"
   },
   {
     "revision": "c689574ce7cfd574f842",
     "url": "/js/index.b6c6e156.js"
   },
   {
-    "revision": "2808b27177e4ff9cc5f81b15a0519663",
-    "url": "/oasis-testnet/index.html"
+    "revision": "b6216d61c03e6ce0c9aea6ca7808f7ca",
+    "url": "/robots.txt"
   },
   {
     "revision": "1d4b44e36f3d8b59792946b5ab5719de",
     "url": "/json.worker.js"
   },
   {
-    "revision": "acbfd0d8bdedbce6bf37144f043e8e30",
-    "url": "/dapp-frame.html"
+    "revision": "2808b27177e4ff9cc5f81b15a0519663",
+    "url": "/oasis-testnet/index.html"
+  },
+  {
+    "revision": "c77c0034f6e65532dd850f0acc6d9e37",
+    "url": "/etc/index.html"
   },
   {
     "revision": "c39cbd4c3cd0ec463bac",
     "url": "/js/chunk-2d0a3577.0c6ed0e5.js"
-  },
-  {
-    "revision": "e98f34c967987b153a9e",
-    "url": "/js/chunk-2d0abc00.e0c858d7.js"
   },
   {
     "revision": "90d4a8415c0cededb6ae",
@@ -280,44 +280,48 @@ self.__precacheManifest = [
     "url": "/js/chunk-2d0aab07.edd2015f.js"
   },
   {
+    "revision": "e98f34c967987b153a9e",
+    "url": "/js/chunk-2d0abc00.e0c858d7.js"
+  },
+  {
     "revision": "366ce58e2b9867ad69bdd033a3da16c6",
     "url": "/editor.worker.js"
   },
   {
-    "revision": "781e15ae05e64b634de9c335dbe62e91",
-    "url": "/index.html"
-  },
-  {
-    "revision": "c689574ce7cfd574f842",
-    "url": "/css/index.843c1df8.css"
-  },
-  {
-    "revision": "09b8618d8a4d3d508f67001084452a43",
-    "url": "/html.worker.js"
-  },
-  {
-    "revision": "01f47178beedcb81fe91afdcaed518c4",
-    "url": "/img/icomoon.01f47178.svg"
-  },
-  {
-    "revision": "ea78654f61180fdeef1c7b9533627c7c",
-    "url": "/fonts/icomoon.ea78654f.woff"
+    "revision": "173b71356f9162f5120fe56bd3c05d62",
+    "url": "/embed/frame.html"
   },
   {
     "revision": "b50ac4910b0366dcae4eff5a338f8e78",
     "url": "/fonts/icomoon.b50ac491.ttf"
   },
   {
+    "revision": "781e15ae05e64b634de9c335dbe62e91",
+    "url": "/index.html"
+  },
+  {
     "revision": "8c7beb8fffce9f8033d15c30903269a9",
     "url": "/eth/index.html"
   },
   {
-    "revision": "c77c0034f6e65532dd850f0acc6d9e37",
-    "url": "/etc/index.html"
+    "revision": "09b8618d8a4d3d508f67001084452a43",
+    "url": "/html.worker.js"
   },
   {
-    "revision": "173b71356f9162f5120fe56bd3c05d62",
-    "url": "/embed/frame.html"
+    "revision": "ea78654f61180fdeef1c7b9533627c7c",
+    "url": "/fonts/icomoon.ea78654f.woff"
+  },
+  {
+    "revision": "01f47178beedcb81fe91afdcaed518c4",
+    "url": "/img/icomoon.01f47178.svg"
+  },
+  {
+    "revision": "acbfd0d8bdedbce6bf37144f043e8e30",
+    "url": "/dapp-frame.html"
+  },
+  {
+    "revision": "c689574ce7cfd574f842",
+    "url": "/css/index.843c1df8.css"
   },
   {
     "revision": "692b90506bb50071a773",
