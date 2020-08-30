@@ -65,6 +65,8 @@ if (s && s.indexOf("?") == 0) {
     const qss = qs[i].split("=");
     if (qss[0] === "s042") {
       compiler = new Compiler("./soljson-v0.4.20+commit.3155dd80.js");
+    } else if (qss[0] === "s0426") {
+      compiler = new Compiler("./soljson-v0.4.26+commit.4563c3fc.js");
     }
   }
 }
