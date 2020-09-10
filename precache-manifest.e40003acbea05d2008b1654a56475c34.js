@@ -264,7 +264,7 @@ self.__precacheManifest = [
     "url": "/oasis-testnet/transfer_erc20.js"
   },
   {
-    "revision": "2808b27177e4ff9cc5f81b15a0519663",
+    "revision": "2523fa9bd4c79bc5e8646b7d05e7e3e1",
     "url": "/oasis-testnet/index.html"
   },
   {
