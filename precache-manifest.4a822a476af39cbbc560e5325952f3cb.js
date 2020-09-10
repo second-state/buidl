@@ -20,8 +20,8 @@ self.__precacheManifest = [
     "url": "/typescript.worker.js"
   },
   {
-    "revision": "060ac15914e2f2559f9d",
-    "url": "/js/chunk-2d22502a.be7d0abd.js"
+    "revision": "cf8909e0789b63284e58",
+    "url": "/js/chunk-2d228ca6.2301aaaa.js"
   },
   {
     "revision": "c48209e05945c8c2eeb6",
@@ -180,12 +180,12 @@ self.__precacheManifest = [
     "url": "/js/chunk-2d221a34.059e8396.js"
   },
   {
-    "revision": "be9eae6bd1af87498a8f",
-    "url": "/js/chunk-2d0aeb45.671acb52.js"
+    "revision": "060ac15914e2f2559f9d",
+    "url": "/js/chunk-2d22502a.be7d0abd.js"
   },
   {
-    "revision": "cf8909e0789b63284e58",
-    "url": "/js/chunk-2d228ca6.2301aaaa.js"
+    "revision": "be9eae6bd1af87498a8f",
+    "url": "/js/chunk-2d0aeb45.671acb52.js"
   },
   {
     "revision": "65173c5ee138ecc36daa",
@@ -268,6 +268,10 @@ self.__precacheManifest = [
     "url": "/oasis-testnet/index.html"
   },
   {
+    "revision": "2cc4f8c554e205403dcfd1c2d78b23e6",
+    "url": "/oasis-amber/index.html"
+  },
+  {
     "revision": "e98f34c967987b153a9e",
     "url": "/js/chunk-2d0abc00.e0c858d7.js"
   },
@@ -292,24 +296,24 @@ self.__precacheManifest = [
     "url": "/editor.worker.js"
   },
   {
-    "revision": "b50ac4910b0366dcae4eff5a338f8e78",
-    "url": "/fonts/icomoon.b50ac491.ttf"
-  },
-  {
-    "revision": "01f47178beedcb81fe91afdcaed518c4",
-    "url": "/img/icomoon.01f47178.svg"
+    "revision": "ea78654f61180fdeef1c7b9533627c7c",
+    "url": "/fonts/icomoon.ea78654f.woff"
   },
   {
     "revision": "7810b74f55094a2d13e643497efc9348",
     "url": "/index.html"
   },
   {
-    "revision": "ea78654f61180fdeef1c7b9533627c7c",
-    "url": "/fonts/icomoon.ea78654f.woff"
-  },
-  {
     "revision": "09b8618d8a4d3d508f67001084452a43",
     "url": "/html.worker.js"
+  },
+  {
+    "revision": "01f47178beedcb81fe91afdcaed518c4",
+    "url": "/img/icomoon.01f47178.svg"
+  },
+  {
+    "revision": "b50ac4910b0366dcae4eff5a338f8e78",
+    "url": "/fonts/icomoon.b50ac491.ttf"
   },
   {
     "revision": "8c7beb8fffce9f8033d15c30903269a9",
