@@ -1,7 +1,7 @@
 self.__precacheManifest = [
   {
-    "revision": "51698f15a2d89d670c77",
-    "url": "/js/chunk-2d221814.721e94e1.js"
+    "revision": "cf8909e0789b63284e58",
+    "url": "/js/chunk-2d228ca6.2301aaaa.js"
   },
   {
     "revision": "c738a4ff4b4659eece67ef18b6a98678",
@@ -20,8 +20,8 @@ self.__precacheManifest = [
     "url": "/typescript.worker.js"
   },
   {
-    "revision": "cf8909e0789b63284e58",
-    "url": "/js/chunk-2d228ca6.2301aaaa.js"
+    "revision": "560c28b17dc8114744eb",
+    "url": "/js/chunk-2d22c2b8.cd35e71b.js"
   },
   {
     "revision": "c48209e05945c8c2eeb6",
@@ -172,8 +172,8 @@ self.__precacheManifest = [
     "url": "/js/chunk-2d2214b3.6220ebfc.js"
   },
   {
-    "revision": "946f8fd2396d0dda9358b1a086868554",
-    "url": "/soljson-v0.4.26+commit.4563c3fc.js"
+    "revision": "51698f15a2d89d670c77",
+    "url": "/js/chunk-2d221814.721e94e1.js"
   },
   {
     "revision": "369bb587b4e86766ea7d",
@@ -184,8 +184,8 @@ self.__precacheManifest = [
     "url": "/js/chunk-2d22502a.be7d0abd.js"
   },
   {
-    "revision": "be9eae6bd1af87498a8f",
-    "url": "/js/chunk-2d0aeb45.671acb52.js"
+    "revision": "946f8fd2396d0dda9358b1a086868554",
+    "url": "/soljson-v0.4.26+commit.4563c3fc.js"
   },
   {
     "revision": "65173c5ee138ecc36daa",
@@ -196,8 +196,8 @@ self.__precacheManifest = [
     "url": "/js/chunk-2d22c171.6f917d33.js"
   },
   {
-    "revision": "560c28b17dc8114744eb",
-    "url": "/js/chunk-2d22c2b8.cd35e71b.js"
+    "revision": "be9eae6bd1af87498a8f",
+    "url": "/js/chunk-2d0aeb45.671acb52.js"
   },
   {
     "revision": "c37acd60b1aea5c5578c",
@@ -240,24 +240,48 @@ self.__precacheManifest = [
     "url": "/js/frame.ebfd6c34.js"
   },
   {
-    "revision": "9428b4e7456da367beb963b69ee5cf5e",
-    "url": "/oasis-testnet/deploy_contract.js"
+    "revision": "13eca8d4c1d1fc79040ffd2950c5483e",
+    "url": "/oeth/deploy_contract.js"
   },
   {
     "revision": "394ed74ec114e7082d6e",
     "url": "/js/index.03de9f17.js"
   },
   {
-    "revision": "f976c64c4f36d61ac34df3922b4688bc",
-    "url": "/second-state.png"
+    "revision": "7dbc87a03fd0a4a2daa538dc9d591e45",
+    "url": "/oeth-testnet/deploy_contract.js"
   },
   {
     "revision": "1d4b44e36f3d8b59792946b5ab5719de",
     "url": "/json.worker.js"
   },
   {
+    "revision": "9428b4e7456da367beb963b69ee5cf5e",
+    "url": "/oasis-testnet/deploy_contract.js"
+  },
+  {
+    "revision": "f976c64c4f36d61ac34df3922b4688bc",
+    "url": "/second-state.png"
+  },
+  {
     "revision": "b6216d61c03e6ce0c9aea6ca7808f7ca",
     "url": "/robots.txt"
+  },
+  {
+    "revision": "e577fb77a0a68faa7b47bdd41db5b849",
+    "url": "/oeth/transfer_erc20.js"
+  },
+  {
+    "revision": "ff9c54f55495eaef28aec06a31ea8c82",
+    "url": "/oeth/index.html"
+  },
+  {
+    "revision": "968b778daab890fce7c857204384ffe7",
+    "url": "/oeth-testnet/transfer_erc20.js"
+  },
+  {
+    "revision": "2d31e6d38f682591df784a7d388806ff",
+    "url": "/oeth-testnet/index.html"
   },
   {
     "revision": "6eeedd71c6833b13478eacc29d607fc2",
@@ -292,12 +316,8 @@ self.__precacheManifest = [
     "url": "/js/chunk-2d0aab07.edd2015f.js"
   },
   {
-    "revision": "366ce58e2b9867ad69bdd033a3da16c6",
-    "url": "/editor.worker.js"
-  },
-  {
-    "revision": "ea78654f61180fdeef1c7b9533627c7c",
-    "url": "/fonts/icomoon.ea78654f.woff"
+    "revision": "c02dff6a690ecd5edd6421303febf5e6",
+    "url": "/cmt/index.html"
   },
   {
     "revision": "7810b74f55094a2d13e643497efc9348",
@@ -306,6 +326,10 @@ self.__precacheManifest = [
   {
     "revision": "09b8618d8a4d3d508f67001084452a43",
     "url": "/html.worker.js"
+  },
+  {
+    "revision": "ea78654f61180fdeef1c7b9533627c7c",
+    "url": "/fonts/icomoon.ea78654f.woff"
   },
   {
     "revision": "01f47178beedcb81fe91afdcaed518c4",
@@ -328,6 +352,10 @@ self.__precacheManifest = [
     "url": "/embed/frame.html"
   },
   {
+    "revision": "366ce58e2b9867ad69bdd033a3da16c6",
+    "url": "/editor.worker.js"
+  },
+  {
     "revision": "acbfd0d8bdedbce6bf37144f043e8e30",
     "url": "/dapp-frame.html"
   },
@@ -342,9 +370,5 @@ self.__precacheManifest = [
   {
     "revision": "c75043f994c2823f2aef0dacc97e70e8",
     "url": "/css.worker.js"
-  },
-  {
-    "revision": "c02dff6a690ecd5edd6421303febf5e6",
-    "url": "/cmt/index.html"
   }
 ];
