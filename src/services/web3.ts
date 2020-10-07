@@ -64,6 +64,7 @@ function signTx(
   privateKey: string,
   nonce: Number,
   addr: string,
+  value: string,
   data: string,
   gasPrice: number,
   gasLimit: number
@@ -73,6 +74,10 @@ function signTx(
     provider.using !== ""
       ? provider.options[provider.using].chainId
       : provider.custom.chainId;
+  const v =
+    value != undefined
+      ? parseInt(value)
+      : 0
   gasPrice =
     gasPrice != undefined
       ? gasPrice
@@ -90,7 +95,7 @@ function signTx(
     gasPrice: "0x" + Number(gasPrice).toString(16),
     gasLimit: "0x" + Number(gasLimit).toString(16),
     to: addr,
-    value: 0,
+    value: v,
     data: data,
     chainId: Number(chainId)
   };
@@ -115,6 +120,7 @@ const LityWeb3 = function(this: any, provider: string, type: string) {
       from.privateKey,
       nonce,
       transactionObject.to,
+      transactionObject.value,
       transactionObject.data,
       transactionObject.gasPrice,
       transactionObject.gas
