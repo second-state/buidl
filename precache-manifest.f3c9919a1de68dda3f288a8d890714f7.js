@@ -244,8 +244,8 @@ self.__precacheManifest = [
     "url": "/oeth/deploy_contract.js"
   },
   {
-    "revision": "394ed74ec114e7082d6e",
-    "url": "/js/index.03de9f17.js"
+    "revision": "8d685e66a24621ee2b93",
+    "url": "/js/index.6e479fdc.js"
   },
   {
     "revision": "7dbc87a03fd0a4a2daa538dc9d591e45",
@@ -320,7 +320,7 @@ self.__precacheManifest = [
     "url": "/cmt/index.html"
   },
   {
-    "revision": "7810b74f55094a2d13e643497efc9348",
+    "revision": "589da1e0312615bb2ebc38e8deb4a473",
     "url": "/index.html"
   },
   {
@@ -360,7 +360,7 @@ self.__precacheManifest = [
     "url": "/dapp-frame.html"
   },
   {
-    "revision": "394ed74ec114e7082d6e",
+    "revision": "8d685e66a24621ee2b93",
     "url": "/css/index.843c1df8.css"
   },
   {
