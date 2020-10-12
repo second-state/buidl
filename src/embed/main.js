@@ -283,6 +283,7 @@ if (window.BuidlProviders.web3.url === "MetaMask" || window.BuidlProviders.web3.
       <div class="wt-account-selector" style="display:none;">
         <label>Select Account</label>
         <a href="#" class="import-pk">Import Private Key</a>
+        <a href="#" style="margin-right:6px;" class="cp-addr">Copy Addr</a>
         <select>
           ${options}
         </select>
@@ -352,6 +353,18 @@ if (window.BuidlProviders.web3.url === "MetaMask" || window.BuidlProviders.web3.
           alert("Invalid Private Key");
         }
       }
+    });
+
+    document.querySelector(".web3-float-trigger .wt-account-selector .cp-addr").addEventListener("click", function(event) {
+      event.preventDefault();
+      const selectedAddr = window.BuidlG.accounts[accountSelector.selectedIndex];
+
+      const ta = document.createElement("textarea");
+      ta.value = selectedAddr;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      ta.remove();
     });
   }
 }
