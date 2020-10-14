@@ -9,6 +9,13 @@
         <span class="icon-wrench"></span>
         <label>Compile</label>
       </button>
+      <span>
+        <select v-model="solv" @change="changeSolv">
+          <option value="s042">soljson 0.4.20</option>
+          <option value="s0426">soljson 0.4.26</option>
+          <option value="s0517">soljson 0.5.17</option>
+        </select>
+      </span>
       <button
         @click="copy"
         onClick="gtag('event', 'contract', {'event_category': 'toolbar', 'event_label': 'copy'});"
@@ -58,6 +65,7 @@ import * as monaco from "monaco-editor";
 import Compiler from "@/services/compiler";
 
 let compiler: any = null;
+let solvo: string = "";
 const s = window.location.search;
 if (s && s.indexOf("?") == 0) {
   const qs = s.substring(1).split("&");
@@ -65,13 +73,22 @@ if (s && s.indexOf("?") == 0) {
     const qss = qs[i].split("=");
     if (qss[0] === "s042") {
       compiler = new Compiler("./soljson-v0.4.20+commit.3155dd80.js");
+      solvo = qss[0];
+      break;
     } else if (qss[0] === "s0426") {
       compiler = new Compiler("./soljson-v0.4.26+commit.4563c3fc.js");
+      solvo = qss[0];
+      break;
+    } else if (qss[0] === "s0517") {
+      compiler = new Compiler("./soljson-v0.5.17+commit.d19bba13.js");
+      solvo = qss[0];
+      break;
     }
   }
 }
 if (compiler === null) {
-  compiler = new Compiler("./soljson.js");
+  compiler = new Compiler("./soljson-v0.4.26+commit.4563c3fc.js");
+  solvo = "s0426";
 }
 
 @Component({
@@ -91,6 +108,7 @@ export default class Lity extends Vue {
   private windowResizeListener = () => {
     this.$store.dispatch("events/triggerEditorResize");
   };
+  private solv: string = solvo;
 
   mounted() {
     const text =
@@ -195,6 +213,22 @@ contract SimpleStorage {
     this.$store.dispatch("editor/setLity", "");
     window.location.reload();
   }
+
+  changeSolv() {
+    let search = window.location.search;
+    if (search === "") {
+      search = `?${this.solv}`;
+    } else {
+      const regEx = new RegExp(`([\\?&])${solvo}`);
+      if (regEx.test(search)) {
+        search = search.replace(regEx, `$1${this.solv}`);
+      } else {
+        search = search.replace("?", `?${this.solv}&`);
+      }
+    }
+    window.location.href =
+      window.location.origin + "/" + search + window.location.hash;
+  }
 }
 </script>
 
@@ -205,4 +239,8 @@ contract SimpleStorage {
   bottom 0
   left 0
   right 0
+.actions
+  select
+    line-height 1em
+    width 150px
 </style>
