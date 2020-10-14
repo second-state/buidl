@@ -244,11 +244,11 @@ self.__precacheManifest = [
     "url": "/json.worker.js"
   },
   {
-    "revision": "fcf0f2e4dbbd481b5943",
-    "url": "/js/index-legacy.bb816400.js"
+    "revision": "c1d247a29c46f1b7af52",
+    "url": "/js/index-legacy.472c160d.js"
   },
   {
-    "revision": "a981862c9492dcd8c2dcedfcafa32de3",
+    "revision": "71b2709f7ae110c733111cf9a7a2b96f",
     "url": "/index.html"
   },
   {
@@ -276,7 +276,7 @@ self.__precacheManifest = [
     "url": "/editor.worker.js"
   },
   {
-    "revision": "fcf0f2e4dbbd481b5943",
+    "revision": "c1d247a29c46f1b7af52",
     "url": "/css/index.f4d6a223.css"
   },
   {
