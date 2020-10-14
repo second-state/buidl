@@ -11,9 +11,9 @@
       </button>
       <span>
         <select v-model="solv" @change="changeSolv">
-          <option value="s042">soljson 0.4.20</option>
-          <option value="s0426">soljson 0.4.26</option>
-          <option value="s0517">soljson 0.5.17</option>
+          <option value="s042">Solidity 0.4.20</option>
+          <option value="s0426">Solidity 0.4.26</option>
+          <option value="s0517">Solidity 0.5.17</option>
         </select>
       </span>
       <button
