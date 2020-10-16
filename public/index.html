@@ -27,6 +27,13 @@
       gtag('js', new Date());
 
       gtag('config', 'UA-137134458-4');
+
+      window.addEventListener("beforeunload", function (e) {
+        var confirmationMessage = "\o/";
+
+        (e || window.event).returnValue = confirmationMessage; //Gecko + IE
+        return confirmationMessage;                            //Webkit, Safari, Chrome
+      });
     </script>
   </body>
 </html>
