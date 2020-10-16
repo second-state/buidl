@@ -248,7 +248,7 @@ self.__precacheManifest = [
     "url": "/js/index-legacy.472c160d.js"
   },
   {
-    "revision": "71b2709f7ae110c733111cf9a7a2b96f",
+    "revision": "d160b34c3a1d430c1087275f637cf020",
     "url": "/index.html"
   },
   {
