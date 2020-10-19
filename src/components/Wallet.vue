@@ -60,8 +60,11 @@ function newSig(): Signature {
 }
 
 function importSig(): Signature | null {
-  const privKey = window.prompt("Enter your Private Key (Begin with 0x):");
+  let privKey = window.prompt("Enter your Private Key:");
   if (privKey !== null) {
+    if (!privKey.startsWith("0x")) {
+      privKey = "0x" + privKey;
+    }
     if (/^0x[0-9a-zA-Z]{64}$/.test(privKey)) {
       const address = EthUtil.privateToAddress(privKey);
       return new Signature(

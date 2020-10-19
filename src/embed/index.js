@@ -196,8 +196,11 @@ function settleUI(accounts) {
 
   document.querySelector(".web3-float-trigger .wt-account-selector .import-pk").addEventListener("click", function(event) {
     event.preventDefault();
-    const pk = window.prompt("Enter your Private Key (Begin with 0x):");
+    const pk = window.prompt("Enter your Private Key:");
     if (pk !== null) {
+      if (!pk.startsWith("0x")) {
+        pk = "0x" + pk;
+      }
       if (/^0x[0-9a-zA-Z]{64}$/.test(pk)) {
         window.BuidlG.frame.postMessage({ importPK: pk }, "*");
       } else {
