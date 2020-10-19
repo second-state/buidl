@@ -18,7 +18,7 @@
       </span>
       <button
         @click="copy"
-        onClick="gtag('event', 'contract', {'event_category': 'toolbar', 'event_label': 'copy'});"
+        onClick="gtag('event', 'contract', {'event_category': 'toolbar', 'event_label': 'copy_contract'});"
       >
         <span class="icon-copy"></span>
         <label>Copy</label>
@@ -26,7 +26,7 @@
       <button
         @click="reset"
         class="danger"
-        onClick="gtag('event', 'contract', {'event_category': 'toolbar', 'event_label': 'reset'});"
+        onClick="gtag('event', 'contract', {'event_category': 'toolbar', 'event_label': 'reset_contract'});"
       >
         <label>Reset</label>
       </button>

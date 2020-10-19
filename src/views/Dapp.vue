@@ -10,7 +10,7 @@
       </button>
       <button
         @click="copy"
-        onClick="gtag('event', 'dapp', {'event_category': 'toolbar', 'event_label': 'copy'});"
+        onClick="gtag('event', 'dapp', {'event_category': 'toolbar', 'event_label': 'copy_dapp'});"
       >
         <span class="icon-copy"></span>
         <label>Copy</label>
@@ -35,7 +35,7 @@
       <button
         @click="reset"
         class="danger"
-        onClick="gtag('event', 'dapp', {'event_category': 'toolbar', 'event_label': 'reset'});"
+        onClick="gtag('event', 'dapp', {'event_category': 'toolbar', 'event_label': 'reset_dapp'});"
       >
         <label>Reset All</label>
       </button>
@@ -215,19 +215,19 @@ document.querySelector("#g").addEventListener("click", function() {
   });
 });`;
 
-  const cssText =
-    this.$store.state.editor.text.css ||
-    `button {
+    const cssText =
+      this.$store.state.editor.text.css ||
+      `button {
   background-color: #000;
   color: #fff;
   border: 0;
   font-size: 1em;
 }`;
 
-  const htmlText =
-    this.$store.state.editor.text.html ||
-    `<button id="s">Set Data</button>
-<button id="g">Get Data</button>`;
+    const htmlText =
+      this.$store.state.editor.text.html ||
+      `<button id="s">Set Data</button>
+ <button id="g">Get Data</button>`;
 
     this.editorData = {
       js: {

@@ -24,7 +24,10 @@
             <input type="text" :ref="input.name" :placeholder="input.name" />
           </div>
         </div>
-        <button @click="deploy">
+        <button
+          @click="deploy"
+          onClick="gtag('event', 'contract', {'event_category': 'toolbar', 'event_label': 'deploy_contract'});"
+        >
           <span class="icon-cogs"></span> Deploy to the chain
         </button>
         or
