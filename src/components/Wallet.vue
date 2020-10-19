@@ -3,7 +3,11 @@
     <div class="sig-actions">
       <h3>Accounts</h3>
       <div>
-        <button @click="importSig" title="Import From Private Key">
+        <button
+          @click="importSig"
+          title="Import From Private Key"
+          onClick="gtag('event', 'account', {'event_category': 'account', 'event_label': 'import'});"
+        >
           Import
         </button>
         <button @click="newSig" title="New Account">New</button>
