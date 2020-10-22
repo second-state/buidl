@@ -199,7 +199,7 @@ contract SimpleStorage {
           (result.contracts["sol"] || result.contracts[""])
         ) {
           const c = result.contracts["sol"] || result.contracts[""];
-          // Set constant for compatible
+          // Set constant & payable for compatible
           // https://github.com/ethereum/solidity/issues/8065
           for (let n in c) {
             c[n].abi &&
@@ -210,6 +210,9 @@ contract SimpleStorage {
                 ) {
                   abi.constant = true;
                 } else {
+                  if (abi.stateMutability === "payable") {
+                    abi.payable = true;
+                  }
                   abi.constant = false;
                 }
               });
