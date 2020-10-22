@@ -74,30 +74,30 @@ if (s && s.indexOf("?") == 0) {
   for (let i = 0; i < qs.length; i++) {
     const qss = qs[i].split("=");
     if (qss[0] === "s042") {
-      compiler = new Compiler("./soljson-v0.4.20+commit.3155dd80.js");
+      compiler = new Compiler("/soljson-v0.4.20+commit.3155dd80.js");
       solvo = qss[0];
       break;
     } else if (qss[0] === "s0426") {
-      compiler = new Compiler("./soljson-v0.4.26+commit.4563c3fc.js");
+      compiler = new Compiler("/soljson-v0.4.26+commit.4563c3fc.js");
       solvo = qss[0];
       break;
     } else if (qss[0] === "s0517") {
-      compiler = new Compiler("./soljson-v0.5.17+commit.d19bba13.js");
+      compiler = new Compiler("/soljson-v0.5.17+commit.d19bba13.js");
       solvo = qss[0];
       break;
     } else if (qss[0] === "s0612") {
-      compiler = new Compiler("./soljson-v0.6.12+commit.27d51765.js");
+      compiler = new Compiler("/soljson-v0.6.12+commit.27d51765.js");
       solvo = qss[0];
       break;
     } else if (qss[0] === "s074") {
-      compiler = new Compiler("./soljson-v0.7.4+commit.3f05b770.js");
+      compiler = new Compiler("/soljson-v0.7.4+commit.3f05b770.js");
       solvo = qss[0];
       break;
     }
   }
 }
 if (compiler === null) {
-  compiler = new Compiler("./soljson-v0.4.26+commit.4563c3fc.js");
+  compiler = new Compiler("/soljson-v0.4.26+commit.4563c3fc.js");
   solvo = "s0426";
 }
 
