@@ -74,10 +74,7 @@ function signTx(
     provider.using !== ""
       ? provider.options[provider.using].chainId
       : provider.custom.chainId;
-  const v =
-    value != undefined
-      ? parseInt(value)
-      : 0
+  const v = value != undefined ? parseInt(value) : 0;
   gasPrice =
     gasPrice != undefined
       ? gasPrice
@@ -125,6 +122,8 @@ const LityWeb3 = function(this: any, provider: string, type: string) {
       transactionObject.gasPrice,
       transactionObject.gas
     );
+
+    this.cb.preSend();
     this.ss.sendRawTransaction(s, this.cb.sendTx(callback));
   };
 } as any;
@@ -206,6 +205,11 @@ Web3Cb.prototype.checkTx = function(hash: string): Function {
   };
 };
 
+Web3Cb.prototype.preSend = function() {
+  store.dispatch(`events/set${this.type}OutputTab`, "logs");
+  store.dispatch(`outputs/push${this.type}Logs`, `Sending Tx...`);
+};
+
 export default function(provider: string, type: string): any {
   if (provider === "MetaMask" || provider === "Venus") {
     if (!metamask.installed()) {
@@ -229,6 +233,7 @@ export default function(provider: string, type: string): any {
     }
     web3.ss.sendTx = web3.ss.originSendTx;
     web3.ss.sendTransaction = (transactionObject: any, callback?: Function) => {
+      web3.cb.preSend();
       web3.ss.sendTx(transactionObject, web3.cb.sendTx(callback));
     };
     return web3;
