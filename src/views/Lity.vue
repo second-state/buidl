@@ -14,6 +14,7 @@
           <option value="s042">Solidity 0.4.20</option>
           <option value="s0426">Solidity 0.4.26</option>
           <option value="s0517">Solidity 0.5.17</option>
+          <option value="s0612">Solidity 0.6.12</option>
         </select>
       </span>
       <button
@@ -81,6 +82,10 @@ if (s && s.indexOf("?") == 0) {
       break;
     } else if (qss[0] === "s0517") {
       compiler = new Compiler("./soljson-v0.5.17+commit.d19bba13.js");
+      solvo = qss[0];
+      break;
+    } else if (qss[0] === "s0612") {
+      compiler = new Compiler("./soljson-v0.6.12+commit.27d51765.js");
       solvo = qss[0];
       break;
     }
@@ -175,26 +180,27 @@ contract SimpleStorage {
 
   compile() {
     if (this.monacoEditor) {
-      const result = compiler.compile(this.monacoEditor.getValue());
-      if (result.errors) {
-        for (let i = 0; i < result.errors.length; i++) {
-          this.$store.dispatch(
-            "outputs/pushProblems",
-            (result.errors[i] as any).formattedMessage
-          );
+      compiler.compile(this.monacoEditor.getValue(), (result: any) => {
+        if (result.errors) {
+          for (let i = 0; i < result.errors.length; i++) {
+            this.$store.dispatch(
+              "outputs/pushProblems",
+              (result.errors[i] as any).formattedMessage
+            );
+          }
         }
-      }
-      if (
-        result.contracts &&
-        (result.contracts["new.lity"] || result.contracts[""])
-      ) {
-        this.$store.dispatch(
-          "contracts/setContracts",
-          result.contracts["new.lity"] || result.contracts[""]
-        );
-        this.$store.dispatch("events/setLityPanel", "Contracts");
-        this.$store.dispatch("events/triggerEditorResize");
-      }
+        if (
+          result.contracts &&
+          (result.contracts["sol"] || result.contracts[""])
+        ) {
+          this.$store.dispatch(
+            "contracts/setContracts",
+            result.contracts["sol"] || result.contracts[""]
+          );
+          this.$store.dispatch("events/setLityPanel", "Contracts");
+          this.$store.dispatch("events/triggerEditorResize");
+        }
+      });
     }
   }
 

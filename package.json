@@ -52,6 +52,7 @@
     "ts-jest": "^23.0.0",
     "typescript": "^3.4.3",
     "vue-template-compiler": "^2.5.21",
-    "webpack-cli": "^3.3.6"
+    "webpack-cli": "^3.3.6",
+    "worker-plugin": "^5.0.0"
   }
 }

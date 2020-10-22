@@ -1,4 +1,5 @@
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin')
+const WorkerPlugin = require('worker-plugin')
 
 module.exports = {
   pages: {
@@ -15,7 +16,8 @@ module.exports = {
   },
   configureWebpack: {
     plugins: [
-      new MonacoWebpackPlugin()
+      new MonacoWebpackPlugin(),
+      new WorkerPlugin()
     ]
   },
   pwa: {
