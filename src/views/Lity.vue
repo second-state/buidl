@@ -15,6 +15,7 @@
           <option value="s0426">Solidity 0.4.26</option>
           <option value="s0517">Solidity 0.5.17</option>
           <option value="s0612">Solidity 0.6.12</option>
+          <option value="s074">Solidity 0.7.4</option>
         </select>
       </span>
       <button
@@ -86,6 +87,10 @@ if (s && s.indexOf("?") == 0) {
       break;
     } else if (qss[0] === "s0612") {
       compiler = new Compiler("./soljson-v0.6.12+commit.27d51765.js");
+      solvo = qss[0];
+      break;
+    } else if (qss[0] === "s074") {
+      compiler = new Compiler("./soljson-v0.7.4+commit.3f05b770.js");
       solvo = qss[0];
       break;
     }
@@ -193,10 +198,23 @@ contract SimpleStorage {
           result.contracts &&
           (result.contracts["sol"] || result.contracts[""])
         ) {
-          this.$store.dispatch(
-            "contracts/setContracts",
-            result.contracts["sol"] || result.contracts[""]
-          );
+          const c = result.contracts["sol"] || result.contracts[""];
+          // Set constant for compatible
+          // https://github.com/ethereum/solidity/issues/8065
+          for (let n in c) {
+            c[n].abi &&
+              c[n].abi.forEach((abi: any) => {
+                if (
+                  abi.stateMutability === "pure" ||
+                  abi.stateMutability === "view"
+                ) {
+                  abi.constant = true;
+                } else {
+                  abi.constant = false;
+                }
+              });
+          }
+          this.$store.dispatch("contracts/setContracts", c);
           this.$store.dispatch("events/setLityPanel", "Contracts");
           this.$store.dispatch("events/triggerEditorResize");
         }
@@ -232,6 +250,7 @@ contract SimpleStorage {
         search = search.replace("?", `?${this.solv}&`);
       }
     }
+    window.removeEventListener("beforeunload", (window as any).leavingConfirm);
     window.location.href =
       window.location.origin + "/" + search + window.location.hash;
   }
