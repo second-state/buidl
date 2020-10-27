@@ -72,14 +72,11 @@ export default class Contracts extends Vue {
 
   get contractNames() {
     let names: string[] = [];
-    let i = 0;
-    for (const n in this.$store.state.contracts.contracts) {
+    let n = "";
+    for (n in this.$store.state.contracts.contracts) {
       names.push(n);
-      if (i === 0) {
-        this.selectedContract = n;
-      }
-      i++;
     }
+    this.selectedContract = n;
     return names;
   }
 
