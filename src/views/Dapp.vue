@@ -483,6 +483,10 @@ var cAddr = '${c.address}';
     this.showDialog = false;
     const dialog = this.$refs.pubDialog as any;
     const title = dialog.title;
+    if (title.length > 50) {
+      alert("Title is too long");
+      return;
+    }
     let provider = null;
 
     if (

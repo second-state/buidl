@@ -5,7 +5,7 @@
       <h3>Enter the title of your Dapp</h3>
       <div class="field-group">
         <label>Dapp Title <em>*</em></label>
-        <input type="text" v-model="title" />
+        <input type="text" maxlength="50" v-model="title" />
       </div>
       <div v-if="provider !== ''">
         <h3>
