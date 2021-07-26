@@ -23,6 +23,8 @@ jobs:
           npm run build:embed
           npm run build:embed2
           echo 'buidl.secondstate.io' > ./dist/CNAME
+        env:
+          VUE_APP_DAPPS_COMMIT_TOKEN: ${{ secrets.VUE_APP_DAPPS_COMMIT_TOKEN }}
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.4
