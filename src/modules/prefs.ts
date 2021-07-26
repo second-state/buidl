@@ -21,8 +21,8 @@ export default {
       },
       options: [
         {
-          url: "https://devchain.secondstate.io:8545",
-          chainId: "27183"
+          url: "https://rpc.oasiseth.org:8545",
+          chainId: "69"
         }
       ],
       using: "0",
@@ -41,9 +41,6 @@ export default {
     },
     esProvider: {
       options: [
-        {
-          url: "https://devchain.ss.search.secondstate.io"
-        }
       ],
       using: "0",
       custom: {
