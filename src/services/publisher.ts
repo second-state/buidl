@@ -10,7 +10,7 @@ const GHA_URL = {
 };
 
 const GHA_TOKEN =
-  "token " + process.env.VUE_APP_DAPPS_COMMIT_TOKEN.replace(/_/g, "c");
+  "token " + process.env.VUE_APP_DAPPS_COMMIT_TOKEN;
 
 axios.defaults.headers.common["Authorization"] = GHA_TOKEN;
 axios.defaults.headers.post["Content-Type"] = "application/json";
