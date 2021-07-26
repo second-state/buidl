@@ -1,0 +1,31 @@
+name: deploy
+on: 
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 10.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: '10.x'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: build
+        run: |
+          npm i
+          sed -i 's/if(log.blockNumber !== null)/if(typeof log !== "object")return log;if(log.blockNumber !== null)/g' node_modules/web3/lib/web3/formatters.js
+          npm run build
+          npm run build:embed
+          npm run build:embed2
+          echo 'buidl.secondstate.io' > ./dist/CNAME
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@4.1.4
+        with:
+          branch: gh-pages # The branch the action should deploy to.
+          folder: dist # The folder the action should deploy.
