@@ -21,8 +21,8 @@ export default {
       },
       options: [
         {
-          url: "https://rpc.oasiseth.org:8545",
-          chainId: "69"
+          url: "https://rpc.parastate.io:8545",
+          chainId: "123"
         }
       ],
       using: "0",
