@@ -244,8 +244,8 @@ self.__precacheManifest = [
     "url": "/soljson-v0.4.26+commit.4563c3fc.js"
   },
   {
-    "revision": "a1ce6a5b40d134c86d3e",
-    "url": "/js/index.1ed13481.js"
+    "revision": "8ad1259e92a97df3c16e",
+    "url": "/js/index.812c17dc.js"
   },
   {
     "revision": "7102024b1a6c36023d90456dcc8a267c",
@@ -344,7 +344,7 @@ self.__precacheManifest = [
     "url": "/js/0.d174fbce.worker.js"
   },
   {
-    "revision": "7bf6ac80df76fd9c5d0770abf9016fb9",
+    "revision": "1e051bf10a35bad27098b7c543d10c55",
     "url": "/index.html"
   },
   {
@@ -376,7 +376,7 @@ self.__precacheManifest = [
     "url": "/dapp-frame.html"
   },
   {
-    "revision": "a1ce6a5b40d134c86d3e",
+    "revision": "8ad1259e92a97df3c16e",
     "url": "/css/index.267d1699.css"
   },
   {
