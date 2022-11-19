@@ -39,7 +39,7 @@
     "@vue/cli-plugin-pwa": "^3.6.0",
     "@vue/cli-plugin-typescript": "^3.6.0",
     "@vue/cli-plugin-unit-jest": "^3.6.0",
-    "@vue/cli-service": "^3.6.0",
+    "@vue/cli-service": "^5.0.8",
     "@vue/eslint-config-prettier": "^4.0.1",
     "@vue/eslint-config-typescript": "^4.0.0",
     "@vue/test-utils": "1.0.0-beta.29",
@@ -52,7 +52,7 @@
     "ts-jest": "^23.0.0",
     "typescript": "^3.4.3",
     "vue-template-compiler": "^2.5.21",
-    "webpack-cli": "^3.3.6",
+    "webpack-cli": "^3.3.12",
     "worker-plugin": "^5.0.0"
   }
 }
